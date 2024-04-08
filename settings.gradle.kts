@@ -30,11 +30,15 @@ dependencyResolutionManagement {
             library("androidx-compose-material3", "androidx.compose.material3:material3:1.2.1")
             library("androidx-compose-tooling", "androidx.compose.ui:ui-tooling:1.6.4")
             library("androidx-fragment", "androidx.fragment:fragment-ktx:1.6.2")
-            library("retrofit2", "com.squareup.retrofit2:retrofit:2.9.0")
-            library("retrofit2-converter", "com.squareup.retrofit2:converter-gson:2.9.0")
+            library("dagger", "com.google.dagger:dagger:2.51.1")
+            library("dagger-compiler", "com.google.dagger:dagger-compiler:2.51.1")
             library("google-truth", "com.google.truth:truth:1.2.0")
             library("junit-jupiter-api", "org.junit.jupiter:junit-jupiter-api:5.8.2")
             library("junit-jupiter-engine", "org.junit.jupiter:junit-jupiter-engine:5.8.2")
+            library("junit-jupiter-params", "org.junit.jupiter:junit-jupiter-params:5.10.0")
+            library("mockk", "io.mockk:mockk:1.13.10")
+            library("retrofit2", "com.squareup.retrofit2:retrofit:2.9.0")
+            library("retrofit2-converter", "com.squareup.retrofit2:converter-gson:2.9.0")
         }
     }
 }
@@ -42,18 +46,23 @@ dependencyResolutionManagement {
 /**
  * use in feature modules this region to implement dependencies:
  *
+ *
  * implementation(libs.kotlin.core)
  * implementation(libs.androidx.lifecycle)
  * implementation(libs.androidx.lifecycle.compose)
  * implementation(libs.androidx.compose.material)
  * implementation(libs.androidx.compose.material3)
  * implementation(libs.androidx.fragment)
+ * implementation(libs.dagger)
  * implementation(libs.retrofit2)
  * implementation(libs.retrofit2.converter)
  * testImplementation(libs.google.truth)
  * testImplementation(libs.junit.jupiter.api)
+ * testImplementation(libs.junit.jupiter.params)
+ * testImplementation(libs.mockk)
  * testRuntimeOnly(libs.junit.jupiter.engine)
  * debugImplementation(libs.androidx.compose.tooling)
+ * kapt(libs.dagger.compiler)
  *
  * @author Alexandr Chekunkov
  */

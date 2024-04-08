@@ -18,6 +18,6 @@ class BaseRestClientImpl : BaseRestClient {
             .build()
 
     companion object {
-        private const val BASE_URL = "https://www.simplifiedcoding.net/demos/"
+        private const val BASE_URL = "http://172.20.10.2:8080"
     }
 }
