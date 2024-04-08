@@ -3,7 +3,6 @@ package cdr.authorizationlib.presentation.registration
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cdr.authorizationlib.data.interactor.AuthorizationInteractor
 import cdr.authorizationlib.models.presentation.RegistrationAction
 import cdr.authorizationlib.models.presentation.RegistrationScreen
 import cdr.authorizationlib.models.presentation.RegistrationState
@@ -28,7 +27,7 @@ import kotlinx.coroutines.launch
  * @author Alexandr Chekunkov
  */
 internal class RegistrationViewModel(
-    private val authorizationInteractor: AuthorizationInteractor
+//    private val authorizationInteractor: IdentificationInteractor
 ) : ViewModel() {
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
@@ -69,7 +68,7 @@ internal class RegistrationViewModel(
                                 if (checkIsNotEasyPassword(currentData)) {
                                     _state.value = RegistrationState.Loading
 
-                                    authorizationInteractor.signUp()
+//                                    authorizationInteractor.signUp()
                                 }
                             }
                         }

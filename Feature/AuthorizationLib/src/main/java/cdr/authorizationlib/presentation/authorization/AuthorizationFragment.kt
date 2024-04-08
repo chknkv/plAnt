@@ -6,9 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
-import cdr.authorizationlib.data.interactor.AuthorizationInteractorImpl
+import cdr.authorizationlib.data.interactor.IdentificationInteractorImpl
+import cdr.authorizationlib.data.mapper.IdentificationMapperImpl
+import cdr.authorizationlib.data.repository.IdentificationRepositoryImpl
 import cdr.authorizationlib.models.Navigator
 import cdr.corecompose.theming.PlAntTheme
+import cdr.coreutilslib.network.BaseRestClientImpl
 import cdr.coreutilslib.utils.viewModelCreator
 
 /**
@@ -18,8 +21,15 @@ import cdr.coreutilslib.utils.viewModelCreator
  */
 internal class AuthorizationFragment : Fragment() {
 
+    // TODO: refactor DI
     private val viewModel by viewModelCreator<AuthorizationViewModel> {
-        AuthorizationViewModel(authorizationInteractor = AuthorizationInteractorImpl())
+        AuthorizationViewModel(authorizationInteractor = IdentificationInteractorImpl(
+            identificationRepository = IdentificationRepositoryImpl(
+                identificationMapper = IdentificationMapperImpl(
+                    retrofit = BaseRestClientImpl().baseRestClient()
+                )
+            )
+        ))
     }
 
     override fun onCreateView(

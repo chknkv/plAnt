@@ -3,7 +3,8 @@ package cdr.authorizationlib.presentation.authorization
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cdr.authorizationlib.data.interactor.AuthorizationInteractor
+import cdr.authorizationlib.data.interactor.IdentificationInteractor
+import cdr.authorizationlib.models.domain.Authorization
 import cdr.authorizationlib.models.presentation.AuthorizationAction
 import cdr.authorizationlib.models.presentation.AuthorizationScreen
 import cdr.authorizationlib.models.presentation.AuthorizationState
@@ -26,7 +27,7 @@ import kotlinx.coroutines.launch
  * @author Alexandr Chekunkov
  */
 internal class AuthorizationViewModel(
-    private val authorizationInteractor: AuthorizationInteractor
+    private val authorizationInteractor: IdentificationInteractor
 ) : ViewModel() {
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
@@ -64,7 +65,15 @@ internal class AuthorizationViewModel(
                     if (checkIsNotBlank(currentData)) {
                         _state.value = AuthorizationState.Loading
 
-                        authorizationInteractor.signIn()
+                        val login = currentData.login.text.text
+                        val password = currentData.password.text.text
+
+                        authorizationInteractor.signIn(
+                            authorizationData = Authorization(
+                                login = login,
+                                password = password
+                            )
+                        )
                     }
                 }
             }
