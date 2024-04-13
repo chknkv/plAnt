@@ -1,14 +1,14 @@
 package cdr.authorizationlib.data.converter
 
 import cdr.authorizationlib.models.data.AuthorizationRequest
-import cdr.authorizationlib.models.domain.Authorization
+import cdr.authorizationlib.models.domain.AuthorizationDomain
 
 /**
- * Конвертер [Authorization] в [AuthorizationRequest]
+ * Конвертер [AuthorizationDomain] в [AuthorizationRequest]
  *
  * @author Alexandr Chekunkov
  */
-internal fun Authorization.toRequest(): AuthorizationRequest =
+internal fun AuthorizationDomain.toRequest(): AuthorizationRequest =
     AuthorizationRequest(
         login = this.login,
         password = this.password

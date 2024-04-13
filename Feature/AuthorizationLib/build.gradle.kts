@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
     id("kotlin-kapt")
+    id("kotlin-android")
 }
 
 android {
@@ -29,7 +30,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions { jvmTarget = "17" }
     composeOptions { kotlinCompilerExtensionVersion = "1.4.3" }
     buildFeatures { compose = true }
     tasks.withType<Test> { useJUnitPlatform() }

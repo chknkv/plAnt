@@ -1,6 +1,7 @@
 package cdr.authorizationlib.data.mapper
 
 import cdr.authorizationlib.models.data.AuthorizationRequest
+import cdr.authorizationlib.models.data.RegistrationRequest
 
 /**
  * Маппер для функционала модуля авторизации
@@ -11,4 +12,7 @@ internal interface IdentificationMapper {
 
     /** Авторизация в системе */
     suspend fun signIn(authorizationRequest: AuthorizationRequest)
+
+    /** Регистрация в системе */
+    suspend fun signUp(registrationRequest: RegistrationRequest)
 }
