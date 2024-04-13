@@ -2,26 +2,27 @@ package cdr.authorizationlib.converter
 
 import cdr.authorizationlib.data.converter.toRequest
 import cdr.authorizationlib.models.data.AuthorizationRequest
-import cdr.authorizationlib.models.domain.Authorization
+import cdr.authorizationlib.models.domain.AuthorizationDomain
 import com.google.common.truth.Truth.assertThat
 import org.junit.jupiter.api.Test
 
 /**
- * Тест конвертера [Authorization] в [AuthorizationRequest]
+ * Тест конвертера [AuthorizationDomain] в [AuthorizationRequest]
  *
  * @author Alexandr Chekunkov
  */
 internal class AuthorizationConverterTest {
 
     @Test
-    fun `convert authorization to authorization request`() {
+    fun `convert authorization domain to authorization request`() {
+        val expected = expectedRequest
 
-        val actual = authorizationData.toRequest()
+        val actual = authorizationDomain.toRequest()
 
-        assertThat(actual).isEqualTo(expectedRequest)
+        assertThat(actual).isEqualTo(expected)
     }
 
-    private val authorizationData = Authorization(
+    private val authorizationDomain = AuthorizationDomain(
         login = "testUser",
         password = "pass"
     )

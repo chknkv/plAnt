@@ -4,7 +4,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cdr.authorizationlib.data.interactor.IdentificationInteractor
-import cdr.authorizationlib.models.domain.Authorization
+import cdr.authorizationlib.models.domain.AuthorizationDomain
 import cdr.authorizationlib.models.presentation.AuthorizationAction
 import cdr.authorizationlib.models.presentation.AuthorizationScreen
 import cdr.authorizationlib.models.presentation.AuthorizationState
@@ -22,12 +22,12 @@ import kotlinx.coroutines.launch
 /**
  * [ViewModel] для экрана авторизации
  *
- * @param authorizationInteractor интерактор для модуля авторизации
+ * @param identificationInteractor интерактор для модуля авторизации
  *
  * @author Alexandr Chekunkov
  */
 internal class AuthorizationViewModel(
-    private val authorizationInteractor: IdentificationInteractor
+    private val identificationInteractor: IdentificationInteractor
 ) : ViewModel() {
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
@@ -65,15 +65,7 @@ internal class AuthorizationViewModel(
                     if (checkIsNotBlank(currentData)) {
                         _state.value = AuthorizationState.Loading
 
-                        val login = currentData.login.text.text
-                        val password = currentData.password.text.text
-
-                        authorizationInteractor.signIn(
-                            authorizationData = Authorization(
-                                login = login,
-                                password = password
-                            )
-                        )
+                        identificationInteractor.signIn(createAuthorizationDomain(currentData))
                     }
                 }
             }
@@ -149,6 +141,14 @@ internal class AuthorizationViewModel(
             )
         }
     }
+
+    /** Создание domain-модели для авторизации клиента */
+    private fun createAuthorizationDomain(currentData: AuthorizationScreen): AuthorizationDomain =
+        AuthorizationDomain(
+            login = currentData.login.text.text,
+            password = currentData.password.text.text
+        )
+
 
     companion object {
         private const val TAG = "AuthorizationViewModel"

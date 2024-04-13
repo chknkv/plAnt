@@ -3,6 +3,9 @@ package cdr.authorizationlib.presentation.registration
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cdr.authorizationlib.data.interactor.IdentificationInteractor
+import cdr.authorizationlib.models.domain.RegistrationDomain
+import cdr.authorizationlib.models.domain.RoleDomain
 import cdr.authorizationlib.models.presentation.RegistrationAction
 import cdr.authorizationlib.models.presentation.RegistrationScreen
 import cdr.authorizationlib.models.presentation.RegistrationState
@@ -22,12 +25,12 @@ import kotlinx.coroutines.launch
 /**
  * [ViewModel] для экрана регистрации
  *
- * @param authorizationInteractor интерактор для модуля авторизации
+ * @param identificationInteractor интерактор для модуля авторизации
  *
  * @author Alexandr Chekunkov
  */
 internal class RegistrationViewModel(
-//    private val authorizationInteractor: IdentificationInteractor
+    private val identificationInteractor: IdentificationInteractor
 ) : ViewModel() {
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
@@ -68,7 +71,7 @@ internal class RegistrationViewModel(
                                 if (checkIsNotEasyPassword(currentData)) {
                                     _state.value = RegistrationState.Loading
 
-//                                    authorizationInteractor.signUp()
+                                    identificationInteractor.signUp(createRegistrationDomain(currentData))
                                 }
                             }
                         }
@@ -270,7 +273,6 @@ internal class RegistrationViewModel(
         }
     }
 
-
     /** Сокрытие AlertDialog с UI */
     fun dismissAlertDialog() {
         val currentState = _state.value
@@ -283,6 +285,16 @@ internal class RegistrationViewModel(
             )
         }
     }
+
+    /** Создание domain-модели для регистрации клиента */
+    private fun createRegistrationDomain(currentData: RegistrationScreen): RegistrationDomain =
+        RegistrationDomain(
+            login = currentData.login.text.text,
+            password = currentData.firstPassword.text.text,
+            name = currentData.name.text.text,
+            surname = currentData.surname.text.text,
+            role = if (currentData.roleChips.selectedChipRole == RoleChip.QA) RoleDomain.QA else RoleDomain.DEVELOPER
+        )
 
     companion object {
         private const val TAG = "RegistrationViewModel"

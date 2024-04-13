@@ -1,6 +1,7 @@
 package cdr.authorizationlib.data.repository
 
-import cdr.authorizationlib.models.domain.Authorization
+import cdr.authorizationlib.models.domain.AuthorizationDomain
+import cdr.authorizationlib.models.domain.RegistrationDomain
 
 /**
  * Репозиторий для функционала модуля авторизации
@@ -10,6 +11,8 @@ import cdr.authorizationlib.models.domain.Authorization
 internal interface IdentificationRepository {
 
     /** Авторизация в системе */
-    suspend fun signIn(authorizationData: Authorization)
+    suspend fun signIn(authorizationDomain: AuthorizationDomain)
 
+    /** Регистрация в системе */
+    suspend fun signUp(registrationDomain: RegistrationDomain)
 }

@@ -5,7 +5,10 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 /**
+ * data-модель, которая используется при авторизации клиента
  *
+ * @property login логин клиента
+ * @property password пароль клиента
  *
  * @author Alexandr Chekunkov
  */

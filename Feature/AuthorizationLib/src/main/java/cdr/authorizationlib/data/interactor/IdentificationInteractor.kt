@@ -1,6 +1,7 @@
 package cdr.authorizationlib.data.interactor
 
-import cdr.authorizationlib.models.domain.Authorization
+import cdr.authorizationlib.models.domain.AuthorizationDomain
+import cdr.authorizationlib.models.domain.RegistrationDomain
 
 /**
  * Интерактор для модуля авторизации
@@ -10,8 +11,8 @@ import cdr.authorizationlib.models.domain.Authorization
 internal interface IdentificationInteractor {
 
     /** Авторизация пользователя */
-    suspend fun signIn(authorizationData: Authorization)
+    suspend fun signIn(authorizationDomain: AuthorizationDomain)
 
     /** Регистрация нового пользователя */
-    suspend fun signUp()
+    suspend fun signUp(registrationDomain: RegistrationDomain)
 }
