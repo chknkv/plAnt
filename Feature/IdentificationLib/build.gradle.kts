@@ -1,26 +1,20 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
     id("kotlin-kapt")
+    id("kotlin-android")
 }
 
 android {
-    namespace = "cdr.plant"
+    namespace = "cdr.identificationlib"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "cdr.plant"
         minSdk = 24
 
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -32,13 +26,10 @@ android {
             )
         }
     }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-
-    kotlinOptions { jvmTarget = "17" }
     composeOptions { kotlinCompilerExtensionVersion = "1.4.3" }
     buildFeatures { compose = true }
     tasks.withType<Test> { useJUnitPlatform() }
@@ -49,7 +40,6 @@ dependencies {
     implementation(project(":Core:CoreComposeDesignSystemLib"))
     implementation(project(":Core:CoreUtilsLib"))
     implementation(project(":Core:CoreResourcesLib"))
-    implementation(project(":Feature:IdentificationLib"))
     // end region
 
     // dependencies for feature module region

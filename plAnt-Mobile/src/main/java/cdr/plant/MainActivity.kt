@@ -2,8 +2,8 @@ package cdr.plant
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import cdr.authorizationlib.launcher.AuthorizationLaunchData
-import cdr.authorizationlib.launcher.AuthorizationLauncherImpl
+import cdr.identificationlib.launcher.AuthorizationLaunchData
+import cdr.identificationlib.launcher.AuthorizationLauncherImpl
 
 /**
  * Тестовый экран
