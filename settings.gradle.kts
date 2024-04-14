@@ -3,7 +3,7 @@ include(":plAnt-Mobile")
 include(":Core:CoreComposeDesignSystemLib")
 include(":Core:CoreResourcesLib")
 include(":Core:CoreUtilsLib")
-include(":Feature:AuthorizationLib")
+include(":Feature:IdentificationLib")
 
 pluginManagement {
     repositories {
