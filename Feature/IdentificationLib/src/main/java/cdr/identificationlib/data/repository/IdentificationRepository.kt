@@ -1,6 +1,7 @@
 package cdr.identificationlib.data.repository
 
 import cdr.identificationlib.models.domain.AuthorizationDomain
+import cdr.identificationlib.models.domain.ClientDomain
 import cdr.identificationlib.models.domain.RegistrationDomain
 
 /**
@@ -11,8 +12,8 @@ import cdr.identificationlib.models.domain.RegistrationDomain
 internal interface IdentificationRepository {
 
     /** Авторизация в системе */
-    suspend fun signIn(authorizationDomain: AuthorizationDomain)
+    suspend fun signIn(authorizationDomain: AuthorizationDomain): ClientDomain
 
     /** Регистрация в системе */
-    suspend fun signUp(registrationDomain: RegistrationDomain)
+    suspend fun signUp(registrationDomain: RegistrationDomain): ClientDomain
 }

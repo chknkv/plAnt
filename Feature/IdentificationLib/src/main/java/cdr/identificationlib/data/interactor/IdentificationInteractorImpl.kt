@@ -2,6 +2,7 @@ package cdr.identificationlib.data.interactor
 
 import cdr.identificationlib.data.repository.IdentificationRepository
 import cdr.identificationlib.models.domain.AuthorizationDomain
+import cdr.identificationlib.models.domain.ClientDomain
 import cdr.identificationlib.models.domain.RegistrationDomain
 
 /**
@@ -13,11 +14,9 @@ internal class IdentificationInteractorImpl(
     private val identificationRepository: IdentificationRepository
 ) : IdentificationInteractor {
 
-    override suspend fun signIn(authorizationDomain: AuthorizationDomain) {
+    override suspend fun signIn(authorizationDomain: AuthorizationDomain): ClientDomain =
         identificationRepository.signIn(authorizationDomain)
-    }
 
-    override suspend fun signUp(registrationDomain: RegistrationDomain) {
+    override suspend fun signUp(registrationDomain: RegistrationDomain): ClientDomain =
         identificationRepository.signUp(registrationDomain)
-    }
 }
