@@ -56,6 +56,7 @@ dependencies {
     testImplementation(libs.junit.jupiter.api)
     testImplementation(libs.junit.jupiter.params)
     testImplementation(libs.mockk)
+    testImplementation(libs.kotlin.coroutines.test)
     testRuntimeOnly(libs.junit.jupiter.engine)
     debugImplementation(libs.androidx.compose.tooling)
     kapt(libs.dagger.compiler)

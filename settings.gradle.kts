@@ -24,6 +24,7 @@ dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
             library("kotlin-core", "androidx.core:core-ktx:1.12.0")
+            library("kotlin-coroutines-test", "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
             library("androidx-lifecycle", "androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
             library("androidx-lifecycle-compose", "androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
             library("androidx-compose-material", "com.google.android.material:material:1.5.0")
@@ -61,6 +62,7 @@ dependencyResolutionManagement {
  * testImplementation(libs.junit.jupiter.params)
  * testImplementation(libs.mockk)
  * testRuntimeOnly(libs.junit.jupiter.engine)
+ * testImplementation(libs.kotlin.coroutines.test)
  * debugImplementation(libs.androidx.compose.tooling)
  * kapt(libs.dagger.compiler)
  *

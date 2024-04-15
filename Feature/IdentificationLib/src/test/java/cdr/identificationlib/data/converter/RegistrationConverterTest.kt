@@ -1,9 +1,9 @@
 package cdr.identificationlib.data.converter
 
+import cdr.identificationlib.data.registrationDomain
+import cdr.identificationlib.data.registrationRequest
 import cdr.identificationlib.models.data.RegistrationRequest
-import cdr.identificationlib.models.data.RoleRequest
 import cdr.identificationlib.models.domain.RegistrationDomain
-import cdr.identificationlib.models.domain.RoleDomain
 import com.google.common.truth.Truth
 import org.junit.jupiter.api.Test
 
@@ -22,20 +22,4 @@ internal class RegistrationConverterTest {
 
         Truth.assertThat(actual).isEqualTo(expected)
     }
-
-    private val registrationDomain = RegistrationDomain(
-        login = "login",
-        password = "password",
-        name = "name",
-        surname = "surname",
-        role = RoleDomain.DEVELOPER
-    )
-
-    private val registrationRequest = RegistrationRequest(
-        login = "login",
-        password = "password",
-        name = "name",
-        surname = "surname",
-        role = RoleRequest.DEVELOPER
-    )
 }

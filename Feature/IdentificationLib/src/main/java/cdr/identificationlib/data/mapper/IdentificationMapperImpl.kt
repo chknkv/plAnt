@@ -1,7 +1,7 @@
 package cdr.identificationlib.data.mapper
 
-import cdr.coreutilslib.logs.Logger
 import cdr.identificationlib.models.data.AuthorizationRequest
+import cdr.identificationlib.models.data.ClientResponse
 import cdr.identificationlib.models.data.RegistrationRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -20,27 +20,13 @@ internal class IdentificationMapperImpl(
 
     private val client = retrofit.create(IdentificationApi::class.java)
 
-    override suspend fun signIn(authorizationRequest: AuthorizationRequest) {
+    override suspend fun signIn(authorizationRequest: AuthorizationRequest): ClientResponse =
         withContext(Dispatchers.IO) {
-            Logger.i(TAG, "[signIn] - request --->>> $authorizationRequest")
-
-            val client = client.signIn(authorizationRequest)
-
-            Logger.i(TAG, "[signIn] - response --->>> $client")
+            return@withContext client.signIn(authorizationRequest)
         }
-    }
 
-    override suspend fun signUp(registrationRequest: RegistrationRequest) {
+    override suspend fun signUp(registrationRequest: RegistrationRequest): ClientResponse =
         withContext(Dispatchers.IO) {
-            Logger.i(TAG, "[signUp] - request --->>> $registrationRequest")
-
-            val client = client.signUp(registrationRequest)
-
-            Logger.i(TAG, "[signUp] - response --->>> $client")
+            return@withContext client.signUp(registrationRequest)
         }
-    }
-
-    companion object {
-        private const val TAG = "IdentificationMapperImpl"
-    }
 }

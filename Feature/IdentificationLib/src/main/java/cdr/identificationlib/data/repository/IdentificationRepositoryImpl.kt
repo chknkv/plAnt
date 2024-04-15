@@ -1,8 +1,10 @@
 package cdr.identificationlib.data.repository
 
+import cdr.identificationlib.data.converter.toDomain
 import cdr.identificationlib.data.converter.toRequest
 import cdr.identificationlib.data.mapper.IdentificationMapper
 import cdr.identificationlib.models.domain.AuthorizationDomain
+import cdr.identificationlib.models.domain.ClientDomain
 import cdr.identificationlib.models.domain.RegistrationDomain
 
 /**
@@ -14,14 +16,11 @@ import cdr.identificationlib.models.domain.RegistrationDomain
  */
 internal class IdentificationRepositoryImpl(
     private val identificationMapper: IdentificationMapper
-) : IdentificationRepository{
+) : IdentificationRepository {
 
-    override suspend fun signIn(authorizationDomain: AuthorizationDomain) {
-        identificationMapper.signIn(authorizationDomain.toRequest())
-    }
+    override suspend fun signIn(authorizationDomain: AuthorizationDomain): ClientDomain =
+        identificationMapper.signIn(authorizationDomain.toRequest()).toDomain()
 
-    override suspend fun signUp(registrationDomain: RegistrationDomain) {
-        identificationMapper.signUp(registrationDomain.toRequest())
-    }
-
+    override suspend fun signUp(registrationDomain: RegistrationDomain): ClientDomain =
+        identificationMapper.signUp(registrationDomain.toRequest()).toDomain()
 }
