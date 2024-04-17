@@ -4,18 +4,18 @@ import androidx.activity.ComponentActivity
 import cdr.identificationlib.presentation.PrimaryActivity
 
 /**
- * Реализация [AuthorizationLauncher]
+ * Реализация [IdentificationLauncher]
  *
  * @author Alexandr Chekunkov
  */
-class AuthorizationLauncherImpl : AuthorizationLauncher {
+class IdentificationLauncherImpl : IdentificationLauncher {
 
     override fun launchAuthorizationScreen(
         activity: ComponentActivity,
-        launchData: AuthorizationLaunchData
+        launchData: IdentificationLaunchData
     ) {
         when (launchData) {
-            AuthorizationLaunchData.PRIMARY -> activity.startActivity(PrimaryActivity.newIntent(activity))
+            IdentificationLaunchData.PRIMARY -> activity.startActivity(PrimaryActivity.newIntent(activity))
         }
     }
 }

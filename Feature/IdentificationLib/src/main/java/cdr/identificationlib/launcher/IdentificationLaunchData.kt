@@ -5,7 +5,7 @@ package cdr.identificationlib.launcher
  *
  * @author Alexandr Chekunkov
  */
-enum class AuthorizationLaunchData {
+enum class IdentificationLaunchData {
 
     /** Основной (разводящий) экран */
     PRIMARY

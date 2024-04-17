@@ -11,15 +11,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import cdr.corecompose.text.Title2
+import androidx.compose.ui.unit.sp
 import cdr.corecompose.theming.PlAntTokens
 import cdr.corecompose.theming.getThemedColor
 
@@ -74,11 +78,19 @@ fun AppBar(
 
         val titlePadding = if (navigationButton != AppBarNavigationButtons.None) 16.dp else 0.dp
         if (title != null) {
-            Title2(
-                modifier = Modifier.padding(horizontal = titlePadding),
+            Text(
                 text = title,
+                modifier = Modifier.padding(horizontal = titlePadding),
+                maxLines = 1,
                 textAlign = TextAlign.Center,
-                maxLines = 1
+                style = TextStyle(
+                    color = PlAntTokens.TextPrimary.getThemedColor(),
+                    fontSize = 16.sp,
+                    lineHeight = 24.sp,
+                    letterSpacing = 0.sp,
+                    fontWeight = FontWeight.Bold
+                ),
+                overflow = TextOverflow.Ellipsis
             )
         }
     }

@@ -7,7 +7,7 @@ import androidx.activity.ComponentActivity
  *
  * @author Alexandr Chekunkov
  */
-interface AuthorizationLauncher {
+interface IdentificationLauncher {
 
     /**
      * Запуск нужного экрана
@@ -17,7 +17,7 @@ interface AuthorizationLauncher {
      */
     fun launchAuthorizationScreen(
         activity: ComponentActivity,
-        launchData: AuthorizationLaunchData
+        launchData: IdentificationLaunchData
     )
 
 }
