@@ -1,5 +1,7 @@
 package cdr.identificationlib.models.domain
 
+import java.io.Serializable
+
 /**
  * domain-модель, описывающая сущность клиента после авторизации или регистрации
  *
@@ -11,7 +13,7 @@ package cdr.identificationlib.models.domain
 data class ClientDomain(
     val client: ClientInfo,
     val token: String
-)
+) : Serializable
 
 /**
  * domain-модель с информацией об авторизированным клиенте
@@ -28,14 +30,14 @@ data class ClientInfo(
     val name: String,
     val surname: String,
     val role: ClientRole
-)
+) : Serializable
 
 /**
  * domain-модель с ролью авторизованного клиента
  *
  * @author Alexandr Chekunkov
  */
-enum class ClientRole {
+enum class ClientRole : Serializable {
     /** Тестировщик */
     QA,
 

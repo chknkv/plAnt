@@ -4,6 +4,7 @@ include(":Core:CoreComposeDesignSystemLib")
 include(":Core:CoreResourcesLib")
 include(":Core:CoreUtilsLib")
 include(":Feature:IdentificationLib")
+include(":Feature:MainScreenLib")
 
 pluginManagement {
     repositories {
