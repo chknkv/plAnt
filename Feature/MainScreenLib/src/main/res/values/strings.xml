@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="chats_will_appear_here_soon_we_are_working_on_this_functionality">Скоро здесь появятся чаты, мы работаем над данным функционалом</string>
+    <string name="exception_happened">Произошла ошибка при получении данных</string>
+    <string name="messages">Сообщения</string>
+    <string name="profile">Профиль</string>
+    <string name="profile_edit">Редактировать пользователь</string>
+    <string name="profile_image">Фотография профиля</string>
+    <string name="my_projects">Мои проекты</string>
+</resources>

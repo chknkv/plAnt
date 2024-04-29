@@ -3,10 +3,8 @@ include(":plAnt-Mobile")
 include(":Core:CoreComposeDesignSystemLib")
 include(":Core:CoreResourcesLib")
 include(":Core:CoreUtilsLib")
-include(":Feature:IdentificationLib:IdentificationLibApi")
-include(":Feature:IdentificationLib:IdentificationLibImpl")
-include(":Feature:MainScreenLib:MainScreenLibImpl")
-include(":Feature:MainScreenLib:MainScreenLibApi")
+include(":Feature:IdentificationLib")
+include(":Feature:MainScreenLib")
 
 pluginManagement {
     repositories {
