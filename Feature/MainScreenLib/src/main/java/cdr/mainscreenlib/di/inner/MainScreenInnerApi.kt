@@ -1,6 +1,5 @@
 package cdr.mainscreenlib.di.inner
 
-import cdr.mainscreenlib.presentation.chat.ChatViewModel
 
 /**
  * Внутренее API для модуля авторизации
@@ -8,7 +7,5 @@ import cdr.mainscreenlib.presentation.chat.ChatViewModel
  * @author Alexandr Chekunkov
  */
 internal interface MainScreenInnerApi {
-
-    fun getChatViewModel(): ChatViewModel
 
 }

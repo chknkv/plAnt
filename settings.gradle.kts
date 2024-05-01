@@ -28,10 +28,13 @@ dependencyResolutionManagement {
             library("kotlin-coroutines-test", "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
             library("androidx-lifecycle", "androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
             library("androidx-lifecycle-compose", "androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
-            library("androidx-compose-material", "com.google.android.material:material:1.5.0")
+            library("androidx-lifecycle-viewmodel-compose", "androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+            library("androidx-activity-compose", "androidx.activity:activity-compose:1.9.0")
+            library("androidx-compose-material", "androidx.compose.material:material:1.6.6")
             library("androidx-compose-material3", "androidx.compose.material3:material3:1.2.1")
             library("androidx-compose-tooling", "androidx.compose.ui:ui-tooling:1.6.4")
             library("androidx-fragment", "androidx.fragment:fragment-ktx:1.6.2")
+            library("androidx-material", "com.google.android.material:material:1.5.0")
             library("dagger", "com.google.dagger:dagger:2.51.1")
             library("dagger-compiler", "com.google.dagger:dagger-compiler:2.51.1")
             library("google-truth", "com.google.truth:truth:1.2.0")
@@ -48,13 +51,15 @@ dependencyResolutionManagement {
 /**
  * use in feature modules this region to implement dependencies:
  *
- *
  * implementation(libs.kotlin.core)
+ * implementation(libs.androidx.activity.compose)
  * implementation(libs.androidx.lifecycle)
  * implementation(libs.androidx.lifecycle.compose)
+ * implementation(libs.androidx.lifecycle.viewmodel.compose)
  * implementation(libs.androidx.compose.material)
  * implementation(libs.androidx.compose.material3)
  * implementation(libs.androidx.fragment)
+ * implementation(libs.androidx.material)
  * implementation(libs.dagger)
  * implementation(libs.retrofit2)
  * implementation(libs.retrofit2.converter)
@@ -62,8 +67,8 @@ dependencyResolutionManagement {
  * testImplementation(libs.junit.jupiter.api)
  * testImplementation(libs.junit.jupiter.params)
  * testImplementation(libs.mockk)
- * testRuntimeOnly(libs.junit.jupiter.engine)
  * testImplementation(libs.kotlin.coroutines.test)
+ * testRuntimeOnly(libs.junit.jupiter.engine)
  * debugImplementation(libs.androidx.compose.tooling)
  * kapt(libs.dagger.compiler)
  *

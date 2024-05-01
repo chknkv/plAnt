@@ -3,11 +3,13 @@
     <!-- light theme colors region -->
     <color name="background_0_light">#FFFFFFFF</color>
     <color name="background_1_light">#FFFFFFFF</color>
+    <color name="bottom_navigation_background_light">#FFDFDFDF</color>
     <!-- end region -->
 
     <!-- dark theme colors region -->
     <color name="background_0_dark">#FF121212</color>
     <color name="background_1_dark">#FF1E1E1E</color>
+    <color name="bottom_navigation_background_dark">#FF1E1E1E</color>
     <!-- end region -->
 
 </resources>

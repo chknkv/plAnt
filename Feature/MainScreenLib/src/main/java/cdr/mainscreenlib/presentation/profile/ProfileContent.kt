@@ -29,6 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import cdr.corecompose.appbar.AppBar
 import cdr.corecompose.appbar.AppBarNavigationButtons
 import cdr.corecompose.progressbar.ProgressBarCircle
@@ -45,14 +46,12 @@ import cdr.coreresourceslib.R as CoreR
 /**
  * Контент на экране профиля клиента
  *
- * @param viewModel viewModel для экрана профиля клиента
- *
  * @author Alexandr Chekunkov
  */
 @Composable
-internal fun ProfileContent(
-    viewModel: ProfileViewModel
-) {
+internal fun ProfileContent() {
+    val viewModel = viewModel<ProfileViewModel>()
+
     LaunchedEffect(Unit) { viewModel.fetchProfileData() }
 
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -84,7 +83,7 @@ private fun SuccessfulProfileScreen(
         topBar = {
             AppBar(
                 backgroundColor = PlAntTokens.Background0.getThemedColor(),
-                title = stringResource(id = R.string.profile),
+                title = stringResource(id = CoreR.string.profile),
                 navigationButton = AppBarNavigationButtons.None,
                 navigationButtonClick = { },
                 navigationButtonTint = PlAntTokens.Primary.getThemedColor()

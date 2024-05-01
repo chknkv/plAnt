@@ -49,5 +49,6 @@ dependencies {
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.material3)
     debugImplementation(libs.androidx.compose.tooling)
+    implementation(libs.androidx.material)
     // end region
 }

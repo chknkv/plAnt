@@ -50,11 +50,14 @@ dependencies {
 
     // dependencies for feature module region
     implementation(libs.kotlin.core)
+    implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle)
     implementation(libs.androidx.lifecycle.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.fragment)
+    implementation(libs.androidx.material)
     implementation(libs.dagger)
     implementation(libs.retrofit2)
     implementation(libs.retrofit2.converter)
@@ -62,6 +65,7 @@ dependencies {
     testImplementation(libs.junit.jupiter.api)
     testImplementation(libs.junit.jupiter.params)
     testImplementation(libs.mockk)
+    testImplementation(libs.kotlin.coroutines.test)
     testRuntimeOnly(libs.junit.jupiter.engine)
     debugImplementation(libs.androidx.compose.tooling)
     kapt(libs.dagger.compiler)

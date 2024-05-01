@@ -44,11 +44,14 @@ dependencies {
 
     // dependencies for feature module region
     implementation(libs.kotlin.core)
+    implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle)
     implementation(libs.androidx.lifecycle.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.fragment)
+    implementation(libs.androidx.material)
     implementation(libs.dagger)
     implementation(libs.retrofit2)
     implementation(libs.retrofit2.converter)
