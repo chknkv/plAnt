@@ -1,7 +1,6 @@
 package cdr.mainscreenlib.di.inner
 
 import cdr.mainscreenlib.launcher.MainScreenLauncherImpl
-import cdr.mainscreenlib.presentation.chat.ChatViewModel
 import cdr.mainscreenlib.launcher.MainScreenLauncher
 import dagger.Module
 import dagger.Provides
@@ -13,9 +12,6 @@ import dagger.Provides
  */
 @Module
 internal object MainScreenModule {
-
-    @Provides
-    fun provideChatViewModel(): ChatViewModel = ChatViewModel()
 
     @Provides
     fun provideMainScreenLauncher(): MainScreenLauncher = MainScreenLauncherImpl()

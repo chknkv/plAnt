@@ -9,6 +9,9 @@
     <string name="error_has_occurred">Произошла ошибка</string>
     <string name="hide_password">Спрятать пароль</string>
     <string name="login">Логин</string>
+    <string name="market">Биржа</string>
+    <string name="messages">Сообщения</string>
+    <string name="profile">Профиль</string>
     <string name="password">Пароль</string>
     <string name="passwords_must_be_same">Пароли должны совпадать</string>
     <string name="password_must_consist_of_numbers_uppercase_and_lowercase_letters">Пароль должен состоять из цифр, прописных и строчных букв</string>

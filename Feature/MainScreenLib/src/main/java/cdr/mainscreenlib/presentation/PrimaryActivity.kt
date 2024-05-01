@@ -3,9 +3,9 @@ package cdr.mainscreenlib.presentation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.commit
-import cdr.mainscreenlib.presentation.profile.ProfileFragment
+import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
+import cdr.corecompose.theming.PlAntTheme
 
 /**
  * Activity для модуля главного экрана.
@@ -13,18 +13,14 @@ import cdr.mainscreenlib.presentation.profile.ProfileFragment
  *
  * @author Alexandr Chekunkov
  */
-internal class PrimaryActivity : FragmentActivity() {
-
+internal class PrimaryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(cdr.coreresourceslib.R.layout.primary_activity)
 
-        supportFragmentManager.commit {
-            replace(
-                cdr.coreresourceslib.R.id.primary_content_container,
-                ProfileFragment.newInstance(),
-                ProfileFragment.TAG
-            )
+        setContent {
+            PlAntTheme {
+                PrimaryContent()
+            }
         }
     }
 

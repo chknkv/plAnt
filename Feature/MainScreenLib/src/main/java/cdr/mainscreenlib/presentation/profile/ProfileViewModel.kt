@@ -25,14 +25,13 @@ internal class ProfileViewModel : ViewModel() {
     }
 
     val state: StateFlow<ProfileState> get() = _state.asStateFlow()
-    private val _state = MutableStateFlow<ProfileState>(ProfileState.Successful())
+    private val _state = MutableStateFlow<ProfileState>(ProfileState.Loading)
 
     fun fetchProfileData() {
         viewModelScope.launch(coroutineExceptionHandler) {
             _state.value = ProfileState.Loading
 
-            delay(4500) // Загрузка данных пользователя
-
+            delay(2500) // Загрузка данных пользователя
 
             _state.value = ProfileState.Successful(
                 data = ProfileSuccessfulScreen(

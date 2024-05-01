@@ -11,10 +11,12 @@ val Black0 = Color(0xff000000)
 val Black1 = Color(0x8c000000)
 
 val Blue0 = Color(0xff3F81FD)
+val Blue1 = Color(0xFF1F5CD1)
 
 val Gray0 = Color(0xffC7C7C7)
 val Gray1 = Color(0xFFE9E9E9)
 val Gray2 = Color(0xFF888888)
+val Gray3 = Color(0xFFDFDFDF)
 
 val Graphite0 = Color(0xFF3D3D3D)
 val Graphite1 = Color(0xff1e1e1e)

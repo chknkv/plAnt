@@ -1,4 +1,4 @@
-package cdr.mainscreenlib.presentation.chat
+package cdr.mainscreenlib.presentation.market
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -25,28 +25,28 @@ import cdr.mainscreenlibimpl.R
 import cdr.coreresourceslib.R as CoreR
 
 /**
- * Контент на экране чатов
+ * Контент на экране биржы
  *
  * @author Alexandr Chekunkov
  */
 @Composable
-internal fun ChatContent() {
-    val viewModel = viewModel<ChatViewModel>() // unused now
+internal fun MarketContent() {
+    val viewModel = viewModel<MarketViewModel>() // unused now
 
     Scaffold(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(PlAntTokens.Background0.getThemedColor())
-            .padding(horizontal = 16.dp),
-        topBar = {
-            AppBar(
-                backgroundColor = PlAntTokens.Background0.getThemedColor(),
-                title = stringResource(id = CoreR.string.messages),
-                navigationButton = AppBarNavigationButtons.None,
-                navigationButtonClick = { },
-                navigationButtonTint = PlAntTokens.Primary.getThemedColor()
-            )
-        }
+    modifier = Modifier
+    .fillMaxSize()
+    .background(PlAntTokens.Background0.getThemedColor())
+    .padding(horizontal = 16.dp),
+    topBar = {
+        AppBar(
+            backgroundColor = PlAntTokens.Background0.getThemedColor(),
+            title = stringResource(id = CoreR.string.market),
+            navigationButton = AppBarNavigationButtons.None,
+            navigationButtonClick = { },
+            navigationButtonTint = PlAntTokens.Primary.getThemedColor()
+        )
+    }
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -64,7 +64,7 @@ internal fun ChatContent() {
 
             Body3Secondary(
                 modifier = Modifier.fillMaxWidth(),
-                text = stringResource(id = R.string.chats_will_appear_here_soon_we_are_working_on_this_functionality),
+                text = stringResource(id = R.string.market_will_appear_here_soon_we_are_working_on_this_functionality),
                 textAlign = TextAlign.Center
             )
         }
