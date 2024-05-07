@@ -5,25 +5,17 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -33,13 +25,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import cdr.corecompose.appbar.AppBar
 import cdr.corecompose.appbar.AppBarNavigationButtons
 import cdr.corecompose.progressbar.ProgressBarCircle
-import cdr.corecompose.text.Body2
-import cdr.corecompose.text.Body3
 import cdr.corecompose.text.Body3Secondary
 import cdr.corecompose.theming.PlAntTokens
 import cdr.corecompose.theming.getThemedColor
+import cdr.mainscreenlib.models.presentation.ProfileInfo
 import cdr.mainscreenlib.models.presentation.ProfileState
-import cdr.mainscreenlib.models.presentation.ProfileSuccessfulScreen
 import cdr.mainscreenlibimpl.R
 import cdr.coreresourceslib.R as CoreR
 
@@ -59,21 +49,22 @@ internal fun ProfileContent() {
     when (val currentState = state) {
         is ProfileState.Error -> ErrorProfileScreen()
         is ProfileState.Loading -> LoadingShimmer()
-        is ProfileState.Successful -> SuccessfulProfileScreen(currentState.data)
+        is ProfileState.Successful -> SuccessfulProfileScreen(viewModel, currentState.data)
     }
 }
-
 
 /**
  * Успешное отображение контента на экране профиля клиента
  *
+ * @param viewModel ViewModel для экрана профиля клиента
  * @param data UI-модель, содержащая в себе данные о профиле
  *
  * @author Alexandr Chekunkov
  */
 @Composable
 private fun SuccessfulProfileScreen(
-    data: ProfileSuccessfulScreen
+    viewModel: ProfileViewModel,
+    data: ProfileInfo
 ) {
     Scaffold(
         modifier = Modifier
@@ -93,56 +84,24 @@ private fun SuccessfulProfileScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(PlAntTokens.Background0.getThemedColor())
                 .padding(paddingValues)
+                .background(PlAntTokens.Background0.getThemedColor())
         ) {
-            Row(
+            ClientInformationContent(
+                data = data.clientInfo,
+                onEditProfileButtonClick = viewModel::launchEditScreen
+            )
+
+            HorizontalDivider(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(IntrinsicSize.Min),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Image(
-                    modifier = Modifier
-                        .size(36.dp)
-                        .clip(CircleShape),
-                    painter = painterResource(id = CoreR.drawable.illustration_128_profile),
-                    contentDescription = stringResource(id = R.string.profile_image)
-                )
+                    .height(0.2.dp)
+                    .background(PlAntTokens.IconPrimary.getThemedColor())
+            )
 
-                Column(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .padding(horizontal = 16.dp)
-                        .weight(1f),
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Body2(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = "${data.firstName} ${data.lastName}",
-                        maxLines = 1
-                    )
-
-                    Body3(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = "${data.username} / ${data.role}",
-                        maxLines = 1
-                    )
-                }
-
-                IconButton(
-                    onClick = { /*TODO*/ }
-                ) {
-                    Icon(
-                        painter = painterResource(id = CoreR.drawable.ic_edit),
-                        contentDescription = stringResource(id = R.string.profile_edit)
-                    )
-                }
-            }
-
-            HorizontalDivider(modifier = Modifier.padding(vertical = 10.dp))
-
-            Body2(text = stringResource(id = R.string.my_projects))
+            ClientProjectsInformationContent(
+                data = data.projectInfoList,
+                onProjectClick = viewModel::launchInfoAboutProject
+            )
         }
     }
 }
@@ -158,7 +117,16 @@ private fun LoadingShimmer() {
     Scaffold(
         modifier = Modifier
             .background(PlAntTokens.Background0.getThemedColor())
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = 16.dp),
+        topBar = {
+            AppBar(
+                backgroundColor = PlAntTokens.Background0.getThemedColor(),
+                title = stringResource(id = CoreR.string.profile),
+                navigationButton = AppBarNavigationButtons.None,
+                navigationButtonClick = { },
+                navigationButtonTint = PlAntTokens.Primary.getThemedColor()
+            )
+        }
     ) { paddingValues ->
         Box(
             modifier = Modifier

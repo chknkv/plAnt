@@ -5,7 +5,7 @@ package cdr.mainscreenlib.models.presentation
  *
  * @author Alexandr Chekunkov
  */
-internal sealed interface ProfileState  {
+internal sealed interface ProfileState {
 
     /** Загрузка */
     object Loading : ProfileState
@@ -19,11 +19,24 @@ internal sealed interface ProfileState  {
      * @param data UI-модель, содержащая в себе данные о профиле
      */
     @JvmInline
-    value class Successful(val data: ProfileSuccessfulScreen = ProfileSuccessfulScreen()) : ProfileState
+    value class Successful(val data: ProfileInfo = ProfileInfo()) : ProfileState
 }
 
 /**
  * UI-модель, содержащая в себе данные о профиле клиента
+ *
+ * @param clientInfo UI-модель с информацией о клиента
+ * @param projectInfoList список UI-моделей с информацией о проекте клиента
+ *
+ * @author Alexandr Chekunkov
+ */
+internal data class ProfileInfo(
+    val clientInfo: ClientInfo = ClientInfo(),
+    val projectInfoList: List<ClientProjectInfo> = emptyList()
+)
+
+/**
+ * Модель с информацией о клиенте
  *
  * @param firstName имя клиента
  * @param lastName фамилия клиента
@@ -32,9 +45,48 @@ internal sealed interface ProfileState  {
  *
  * @author Alexandr Chekunkov
  */
-internal data class ProfileSuccessfulScreen(
-    val firstName: String ="Unknown",
+internal data class ClientInfo(
+    val firstName: String = "Unknown",
     val lastName: String = "Unknown",
     val username: String = "Unknown",
     val role: String = "Unknown"
 )
+
+/**
+ * Модель с информацией о проекте клиента
+ *
+ * @param id уникальный номер проекта
+ * @param name название проекта
+ * @param status статус проекта на текущий момент (неизвестно, открыт, в работе, закрыт)
+ * @param price цена за выполнение проекта
+ * @param isHaveExecutor назначен ли выполнитель проекта
+ *
+ * @author Alexandr Chekunkov
+ */
+internal data class ClientProjectInfo(
+    val id: Int = -1,
+    val name: String = "Unknown",
+    val status: ProjectStatus = ProjectStatus.UNKNOWN,
+    val price: Int = -1,
+    val isHaveExecutor: Boolean = false,
+)
+
+/**
+ * Статусы выполнения проекта
+ *
+ * @author Alexandr Chekunkov
+ */
+internal enum class ProjectStatus{
+
+    /** Неизвестно */
+    UNKNOWN,
+
+    /** Открыт */
+    OPEN,
+
+    /** В работе */
+    IN_WORK,
+
+    /** Закрыт */
+    CLOSED,
+}
