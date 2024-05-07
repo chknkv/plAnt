@@ -68,7 +68,7 @@ internal data class ClientProjectInfo(
     val name: String = "Unknown",
     val status: ProjectStatus = ProjectStatus.UNKNOWN,
     val price: Int = -1,
-    val isHaveExecutor: Boolean = false,
+    val isHaveExecutor: Boolean = false
 )
 
 /**

@@ -5,13 +5,17 @@ import androidx.lifecycle.viewModelScope
 import cdr.coreutilslib.logs.Logger
 import cdr.mainscreenlib.models.presentation.ClientInfo
 import cdr.mainscreenlib.models.presentation.ClientProjectInfo
+import cdr.mainscreenlib.models.presentation.ProfileAction
 import cdr.mainscreenlib.models.presentation.ProfileInfo
 import cdr.mainscreenlib.models.presentation.ProfileState
 import cdr.mainscreenlib.models.presentation.ProjectStatus
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
@@ -30,6 +34,9 @@ internal class ProfileViewModel : ViewModel() {
     val state: StateFlow<ProfileState> get() = _state.asStateFlow()
     private val _state = MutableStateFlow<ProfileState>(ProfileState.Loading)
 
+    val action: SharedFlow<ProfileAction> get() = _action.asSharedFlow()
+    private val _action = MutableSharedFlow<ProfileAction>()
+
     fun fetchProfileData() {
         viewModelScope.launch(coroutineExceptionHandler) {
             _state.value = ProfileState.Loading
@@ -42,11 +49,15 @@ internal class ProfileViewModel : ViewModel() {
     }
 
     fun launchEditScreen() {
-        Logger.i(TAG, "launch edit screen")
+        viewModelScope.launch {
+            _action.emit(ProfileAction.LaunchEditProfile)
+        }
     }
 
     fun launchInfoAboutProject(projectId: Int) {
-        Logger.i(TAG, "launch info about project with id $projectId")
+        viewModelScope.launch {
+            _action.emit(ProfileAction.LaunchProjectInfoScreen(projectId))
+        }
     }
 
     companion object {
