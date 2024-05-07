@@ -21,6 +21,7 @@ val Gray3 = Color(0xFFDFDFDF)
 val Graphite0 = Color(0xFF3D3D3D)
 val Graphite1 = Color(0xff1e1e1e)
 val Graphite2 = Color(0xff121212)
+val Graphite3 = Color(0xff1e1e1e)
 
 val Orange0 = Color(0xffE35502)
 val Orange1 = Color(0xFFFF5E00)
