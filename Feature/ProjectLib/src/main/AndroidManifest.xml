@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application android:usesCleartextTraffic="true">
+        <activity
+            android:name="cdr.projectlib.presentation.add.ProjectAddActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.PlAnt.Project.ProjectAddActivity"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="DiscouragedApi" />
+
+        <activity
+            android:name="cdr.projectlib.presentation.info.ProjectInfoActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:theme="@style/Theme.PlAnt.Project.ProjectInfoActivity"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="DiscouragedApi" />
+    </application>
+</manifest>

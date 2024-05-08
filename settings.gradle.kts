@@ -3,7 +3,10 @@ include(":plAnt-Mobile")
 include(":Core:CoreComposeDesignSystemLib")
 include(":Core:CoreResourcesLib")
 include(":Core:CoreUtilsLib")
+include(":Feature:ChatLib")
 include(":Feature:IdentificationLib")
+include(":Feature:ProjectLib")
+include(":Feature:ProfileLib")
 include(":Feature:MainScreenLib")
 
 pluginManagement {

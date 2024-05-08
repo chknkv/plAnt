@@ -14,15 +14,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import cdr.chatlib.presentation.ChatContent
 import cdr.corecompose.navigation.BottomNavigationBar
 import cdr.corecompose.navigation.BottomNavigationBarItem
 import cdr.corecompose.theming.PlAntTokens
 import cdr.corecompose.theming.getThemedColor
 import cdr.coreresourceslib.R
 import cdr.mainscreenlib.models.presentation.Screen
-import cdr.mainscreenlib.presentation.chat.ChatContent
-import cdr.mainscreenlib.presentation.market.MarketContent
-import cdr.mainscreenlib.presentation.profile.ProfileContent
+import cdr.projectlib.presentation.market.MarketContent
+import cdr.profilelib.presentation.main.ProfileContent
 import cdr.coreresourceslib.R as CoreR
 
 /**

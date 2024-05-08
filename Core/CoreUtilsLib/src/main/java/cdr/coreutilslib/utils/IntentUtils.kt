@@ -2,18 +2,18 @@ package cdr.coreutilslib.utils
 
 import android.content.Intent
 import android.os.Build
-import java.io.Serializable
+import android.os.Parcelable
 
 /**
- * Получение [Serializable] объекта из [Intent].
+ * Получение [Parcelable] объекта из [Intent].
  * Данный метод используется для разных версий Android SDK.
  *
  * @author Alexandr Chekunkov
  */
 @Suppress("DEPRECATION")
-inline fun <reified T : Serializable> Intent.getSerializableObject(key: String): T? =
+inline fun <reified T : Parcelable> Intent.getSerializableObject(key: String): T? =
     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU) {
-        this.getSerializableExtra(key, T::class.java)
+        this.getParcelableExtra(key, T::class.java)
     } else {
-        this.getSerializableExtra(key) as? T
+        this.getParcelableExtra(key) as? T
     }

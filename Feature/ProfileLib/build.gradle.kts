@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "cdr.mainscreenlibimpl"
+    namespace = "cdr.profilelib"
     compileSdk = 34
 
     defaultConfig {
@@ -40,9 +40,7 @@ dependencies {
     implementation(project(":Core:CoreComposeDesignSystemLib"))
     implementation(project(":Core:CoreUtilsLib"))
     implementation(project(":Core:CoreResourcesLib"))
-    implementation(project(":Feature:ChatLib"))
     implementation(project(":Feature:ProjectLib"))
-    implementation(project(":Feature:ProfileLib"))
     // end region
 
     // dependencies for feature module region
