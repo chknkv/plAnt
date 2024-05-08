@@ -32,3 +32,4 @@ val Transparent = Color(0x00ffffff)
 
 val White0 = Color(0xffffffff)
 val White1 = Color(0x78ffffff)
+val White2 = Color(0xCCF3F3F3)

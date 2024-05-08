@@ -6,6 +6,4 @@ package cdr.mainscreenlib.di.inner
  *
  * @author Alexandr Chekunkov
  */
-internal interface MainScreenInnerApi {
-
-}
+internal interface MainScreenInnerApi

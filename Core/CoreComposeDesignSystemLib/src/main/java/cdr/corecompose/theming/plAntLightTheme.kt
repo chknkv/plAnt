@@ -18,7 +18,7 @@ internal fun lightTheme(): Map<PlAntTokens, Color> = mapOf(
     PlAntTokens.BottomNavigationItemColor to Graphite0,
     PlAntTokens.BottomNavigationItemSelectedColor to Blue1,
     PlAntTokens.Brand to Blue0,
-    PlAntTokens.CardBackground to Gray1,
+    PlAntTokens.CardBackground to White2,
     PlAntTokens.ChipSelectableText to White0,
     PlAntTokens.ChipNotSelectableText to Graphite0,
     PlAntTokens.ChipWarningText to Orange0,

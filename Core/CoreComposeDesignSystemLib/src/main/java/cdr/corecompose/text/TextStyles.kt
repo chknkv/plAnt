@@ -257,6 +257,37 @@ fun Body3(
 )
 
 /**
+ * Body4
+ *
+ * @param text текст
+ * @param modifier модифаер
+ * @param maxLines максимальное количество строк текста
+ * @param textAlign выравнивание текста
+ *
+ * @author Alexandr Chekunkov
+ */
+@Composable
+fun Body4(
+    text: String,
+    modifier: Modifier = Modifier,
+    maxLines: Int = Int.MAX_VALUE,
+    textAlign: TextAlign? = null
+) = Text(
+    text = text,
+    modifier = modifier,
+    maxLines = maxLines,
+    textAlign = textAlign,
+    style = TextStyle(
+        color = PlAntTokens.TextPrimary.getThemedColor(),
+        fontSize = 12.sp,
+        lineHeight = 12.sp,
+        letterSpacing = 0.em,
+        fontWeight = FontWeight.Bold
+    ),
+    overflow = TextOverflow.Ellipsis
+)
+
+/**
  * Headline1Secondary
  *
  * @param text текст
@@ -500,7 +531,35 @@ fun Body3Secondary(
     overflow = TextOverflow.Ellipsis
 )
 
-
+/**
+ * Body4Secondary
+ *
+ * @param text текст
+ * @param modifier модифаер
+ * @param maxLines максимальное количество строк текста
+ * @param textAlign выравнивание текста
+ *
+ * @author Alexandr Chekunkov
+ */
+@Composable
+fun Body4Secondary(
+    text: String,
+    modifier: Modifier = Modifier,
+    maxLines: Int = Int.MAX_VALUE,
+    textAlign: TextAlign? = null
+) = Text(
+    text = text,
+    modifier = modifier,
+    maxLines = maxLines,
+    textAlign = textAlign,
+    style = TextStyle(
+        color = PlAntTokens.TextPrimary.getThemedColor(),
+        fontSize = 12.sp,
+        lineHeight = 12.sp,
+        letterSpacing = 0.em
+    ),
+    overflow = TextOverflow.Ellipsis
+)
 
 /**
  * Headline1Brand

@@ -4,6 +4,8 @@
     <string name="close">Закрыть</string>
     <string name="complete_the_steps_above_to_continue">Заполните пункты выше, чтобы продолжить</string>
     <string name="check_the_correctness_of_the_entered_data_and_internet">Проверьте корректность введенных данных и наличие интернет сети</string>
+    <string name="create_new_project">Создать проект</string>
+    <string name="edit_profile">Редактировать профиль</string>
     <string name="developer">Разработчик</string>
     <string name="entered_max_number_of_characters">Вы ввели максимальное количество символов</string>
     <string name="error_has_occurred">Произошла ошибка</string>
