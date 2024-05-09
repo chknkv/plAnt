@@ -9,6 +9,7 @@
 - Theme (Preview + Main)
 - AlertDialog
 - Blueberry
+- BottomNavigationBar
 - ChipCard
 - ChipCardGroup
 - DualBlueberryHorizontal
@@ -35,6 +36,11 @@
 `Blueberry` - это нестандартное название кнопок, которые помогают взаимодействовать с пользователем. Имеется четыре доступных темы: стандарт, предупреждение, текст-кнопка и отключенное состояние. Все типы изображены на рисунке ниже в двух темах (светлая и темная).
 
 <img src="https://github.com/coder-chekunkov/plAnt/blob/develop/Core/CoreComposeDesignSystemLib/examples/blueberry_preview.png" alt="Blueberry" width="500"/>
+
+**BottomNavigationBar** <br/>
+`BottomNavigationBar` - это навигационная панель, которая позволяет производить запуск экранов. Навигационная панель "прибита" к низу экрана. Примеры изображены на рисунке ниже в двух темах (светлая и темная).
+
+<img src="https://github.com/coder-chekunkov/plAnt/blob/develop/Core/CoreComposeDesignSystemLib/examples/bottom_navigation_bar_preview.png" alt="BottomNavigationBar" width="500"/>
 
 **ChipCard** <br/>
 `ChipCard` - это карточка-чипса, которая используется для выбора каких-то данных. Карточка чипса состоит только из текста и может принимать три состояния - выбранно, невыбранно и предупреждение. Все типы изображены на рисунке ниже в двух темах (светлая и темная).
