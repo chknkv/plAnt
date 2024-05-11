@@ -25,8 +25,8 @@ import cdr.corecompose.text.Body4Secondary
 import cdr.corecompose.theming.PlAntTokens
 import cdr.corecompose.theming.getThemedColor
 import cdr.projectlib.R
-import cdr.projectlib.models.domain.ProjectInfo
-import cdr.projectlib.models.domain.ProjectStatus
+import cdr.projectlib.models.domain.ProjectInfoDomain
+import cdr.projectlib.models.domain.ProjectStatusDomain
 
 /**
  * Карточка с информацией о проекте
@@ -40,8 +40,8 @@ import cdr.projectlib.models.domain.ProjectStatus
 @SuppressLint("UnrememberedMutableInteractionSource")
 @Composable
 fun ProjectInfoCard(
-    projectInfo: ProjectInfo,
-    onProjectClick: (ProjectInfo) -> Unit,
+    projectInfo: ProjectInfoDomain,
+    onProjectClick: (ProjectInfoDomain) -> Unit,
     showAuthor: Boolean = true
 ) {
     val authorTitle = stringResource(id = R.string.author)
@@ -49,10 +49,10 @@ fun ProjectInfoCard(
 
     val statusTitle = stringResource(id = R.string.status)
     val statusValue = when (projectInfo.status) {
-        ProjectStatus.UNKNOWN -> stringResource(id = R.string.status_unknown)
-        ProjectStatus.OPEN -> stringResource(id = R.string.status_open)
-        ProjectStatus.IN_WORK -> stringResource(id = R.string.status_in_work)
-        ProjectStatus.CLOSED -> stringResource(id = R.string.status_closed)
+        ProjectStatusDomain.UNKNOWN -> stringResource(id = R.string.status_unknown)
+        ProjectStatusDomain.OPEN -> stringResource(id = R.string.status_open)
+        ProjectStatusDomain.IN_WORK -> stringResource(id = R.string.status_in_work)
+        ProjectStatusDomain.CLOSED -> stringResource(id = R.string.status_closed)
     }
 
     val priceTitle = stringResource(id = R.string.price)

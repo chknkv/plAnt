@@ -8,7 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import cdr.corecompose.theming.PlAntTheme
 import cdr.coreutilslib.utils.getSerializableObject
-import cdr.projectlib.models.domain.ProjectInfo
+import cdr.projectlib.models.domain.ProjectInfoDomain
 
 /**
  * Activity, которая держит шторку с информацией о проекте
@@ -26,7 +26,7 @@ class ProjectInfoActivity : AppCompatActivity() {
             android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
 
-        val projectInfo: ProjectInfo = intent.getSerializableObject(TAG) ?: error("projectInfo не найден")
+        val projectInfo: ProjectInfoDomain = intent.getSerializableObject(TAG) ?: error("projectInfo не найден")
 
         setContent {
             PlAntTheme {
@@ -50,7 +50,7 @@ class ProjectInfoActivity : AppCompatActivity() {
          */
         fun newIntent(
             context: Context,
-            projectInfo: ProjectInfo
+            projectInfo: ProjectInfoDomain
         ): Intent = Intent(context, ProjectInfoActivity::class.java).putExtra(TAG, projectInfo)
     }
 }

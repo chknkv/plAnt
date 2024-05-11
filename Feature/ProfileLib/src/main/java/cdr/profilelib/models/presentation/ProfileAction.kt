@@ -1,6 +1,6 @@
 package cdr.profilelib.models.presentation
 
-import cdr.projectlib.models.domain.ProjectInfo
+import cdr.projectlib.models.domain.ProjectInfoDomain
 
 /**
  * Экшены для экрана профиля клиента
@@ -11,7 +11,7 @@ internal sealed interface ProfileAction {
 
     /** Запуск экрана информации о проекте */
     @JvmInline
-    value class LaunchProjectInfoScreen(val projectInfo: ProjectInfo) : ProfileAction
+    value class LaunchProjectInfoScreen(val projectInfo: ProjectInfoDomain) : ProfileAction
 
     /** Запуск экрана редактирования профиля клиента */
     object LaunchEditProfile : ProfileAction

@@ -7,8 +7,8 @@ import cdr.profilelib.models.domain.ClientInfo
 import cdr.profilelib.models.presentation.ProfileAction
 import cdr.profilelib.models.presentation.ProfileInfo
 import cdr.profilelib.models.presentation.ProfileState
-import cdr.projectlib.models.domain.ProjectInfo
-import cdr.projectlib.models.domain.ProjectStatus
+import cdr.projectlib.models.domain.ProjectInfoDomain
+import cdr.projectlib.models.domain.ProjectStatusDomain
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -54,7 +54,7 @@ internal class ProfileViewModel : ViewModel() {
         }
     }
 
-    fun launchInfoAboutProject(projectInfo: ProjectInfo) {
+    fun launchInfoAboutProject(projectInfo: ProjectInfoDomain) {
         viewModelScope.launch {
             _action.emit(ProfileAction.LaunchProjectInfoScreen(projectInfo))
         }
@@ -74,40 +74,40 @@ private val mockedProfileStateData = ProfileState.Successful(
             role = "Разработчик"
         ),
         projectInfoList = listOf(
-            ProjectInfo(
+            ProjectInfoDomain(
                 id = 1,
                 name = "Мобильное приложение «СБОЛ»",
                 author = "@user.test",
-                status = ProjectStatus.CLOSED,
+                status = ProjectStatusDomain.CLOSED,
                 price = 15150,
                 isHaveExecutor = true,
                 executor = "@executor.test",
                 description = "Необходимо протестировать несколько экранов"
             ),
-            ProjectInfo(
+            ProjectInfoDomain(
                 id = 2,
                 name = "Приложение для игры в «Судоку»",
                 author = "@user.test",
-                status = ProjectStatus.IN_WORK,
+                status = ProjectStatusDomain.IN_WORK,
                 price = 81950,
                 isHaveExecutor = true,
                 executor = "@executor.test",
                 description = "Необходимо протестировать все приложение. Профиль, статистика, задачи, уровни, процесс игры и т.д. Оплачу сразу после проведенной работы, в долгу не останусь. Жду обратной связи, спасибо!"
             ),
-            ProjectInfo(
+            ProjectInfoDomain(
                 id = 3,
                 name = "Мобильный Банк «Тинькофф»",
                 author = "@user.test",
-                status = ProjectStatus.OPEN,
+                status = ProjectStatusDomain.OPEN,
                 price = 1255,
                 isHaveExecutor = false,
                 description = "Необходимо протестировать несколько экранов"
             ),
-            ProjectInfo(
+            ProjectInfoDomain(
                 id = 4,
                 name = "Социальная сеть «ВКонтакте»",
                 author = "@user.test",
-                status = ProjectStatus.IN_WORK,
+                status = ProjectStatusDomain.IN_WORK,
                 price = 912450,
                 isHaveExecutor = true,
                 executor = "@executor.test",
