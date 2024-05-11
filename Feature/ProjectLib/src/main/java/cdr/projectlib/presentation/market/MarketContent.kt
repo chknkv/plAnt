@@ -36,7 +36,7 @@ import cdr.corecompose.text.Body3Secondary
 import cdr.corecompose.theming.PlAntTokens
 import cdr.corecompose.theming.getThemedColor
 import cdr.projectlib.R
-import cdr.projectlib.models.domain.ProjectInfo
+import cdr.projectlib.models.domain.ProjectInfoDomain
 import cdr.projectlib.models.presentation.MarketAction
 import cdr.projectlib.models.presentation.MarketInfo
 import cdr.projectlib.models.presentation.MarketState
@@ -130,8 +130,8 @@ private fun SuccessfulMarketScreen(
 @Composable
 private fun MarketProjectInformationContent(
     modifier: Modifier,
-    projectInfoList: List<ProjectInfo>,
-    onProjectClick: (ProjectInfo) -> Unit
+    projectInfoList: List<ProjectInfoDomain>,
+    onProjectClick: (ProjectInfoDomain) -> Unit
 ) {
     Column(
         modifier = modifier

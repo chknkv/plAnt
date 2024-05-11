@@ -119,6 +119,7 @@ fun TextFieldCard(
                 )
             },
             visualTransformation = if (textVisible) VisualTransformation.None else PasswordVisualTransformation(),
+            keyboardOptions = keyboardOptions,
             trailingIcon = {
                 if (keyboardOptions.keyboardType == KeyboardType.Password) {
                     val passwordToggleImage =

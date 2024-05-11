@@ -47,7 +47,7 @@ import cdr.profilelib.R
 import cdr.profilelib.models.domain.ClientInfo
 import cdr.profilelib.models.presentation.ProfileAction
 import cdr.profilelib.presentation.edit.ProfileEditActivity
-import cdr.projectlib.models.domain.ProjectInfo
+import cdr.projectlib.models.domain.ProjectInfoDomain
 import cdr.projectlib.presentation.card.ProjectInfoCard
 import cdr.projectlib.presentation.info.ProjectInfoActivity
 import cdr.coreresourceslib.R as CoreR
@@ -204,8 +204,8 @@ private fun ClientInformationContent(
  */
 @Composable
 private fun ClientProjectsInformationContent(
-    data: List<ProjectInfo>,
-    onProjectClick: (ProjectInfo) -> Unit
+    data: List<ProjectInfoDomain>,
+    onProjectClick: (ProjectInfoDomain) -> Unit
 ) {
     Column(
         modifier = Modifier

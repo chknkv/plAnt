@@ -1,7 +1,7 @@
 package cdr.profilelib.models.presentation
 
 import cdr.profilelib.models.domain.ClientInfo
-import cdr.projectlib.models.domain.ProjectInfo
+import cdr.projectlib.models.domain.ProjectInfoDomain
 
 /**
  * Состояние экрана профиля клиента
@@ -35,5 +35,5 @@ internal sealed interface ProfileState {
  */
 internal data class ProfileInfo(
     val clientInfo: ClientInfo = ClientInfo(),
-    val projectInfoList: List<ProjectInfo> = emptyList()
+    val projectInfoList: List<ProjectInfoDomain> = emptyList()
 )

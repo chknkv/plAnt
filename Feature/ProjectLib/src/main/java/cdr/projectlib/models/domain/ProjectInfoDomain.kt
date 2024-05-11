@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 /**
- * Модель с информацией о проекте
+ * domain-модель с информацией о проекте
  *
  * @param id уникальный номер проекта
  * @param name название проекта
@@ -18,11 +18,11 @@ import kotlinx.parcelize.Parcelize
  * @author Alexandr Chekunkov
  */
 @Parcelize
-data class ProjectInfo(
+data class ProjectInfoDomain(
     val id: Int = -1,
     val name: String = "",
     val author: String = "",
-    val status: ProjectStatus = ProjectStatus.UNKNOWN,
+    val status: ProjectStatusDomain = ProjectStatusDomain.UNKNOWN,
     val description: String = "",
     val price: Int = -1,
     val isHaveExecutor: Boolean = false,
@@ -35,7 +35,7 @@ data class ProjectInfo(
  * @author Alexandr Chekunkov
  */
 @Parcelize
-enum class ProjectStatus : Parcelable{
+enum class ProjectStatusDomain : Parcelable{
 
     /** Неизвестно */
     UNKNOWN,

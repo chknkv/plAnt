@@ -3,8 +3,8 @@ package cdr.projectlib.presentation.market
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cdr.coreutilslib.logs.Logger
-import cdr.projectlib.models.domain.ProjectInfo
-import cdr.projectlib.models.domain.ProjectStatus
+import cdr.projectlib.models.domain.ProjectInfoDomain
+import cdr.projectlib.models.domain.ProjectStatusDomain
 import cdr.projectlib.models.presentation.MarketAction
 import cdr.projectlib.models.presentation.MarketInfo
 import cdr.projectlib.models.presentation.MarketState
@@ -52,7 +52,7 @@ internal class MarketViewModel : ViewModel() {
         }
     }
 
-    fun launchInfoAboutProject(projectInfo: ProjectInfo) {
+    fun launchInfoAboutProject(projectInfo: ProjectInfoDomain) {
         viewModelScope.launch {
             _action.emit(MarketAction.LaunchProjectInfoScreen(projectInfo))
         }
@@ -66,59 +66,59 @@ internal class MarketViewModel : ViewModel() {
 private val mockedMarketStateData = MarketState.Successful(
     data = MarketInfo(
         projectInfoList = listOf(
-            ProjectInfo(
+            ProjectInfoDomain(
                 id = 4,
                 name = "Месенджер «Телеграмм»",
                 author = "@sharikov",
-                status = ProjectStatus.OPEN,
+                status = ProjectStatusDomain.OPEN,
                 price = 123098,
                 isHaveExecutor = false
             ),
-            ProjectInfo(
+            ProjectInfoDomain(
                 id = 5,
                 name = "Мобильное приложение «Шахматы»",
                 author = "@sharikov",
-                status = ProjectStatus.OPEN,
+                status = ProjectStatusDomain.OPEN,
                 price = 5450,
                 isHaveExecutor = false
             ),
-            ProjectInfo(
+            ProjectInfoDomain(
                 id = 6,
                 name = "Приложение для ПВЗ «OZON»",
                 author = "@sobakov.best",
-                status = ProjectStatus.OPEN,
+                status = ProjectStatusDomain.OPEN,
                 price = 124444,
                 isHaveExecutor = false
             ),
-            ProjectInfo(
+            ProjectInfoDomain(
                 id = 1,
                 name = "Мобильное приложение «СБОЛ»",
                 author = "@user.test",
-                status = ProjectStatus.CLOSED,
+                status = ProjectStatusDomain.CLOSED,
                 price = 15150,
                 isHaveExecutor = true
             ),
-            ProjectInfo(
+            ProjectInfoDomain(
                 id = 2,
                 name = "Приложение для игры в Судоку",
                 author = "@user.test",
-                status = ProjectStatus.UNKNOWN,
+                status = ProjectStatusDomain.UNKNOWN,
                 price = 81950,
                 isHaveExecutor = false
             ),
-            ProjectInfo(
+            ProjectInfoDomain(
                 id = 3,
                 name = "Мобильный Банк «Тинькофф»",
                 author = "@user.test",
-                status = ProjectStatus.OPEN,
+                status = ProjectStatusDomain.OPEN,
                 price = 1255,
                 isHaveExecutor = false
             ),
-            ProjectInfo(
+            ProjectInfoDomain(
                 id = 4,
                 name = "Социальная сеть «ВКонтакте»",
                 author = "@user.test",
-                status = ProjectStatus.IN_WORK,
+                status = ProjectStatusDomain.IN_WORK,
                 price = 912450,
                 isHaveExecutor = true
             )

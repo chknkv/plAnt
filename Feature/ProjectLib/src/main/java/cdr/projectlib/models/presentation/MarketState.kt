@@ -1,6 +1,6 @@
 package cdr.projectlib.models.presentation
 
-import cdr.projectlib.models.domain.ProjectInfo
+import cdr.projectlib.models.domain.ProjectInfoDomain
 
 /**
  * Состояние экрана биржы проектов
@@ -31,4 +31,4 @@ internal sealed interface MarketState {
  *
  * @author Alexandr Chekunkov
  */
-internal data class MarketInfo(val projectInfoList: List<ProjectInfo>)
+internal data class MarketInfo(val projectInfoList: List<ProjectInfoDomain>)
