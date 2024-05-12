@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="exception_happened">Произошла ошибка при получении данных</string>
+    <string name="edit">Редактировать</string>
     <string name="profile">Профиль</string>
-    <string name="profile_edit">Редактировать пользователь</string>
+    <string name="profile_edit">Редактировать профиль</string>
+    <string name="profile_edit_title">Для редактирования профиля заполните данные, которые хотите изменить</string>
+    <string name="profile_edit_second_title">Из-за политики системы редактировать логин нельзя</string>
     <string name="profile_image">Фотография профиля</string>
     <string name="my_projects">Мои проекты</string>
 </resources>

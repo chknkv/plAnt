@@ -1,5 +1,8 @@
 package cdr.profilelib.models.domain
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 /**
  * Модель с информацией о клиенте
  *
@@ -10,9 +13,10 @@ package cdr.profilelib.models.domain
  *
  * @author Alexandr Chekunkov
  */
-internal data class ClientInfo(
+@Parcelize
+internal data class ClientInfoDomain(
     val firstName: String = "",
     val lastName: String = "",
     val username: String = "",
     val role: String = ""
-)
+) : Parcelable

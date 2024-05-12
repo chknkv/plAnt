@@ -41,11 +41,11 @@ import cdr.corecompose.text.Body3Secondary
 import cdr.corecompose.text.Title2
 import cdr.corecompose.theming.PlAntTokens
 import cdr.corecompose.theming.getThemedColor
-import cdr.profilelib.models.presentation.ProfileInfo
-import cdr.profilelib.models.presentation.ProfileState
+import cdr.profilelib.models.presentation.main.ProfileInfo
+import cdr.profilelib.models.presentation.main.ProfileState
 import cdr.profilelib.R
-import cdr.profilelib.models.domain.ClientInfo
-import cdr.profilelib.models.presentation.ProfileAction
+import cdr.profilelib.models.domain.ClientInfoDomain
+import cdr.profilelib.models.presentation.main.ProfileAction
 import cdr.profilelib.presentation.edit.ProfileEditActivity
 import cdr.projectlib.models.domain.ProjectInfoDomain
 import cdr.projectlib.presentation.card.ProjectInfoCard
@@ -141,7 +141,7 @@ private fun SuccessfulProfileScreen(
  */
 @Composable
 private fun ClientInformationContent(
-    data: ClientInfo,
+    data: ClientInfoDomain,
     onEditProfileButtonClick: () -> Unit
 ) {
     Box(
@@ -311,5 +311,5 @@ private fun ErrorProfileScreen() {
  */
 private fun handleAction(context: Context, action: ProfileAction) = when(action) {
     is ProfileAction.LaunchProjectInfoScreen -> context.startActivity(ProjectInfoActivity.newIntent(context, action.projectInfo))
-    is ProfileAction.LaunchEditProfile -> context.startActivity(ProfileEditActivity.newIntent(context))
+    is ProfileAction.LaunchEditProfile -> context.startActivity(ProfileEditActivity.newIntent(context, action.clientInfo))
 }

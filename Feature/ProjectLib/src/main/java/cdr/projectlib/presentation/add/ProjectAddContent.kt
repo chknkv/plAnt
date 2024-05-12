@@ -125,13 +125,13 @@ private fun Screen(
                 .fillMaxSize()
                 .background(PlAntTokens.Background0.getThemedColor())
                 .padding(paddingValues)
-                .verticalScroll(rememberScrollState())
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(PlAntTokens.Background0.getThemedColor())
                     .weight(1f)
+                    .verticalScroll(rememberScrollState())
             ) {
                 Body3Secondary(
                     modifier = Modifier

@@ -19,6 +19,8 @@
     <string name="password_must_consist_of_numbers_uppercase_and_lowercase_letters">Пароль должен состоять из цифр, прописных и строчных букв</string>
     <string name="tiny_password">Пароль должен содержать не менее 8-ми символов</string>
     <string name="again_password">Повторите пароль</string>
+    <string name="new_password">Новый пароль</string>
+    <string name="again_new_password">Повторите новый пароль</string>
     <string name="next">Продолжить</string>
     <string name="name">Имя</string>
     <string name="surname">Фамилия</string>

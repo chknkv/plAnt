@@ -55,8 +55,11 @@ internal class ProjectAddViewModel : ViewModel() {
                     if (checkIsNotBlank(currentData)) {
                         _state.value = ProjectAddState.Loading
 
+                        val newProjectDomain = createNewProjectDomain(currentData)
+                        Logger.d(TAG, "--->>> newProjectDomain: $newProjectDomain")
+
                         delay(1500)
-                        // interactor.createNewProject(createNewProjectDomain(currentData))
+                        throw IllegalArgumentException()
                     }
                 }
             }

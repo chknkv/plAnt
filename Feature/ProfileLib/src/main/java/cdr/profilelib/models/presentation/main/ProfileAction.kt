@@ -1,5 +1,6 @@
-package cdr.profilelib.models.presentation
+package cdr.profilelib.models.presentation.main
 
+import cdr.profilelib.models.domain.ClientInfoDomain
 import cdr.projectlib.models.domain.ProjectInfoDomain
 
 /**
@@ -14,5 +15,6 @@ internal sealed interface ProfileAction {
     value class LaunchProjectInfoScreen(val projectInfo: ProjectInfoDomain) : ProfileAction
 
     /** Запуск экрана редактирования профиля клиента */
-    object LaunchEditProfile : ProfileAction
+    @JvmInline
+    value class LaunchEditProfile(val clientInfo: ClientInfoDomain) : ProfileAction
 }

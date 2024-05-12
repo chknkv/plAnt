@@ -11,7 +11,7 @@ import android.os.Parcelable
  * @author Alexandr Chekunkov
  */
 @Suppress("DEPRECATION")
-inline fun <reified T : Parcelable> Intent.getSerializableObject(key: String): T? =
+inline fun <reified T : Parcelable> Intent.getParcelableObject(key: String): T? =
     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU) {
         this.getParcelableExtra(key, T::class.java)
     } else {
