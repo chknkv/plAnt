@@ -1,6 +1,6 @@
-package cdr.profilelib.models.presentation
+package cdr.profilelib.models.presentation.main
 
-import cdr.profilelib.models.domain.ClientInfo
+import cdr.profilelib.models.domain.ClientInfoDomain
 import cdr.projectlib.models.domain.ProjectInfoDomain
 
 /**
@@ -34,6 +34,6 @@ internal sealed interface ProfileState {
  * @author Alexandr Chekunkov
  */
 internal data class ProfileInfo(
-    val clientInfo: ClientInfo = ClientInfo(),
+    val clientInfo: ClientInfoDomain = ClientInfoDomain(),
     val projectInfoList: List<ProjectInfoDomain> = emptyList()
 )

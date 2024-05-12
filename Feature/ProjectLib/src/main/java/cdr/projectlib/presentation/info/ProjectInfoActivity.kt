@@ -7,7 +7,7 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import cdr.corecompose.theming.PlAntTheme
-import cdr.coreutilslib.utils.getSerializableObject
+import cdr.coreutilslib.utils.getParcelableObject
 import cdr.projectlib.models.domain.ProjectInfoDomain
 
 /**
@@ -26,7 +26,7 @@ class ProjectInfoActivity : AppCompatActivity() {
             android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
 
-        val projectInfo: ProjectInfoDomain = intent.getSerializableObject(TAG) ?: error("projectInfo не найден")
+        val projectInfo: ProjectInfoDomain = intent.getParcelableObject(TAG) ?: error("projectInfo не найден")
 
         setContent {
             PlAntTheme {

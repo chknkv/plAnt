@@ -33,6 +33,7 @@ fun ChipCardGroup(
 ) {
     val maxSelected = if (isSingleSelect) SINGLE_MAX_SIZE_OF_SELECTED_CHIPS else Int.MAX_VALUE
     val selectedChipsList = remember { mutableStateListOf<Int>().take(maxSelected).toMutableStateList() }
+    chips.forEach { chip -> if (chip.isSelected) selectedChipsList.add(chip.id) }
 
     FlowRow(
         modifier = modifier,

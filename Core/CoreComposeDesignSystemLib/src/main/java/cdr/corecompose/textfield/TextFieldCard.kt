@@ -42,6 +42,7 @@ import cdr.corecompose.theming.getThemedColor
  * @param maxLines максимальное количество символов в поле ввода текста
  * @param subtitleVisibility виден ли подзаголовок
  * @param subtitleText подзаголвок
+ * @param enabled доступно ли поле ввода для редактирования
  * @param keyboardOptions настройка клавиатуры
  *
  * @author Alexandr Chekunkov
@@ -56,6 +57,7 @@ fun TextFieldCard(
     maxLines: Int = 1,
     subtitleVisibility: Boolean = false,
     subtitleText: String = "",
+    enabled: Boolean = true,
     keyboardOptions: KeyboardOptions = KeyboardOptions()
 ) {
     val colors = when (style) {
@@ -71,6 +73,7 @@ fun TextFieldCard(
             disabledContainerColor = PlAntTokens.TextFieldBackground.getThemedColor(),
             cursorColor = PlAntTokens.Brand.getThemedColor(),
             focusedIndicatorColor = PlAntTokens.Transparent.getThemedColor(),
+            disabledIndicatorColor = PlAntTokens.Transparent.getThemedColor(),
             unfocusedIndicatorColor = PlAntTokens.Transparent.getThemedColor()
         )
 
@@ -86,6 +89,7 @@ fun TextFieldCard(
             disabledContainerColor = PlAntTokens.TextFieldWarningBackground.getThemedColor(),
             cursorColor = PlAntTokens.Warning.getThemedColor(),
             focusedIndicatorColor = PlAntTokens.Transparent.getThemedColor(),
+            disabledIndicatorColor = PlAntTokens.Transparent.getThemedColor(),
             unfocusedIndicatorColor = PlAntTokens.Transparent.getThemedColor()
         )
     }
@@ -119,6 +123,7 @@ fun TextFieldCard(
                 )
             },
             visualTransformation = if (textVisible) VisualTransformation.None else PasswordVisualTransformation(),
+            enabled = enabled,
             keyboardOptions = keyboardOptions,
             trailingIcon = {
                 if (keyboardOptions.keyboardType == KeyboardType.Password) {

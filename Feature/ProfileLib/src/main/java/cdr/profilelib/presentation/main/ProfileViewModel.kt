@@ -3,10 +3,10 @@ package cdr.profilelib.presentation.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cdr.coreutilslib.logs.Logger
-import cdr.profilelib.models.domain.ClientInfo
-import cdr.profilelib.models.presentation.ProfileAction
-import cdr.profilelib.models.presentation.ProfileInfo
-import cdr.profilelib.models.presentation.ProfileState
+import cdr.profilelib.models.domain.ClientInfoDomain
+import cdr.profilelib.models.presentation.main.ProfileAction
+import cdr.profilelib.models.presentation.main.ProfileInfo
+import cdr.profilelib.models.presentation.main.ProfileState
 import cdr.projectlib.models.domain.ProjectInfoDomain
 import cdr.projectlib.models.domain.ProjectStatusDomain
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -50,7 +50,10 @@ internal class ProfileViewModel : ViewModel() {
 
     fun launchEditScreen() {
         viewModelScope.launch {
-            _action.emit(ProfileAction.LaunchEditProfile)
+            if (_state.value is ProfileState.Successful) {
+                val currentData = (_state.value as ProfileState.Successful).data
+                _action.emit(ProfileAction.LaunchEditProfile(currentData.clientInfo))
+            }
         }
     }
 
@@ -67,7 +70,7 @@ internal class ProfileViewModel : ViewModel() {
 
 private val mockedProfileStateData = ProfileState.Successful(
     data = ProfileInfo(
-        clientInfo = ClientInfo(
+        clientInfo = ClientInfoDomain(
             firstName = "Alexandr",
             lastName = "Chekunkov",
             username = "@user.test",
