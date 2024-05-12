@@ -1,7 +1,6 @@
 package cdr.profilelib.models.presentation.main
 
-import cdr.profilelib.models.domain.ClientInfoDomain
-import cdr.projectlib.models.domain.ProjectInfoDomain
+import cdr.profilelib.models.domain.ClientDomain
 
 /**
  * Состояние экрана профиля клиента
@@ -22,18 +21,5 @@ internal sealed interface ProfileState {
      * @param data UI-модель, содержащая в себе данные о профиле
      */
     @JvmInline
-    value class Successful(val data: ProfileInfo = ProfileInfo()) : ProfileState
+    value class Successful(val data: ClientDomain) : ProfileState
 }
-
-/**
- * UI-модель, содержащая в себе данные о профиле клиента
- *
- * @param clientInfo UI-модель с информацией о клиента
- * @param projectInfoList список UI-моделей с информацией о проекте клиента
- *
- * @author Alexandr Chekunkov
- */
-internal data class ProfileInfo(
-    val clientInfo: ClientInfoDomain = ClientInfoDomain(),
-    val projectInfoList: List<ProjectInfoDomain> = emptyList()
-)

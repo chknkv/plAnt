@@ -41,10 +41,12 @@ import cdr.corecompose.text.Body3Secondary
 import cdr.corecompose.text.Title2
 import cdr.corecompose.theming.PlAntTokens
 import cdr.corecompose.theming.getThemedColor
-import cdr.profilelib.models.presentation.main.ProfileInfo
 import cdr.profilelib.models.presentation.main.ProfileState
 import cdr.profilelib.R
+import cdr.profilelib.di.DaggerProfileComponent
+import cdr.profilelib.models.domain.ClientDomain
 import cdr.profilelib.models.domain.ClientInfoDomain
+import cdr.profilelib.models.domain.ClientInfoRoleDomain
 import cdr.profilelib.models.presentation.main.ProfileAction
 import cdr.profilelib.presentation.edit.ProfileEditActivity
 import cdr.projectlib.models.domain.ProjectInfoDomain
@@ -59,7 +61,9 @@ import cdr.coreresourceslib.R as CoreR
  */
 @Composable
 fun ProfileContent() {
-    val viewModel = viewModel<ProfileViewModel>()
+    val profileComponent by lazy { DaggerProfileComponent.create() }
+    val viewModel = viewModel<ProfileViewModel>(factory = profileComponent.getProfileViewModelFactory())
+
     val lifecycleOwner = LocalLifecycleOwner.current.lifecycle
     val context = LocalContext.current
 
@@ -89,7 +93,7 @@ fun ProfileContent() {
 @Composable
 private fun SuccessfulProfileScreen(
     viewModel: ProfileViewModel,
-    data: ProfileInfo
+    data: ClientDomain
 ) {
     Scaffold(
         modifier = Modifier
@@ -186,7 +190,7 @@ private fun ClientInformationContent(
 
             Body3(
                 modifier = Modifier.fillMaxWidth(),
-                text = "${data.username} / ${data.role}",
+                text = "${data.username} / ${stringResource(id = if (data.role == ClientInfoRoleDomain.QA) CoreR.string.qa else CoreR.string.developer)}",
                 maxLines = 1,
                 textAlign = TextAlign.Center
             )

@@ -3,10 +3,10 @@ package cdr.profilelib.models.domain
 /**
  * domain-модель с информацией о клиенте с новыми данными
  *
- * @param name новое имя клиента
- * @param surname новая фамилия клиента
- * @param role новая роль клиента (тестировщик или разработчик)
- * @param newPassword новый пароль клиента (если не был отредактирован - null)
+ * @property name новое имя клиента
+ * @property surname новая фамилия клиента
+ * @property role новая роль клиента (тестировщик или разработчик)
+ * @property newPassword новый пароль клиента (если не был отредактирован - null)
  *
  * @author Alexandr Chekunkov
  */

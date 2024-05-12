@@ -52,6 +52,7 @@ import cdr.profilelib.models.presentation.edit.ProfileEditState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import cdr.profilelib.R
+import cdr.profilelib.di.DaggerProfileComponent
 import cdr.profilelib.models.presentation.edit.ProfileEditAction
 import cdr.profilelib.models.presentation.edit.RoleChip
 import cdr.profilelib.presentation.edit.ProfileEditViewModel.Companion.DEVELOPER_ID
@@ -73,7 +74,8 @@ internal fun ProfileEditContent(
     currentClientInfo: ClientInfoDomain,
     onFinish: () -> Unit
 ) {
-    val viewModel = viewModel<ProfileEditViewModel>()
+    val profileComponent by lazy { DaggerProfileComponent.create() }
+    val viewModel = viewModel<ProfileEditViewModel>(factory = profileComponent.getProfileEditViewModelFactory())
     LaunchedEffect(Unit) { viewModel.fetchCurrentProfileInfo(currentClientInfo) }
 
     val state by viewModel.state.collectAsStateWithLifecycle()

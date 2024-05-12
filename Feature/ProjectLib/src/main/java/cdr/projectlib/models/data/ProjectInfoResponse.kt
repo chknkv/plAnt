@@ -1,10 +1,11 @@
-package cdr.projectlib.models.domain
+package cdr.projectlib.models.data
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 /**
- * domain-модель с информацией о проекте
+ * data-модель с информацией о проекте
  *
  * @property id уникальный номер проекта
  * @property name название проекта
@@ -18,15 +19,15 @@ import kotlinx.parcelize.Parcelize
  * @author Alexandr Chekunkov
  */
 @Parcelize
-data class ProjectInfoDomain(
-    val id: Int = -1,
-    val name: String = "",
-    val author: String = "",
-    val status: ProjectStatusDomain = ProjectStatusDomain.UNKNOWN,
-    val description: String = "",
-    val price: Double = -1.0,
-    val isHaveExecutor: Boolean = false,
-    val executor: String = ""
+data class ProjectInfoResponse(
+    @SerializedName("id") val id: Int? = null,
+    @SerializedName("name") val name: String? = null,
+    @SerializedName("author") val author: String? = null,
+    @SerializedName("status") val status: ProjectStatusResponse? = null,
+    @SerializedName("description") val description: String? = null,
+    @SerializedName("price") val price: Double? = null,
+    @SerializedName("isHaveExecutor") val isHaveExecutor: Boolean? = null,
+    @SerializedName("executor") val executor: String? = null
 ) : Parcelable
 
 /**
@@ -35,17 +36,17 @@ data class ProjectInfoDomain(
  * @author Alexandr Chekunkov
  */
 @Parcelize
-enum class ProjectStatusDomain : Parcelable {
+enum class ProjectStatusResponse : Parcelable {
 
     /** Неизвестно */
-    UNKNOWN,
+    @SerializedName("UNKNOWN") UNKNOWN,
 
     /** Открыт */
-    OPEN,
+    @SerializedName("OPEN") OPEN,
 
     /** В работе */
-    IN_WORK,
+    @SerializedName("IN_WORK") IN_WORK,
 
     /** Закрыт */
-    CLOSED,
+    @SerializedName("CLOSED") CLOSED,
 }

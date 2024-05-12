@@ -12,7 +12,7 @@ package cdr.projectlib.models.domain
  */
 internal data class NewProjectDomain(
     val name: String,
-    val price: Int,
+    val price: Double,
     val description: String,
     val link: String
 )
