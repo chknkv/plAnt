@@ -15,7 +15,7 @@
     <string name="name_title">Название</string>
     <string name="resources">Ссылка на ресурс</string>
     <string name="price">Цена:</string>
-    <string name="price_with_dot">%1$d ₽</string>
+    <string name="price_with_dot">%.2f ₽</string>
     <string name="price_title">Цена ₽</string>
     <string name="status">Статус:</string>
     <string name="status_unknown">неизвестно</string>

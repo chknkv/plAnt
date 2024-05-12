@@ -6,7 +6,9 @@ import androidx.lifecycle.viewModelScope
 import cdr.corecompose.chip.chipcard.ChipCardStyle
 import cdr.corecompose.textfield.TextFieldCardStyles
 import cdr.coreutilslib.logs.Logger
+import cdr.profilelib.data.interactor.ProfileInteractor
 import cdr.profilelib.models.domain.ClientInfoDomain
+import cdr.profilelib.models.domain.ClientInfoRoleDomain
 import cdr.profilelib.models.domain.NewClientInfoDomain
 import cdr.profilelib.models.domain.NewClientRole
 import cdr.profilelib.models.presentation.edit.EditProfileChip
@@ -16,7 +18,6 @@ import cdr.profilelib.models.presentation.edit.ProfileEditScreen
 import cdr.profilelib.models.presentation.edit.ProfileEditState
 import cdr.profilelib.models.presentation.edit.RoleChip
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -28,9 +29,13 @@ import kotlinx.coroutines.launch
 /**
  * [ViewModel] для экрана редактирования профиля клиента
  *
+ * @param profileInteractor интерактор для функционала модуля профиля
+ *
  * @author Alexandr Chekunkov
  */
-internal class ProfileEditViewModel : ViewModel() {
+internal class ProfileEditViewModel(
+    private val profileInteractor: ProfileInteractor
+) : ViewModel() {
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
         Logger.e(TAG, "Ошибка доступа к удаленному сервису", exception)
@@ -62,7 +67,7 @@ internal class ProfileEditViewModel : ViewModel() {
                     text = TextFieldValue(text = currentClientInfo.lastName)
                 ),
                 roleChips = EditProfileChip(
-                    selectedChipRole = if (currentClientInfo.role == "Разработчик") RoleChip.DEVELOPER else RoleChip.QA
+                    selectedChipRole = if (currentClientInfo.role == ClientInfoRoleDomain.DEVELOPER) RoleChip.DEVELOPER else RoleChip.QA
                 )
             )
         )
@@ -98,10 +103,7 @@ internal class ProfileEditViewModel : ViewModel() {
         _state.value = ProfileEditState.Loading
 
         val newClientInfoDomain = createNewClientInfoDomain(currentData)
-        Logger.d(TAG, "--->>> newClientInfoDomain: $newClientInfoDomain")
-
-        delay(1500)
-        throw IllegalArgumentException()
+        profileInteractor.editClientInfo(newClientInfoDomain)
     }
 
     /** Проверка на пустые поля */

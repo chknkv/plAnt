@@ -45,6 +45,7 @@ import cdr.corecompose.theming.getThemedColor
 import cdr.projectlib.models.presentation.ProjectAddScreen
 import cdr.projectlib.models.presentation.ProjectAddState
 import cdr.projectlib.R
+import cdr.projectlib.di.DaggerProjectComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -62,7 +63,8 @@ import cdr.coreresourceslib.R as CoreR
 internal fun ProjectAddContent(
     onFinish: () -> Unit
 ) {
-    val viewModel = viewModel<ProjectAddViewModel>()
+    val projectComponent by lazy { DaggerProjectComponent.create() }
+    val viewModel = viewModel<ProjectAddViewModel>(factory = projectComponent.getProjectAddViewModelFactory())
 
     val state by viewModel.state.collectAsStateWithLifecycle()
     when (val currentState = state) {

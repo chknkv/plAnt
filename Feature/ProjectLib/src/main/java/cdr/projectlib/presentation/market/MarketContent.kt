@@ -36,6 +36,7 @@ import cdr.corecompose.text.Body3Secondary
 import cdr.corecompose.theming.PlAntTokens
 import cdr.corecompose.theming.getThemedColor
 import cdr.projectlib.R
+import cdr.projectlib.di.DaggerProjectComponent
 import cdr.projectlib.models.domain.ProjectInfoDomain
 import cdr.projectlib.models.presentation.MarketAction
 import cdr.projectlib.models.presentation.MarketInfo
@@ -52,7 +53,9 @@ import cdr.coreresourceslib.R as CoreR
  */
 @Composable
 fun MarketContent() {
-    val viewModel = viewModel<MarketViewModel>()
+    val projectComponent by lazy { DaggerProjectComponent.create() }
+    val viewModel = viewModel<MarketViewModel>(factory = projectComponent.getMarketViewModelFactory())
+
     val lifecycleOwner = LocalLifecycleOwner.current.lifecycle
     val context = LocalContext.current
 

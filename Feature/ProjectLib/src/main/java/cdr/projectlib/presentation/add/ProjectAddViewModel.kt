@@ -5,11 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cdr.corecompose.textfield.TextFieldCardStyles
 import cdr.coreutilslib.logs.Logger
+import cdr.projectlib.data.interactor.ProjectInteractor
 import cdr.projectlib.models.domain.NewProjectDomain
 import cdr.projectlib.models.presentation.ProjectAddScreen
 import cdr.projectlib.models.presentation.ProjectAddState
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -21,9 +21,13 @@ import kotlinx.coroutines.launch
 /**
  * [ViewModel] для экрана создания нового проекта
  *
+ * @param projectInteractor интерактор для функционала модуля проектов
+ *
  * @author Alexandr Chekunkov
  */
-internal class ProjectAddViewModel : ViewModel() {
+internal class ProjectAddViewModel(
+    private val projectInteractor: ProjectInteractor
+) : ViewModel() {
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
         Logger.e(TAG, "Ошибка доступа к удаленному сервису", exception)
@@ -56,10 +60,7 @@ internal class ProjectAddViewModel : ViewModel() {
                         _state.value = ProjectAddState.Loading
 
                         val newProjectDomain = createNewProjectDomain(currentData)
-                        Logger.d(TAG, "--->>> newProjectDomain: $newProjectDomain")
-
-                        delay(1500)
-                        throw IllegalArgumentException()
+                        projectInteractor.saveNewProject(newProjectDomain)
                     }
                 }
             }
@@ -184,7 +185,7 @@ internal class ProjectAddViewModel : ViewModel() {
     /** Создание domain-модели для нового проекта */
     private fun createNewProjectDomain(currentData: ProjectAddScreen): NewProjectDomain = NewProjectDomain(
         name = currentData.name.text.text,
-        price = currentData.price.text.text.toInt(),
+        price = currentData.price.text.text.replace(",", ".").toDouble(),
         description = currentData.description.text.text,
         link = currentData.link.text.text
     )
