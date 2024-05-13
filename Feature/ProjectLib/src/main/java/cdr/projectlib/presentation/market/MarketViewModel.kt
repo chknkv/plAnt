@@ -9,6 +9,7 @@ import cdr.projectlib.models.presentation.MarketAction
 import cdr.projectlib.models.presentation.MarketInfo
 import cdr.projectlib.models.presentation.MarketState
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -42,6 +43,7 @@ internal class MarketViewModel(
     fun fetchMarketData() {
         viewModelScope.launch(coroutineExceptionHandler) {
             _state.value = MarketState.Loading
+            delay(1500)
 
             val allProjects = projectInteractor.getAllProjects()
             _state.value = MarketState.Successful(

@@ -1,8 +1,12 @@
 package cdr.projectlib.data.converter
 
+import cdr.projectlib.models.data.ProjectApplicationInfoData
 import cdr.projectlib.models.data.ProjectInfoResponse
+import cdr.projectlib.models.data.ProjectOperationSystemData
 import cdr.projectlib.models.data.ProjectStatusResponse
+import cdr.projectlib.models.domain.ProjectApplicationInfoDomain
 import cdr.projectlib.models.domain.ProjectInfoDomain
+import cdr.projectlib.models.domain.ProjectOperationSystemDomain
 import cdr.projectlib.models.domain.ProjectStatusDomain
 
 /**
@@ -16,10 +20,29 @@ fun ProjectInfoResponse.toDomain(): ProjectInfoDomain = ProjectInfoDomain(
     name = this.name ?: "",
     status = this.status?.toDomain() ?: ProjectStatusDomain.UNKNOWN,
     description = this.description ?: "",
-    price = this.price ?: -1.0,
-    isHaveExecutor = this.isHaveExecutor ?: false,
-    executor = this.executor ?: ""
+    applicationInfo = this.applicationInfo?.toDomain(),
+    price = this.price ?: -1.0
 )
+
+/**
+ * Конвертер из [ProjectApplicationInfoData] в [ProjectApplicationInfoDomain]
+ *
+ * @author Alexandr Chekunkov
+ */
+fun ProjectApplicationInfoData.toDomain() : ProjectApplicationInfoDomain = ProjectApplicationInfoDomain(
+    operationSystem = this.operationSystem.toDomain(),
+    url = this.url
+)
+
+/**
+ * Конвертер из [ProjectOperationSystemData] в [ProjectOperationSystemDomain]
+ *
+ * @author Alexandr Chekunkov
+ */
+fun ProjectOperationSystemData.toDomain() : ProjectOperationSystemDomain = when(this) {
+    ProjectOperationSystemData.ANDROID -> ProjectOperationSystemDomain.ANDROID
+    ProjectOperationSystemData.IOS -> ProjectOperationSystemDomain.IOS
+}
 
 /**
  * Конвертер из [ProjectStatusResponse] в [ProjectStatusDomain]

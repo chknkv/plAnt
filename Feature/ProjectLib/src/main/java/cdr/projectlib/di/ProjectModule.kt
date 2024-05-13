@@ -3,7 +3,6 @@ package cdr.projectlib.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
-import cdr.coreutilslib.network.BaseRestClientImpl
 import cdr.projectlib.data.interactor.ProjectInteractor
 import cdr.projectlib.data.interactor.ProjectInteractorImpl
 import cdr.projectlib.data.mapper.ProjectMapper
@@ -25,8 +24,7 @@ import javax.inject.Named
 internal object ProjectModule {
 
     @Provides
-    fun provideProjectMapper(): ProjectMapper =
-        ProjectMapperImpl(BaseRestClientImpl().baseRestClient())
+    fun provideProjectMapper(): ProjectMapper = ProjectMapperImpl()
 
     @Provides
     fun provideProjectRepository(projectMapper: ProjectMapper): ProjectRepository =

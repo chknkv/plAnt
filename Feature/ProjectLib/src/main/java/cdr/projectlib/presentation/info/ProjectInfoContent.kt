@@ -36,6 +36,7 @@ import cdr.corecompose.theming.PlAntTokens
 import cdr.corecompose.theming.getThemedColor
 import cdr.projectlib.R
 import cdr.projectlib.models.domain.ProjectInfoDomain
+import cdr.projectlib.models.domain.ProjectOperationSystemDomain
 import cdr.projectlib.models.domain.ProjectStatusDomain
 import kotlinx.coroutines.launch
 
@@ -68,9 +69,11 @@ internal fun ProjectInfoContent(
         ProjectStatusDomain.CLOSED -> stringResource(id = R.string.status_closed)
     }
 
-    val executorTitle = stringResource(id = R.string.executor)
-    val executorValue = if (projectInfo.executor.isBlank() || !projectInfo.isHaveExecutor) stringResource(id = R.string.executor_no)
-        else projectInfo.executor
+    val ocTitle = stringResource(id = R.string.operation_system)
+    val ocValue = stringResource(id = if (projectInfo.applicationInfo?.operationSystem == ProjectOperationSystemDomain.IOS) R.string.iOS else R.string.android)
+
+    val linkTitle = stringResource(id = R.string.link)
+    val linkValue = projectInfo.applicationInfo?.url ?: stringResource(id = R.string.link_not_found)
 
     val priceTitle = stringResource(id = R.string.price)
     val priceValue = stringResource(id = R.string.price_with_dot, projectInfo.price)
@@ -112,8 +115,9 @@ internal fun ProjectInfoContent(
 
                     InfoRow(icon = R.drawable.ic_author, title = authorTitle, value = authorValue)
                     InfoRow(icon = R.drawable.ic_status, title = statusTitle, value = statusValue)
-                    InfoRow(icon = R.drawable.ic_executor, title = executorTitle, value = executorValue)
                     InfoRow(icon = R.drawable.ic_price, title = priceTitle, value = priceValue)
+                    InfoRow(icon = R.drawable.ic_os, title = ocTitle, value = ocValue)
+                    InfoRow(icon = R.drawable.ic_link, title = linkTitle, value = linkValue)
 
                     Body4Secondary(
                         modifier = Modifier

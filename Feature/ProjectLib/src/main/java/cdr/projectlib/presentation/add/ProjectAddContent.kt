@@ -34,6 +34,8 @@ import cdr.corecompose.appbar.AppBar
 import cdr.corecompose.appbar.AppBarNavigationButtons
 import cdr.corecompose.buttons.blueberry.Blueberry
 import cdr.corecompose.buttons.blueberry.BlueberryStyle
+import cdr.corecompose.chip.chipcard.ChipData
+import cdr.corecompose.chip.chipgroup.ChipCardGroup
 import cdr.corecompose.progressbar.ProgressBarCircle
 import cdr.corecompose.snackbar.SnackbarCard
 import cdr.corecompose.snackbar.SnackbarCardData
@@ -46,10 +48,11 @@ import cdr.projectlib.models.presentation.ProjectAddScreen
 import cdr.projectlib.models.presentation.ProjectAddState
 import cdr.projectlib.R
 import cdr.projectlib.di.DaggerProjectComponent
+import cdr.projectlib.models.presentation.NewProjectOsChip
+import cdr.projectlib.presentation.add.ProjectAddViewModel.Companion.ANDROID_ID
+import cdr.projectlib.presentation.add.ProjectAddViewModel.Companion.IOS_ID
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import cdr.coreresourceslib.R as CoreR
 
 /**
@@ -185,12 +188,30 @@ private fun Screen(
                     subtitleVisibility = data.link.subtitleVisibility,
                     subtitleText = stringResource(id = CoreR.string.entered_max_number_of_characters)
                 )
+
+                ChipCardGroup(
+                    chips = listOf(
+                        ChipData(
+                            id = ANDROID_ID,
+                            style = data.osChips.chipsStyle,
+                            title = stringResource(id = CoreR.string.android),
+                            isSelected = data.osChips.selectedChipOs == NewProjectOsChip.ANDROID
+                        ),
+                        ChipData(
+                            id = IOS_ID,
+                            style = data.osChips.chipsStyle,
+                            title = stringResource(id = CoreR.string.iOS),
+                            isSelected = data.osChips.selectedChipOs == NewProjectOsChip.IOS
+                        )
+                    ),
+                    onSelectedChips = viewModel::handleOs
+                )
             }
 
             Blueberry(
                 text = stringResource(id = R.string.create_new_project),
                 style = BlueberryStyle.Standard,
-                onClick = viewModel::createNewProject
+                onClick = { viewModel.createNewProject(onFinish) }
             )
         }
 
@@ -199,15 +220,13 @@ private fun Screen(
         val lifecycleOwner = LocalLifecycleOwner.current
         val snackbarMessage = stringResource(id = CoreR.string.complete_the_steps_above_to_continue)
         LaunchedEffect(Unit) {
-            lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                withContext(Dispatchers.Main.immediate) {
-                    viewModel.action.collect { _ ->
-                        showSnackbarCard(
-                            snackbarHostState = snackbarHostState,
-                            coroutineScope = coroutineScope,
-                            message = snackbarMessage
-                        )
-                    }
+            lifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
+                viewModel.action.collect { _ ->
+                    showSnackbarCard(
+                        snackbarHostState = snackbarHostState,
+                        coroutineScope = coroutineScope,
+                        message = snackbarMessage
+                    )
                 }
             }
         }
