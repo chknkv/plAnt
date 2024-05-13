@@ -1,122 +1,39 @@
 package cdr.projectlib.data.mapper
 
-import cdr.coreutilslib.logs.Logger
 import cdr.projectlib.models.data.NewProjectRequest
 import cdr.projectlib.models.data.ProjectInfoResponse
-import cdr.projectlib.models.data.ProjectStatusResponse
+import com.google.gson.GsonBuilder
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 /**
  * Реализация [ProjectMapper]
  *
- * @param retrofit клиент для сетевого взаимодействия
- *
  * @author Alexandr Chekunkov
  */
-internal class ProjectMapperImpl(
-    retrofit: Retrofit
-) : ProjectMapper {
+internal class ProjectMapperImpl : ProjectMapper {
 
+    private val retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create(GsonBuilder().serializeNulls().create()))
+        .build()
     private val client = retrofit.create(ProjectApi::class.java)
-
-//    TODO: приблизительная реализация маппера и api
-//    override suspend fun getAllProjects(): List<ProjectInfoResponse> =
-//        withContext(Dispatchers.IO) {
-//            return@withContext client.getAllProjects()
-//        }
-//
-//    override suspend fun saveNewProject(newProject: NewProjectRequest) =
-//        withContext(Dispatchers.IO) {
-//            return@withContext client.saveNewProject(newProject)
-//        }
 
     override suspend fun getAllProjects(): List<ProjectInfoResponse> =
         withContext(Dispatchers.IO) {
-            delay(500)
-            return@withContext allProjects
+            return@withContext client.getAllProjects(MOCKED_JWT_TOKEN)
         }
 
     override suspend fun saveNewProject(newProject: NewProjectRequest) =
         withContext(Dispatchers.IO) {
-
-            Logger.d("ProjectMapperImpl", "--->>> newProject: $newProject")
-            delay(1500)
-            throw IllegalArgumentException()
+            return@withContext client.saveNewProject(MOCKED_JWT_TOKEN, newProject)
         }
 
-    private val allProjects = listOf(
-        ProjectInfoResponse(
-            id = 4,
-            name = "Месенджер «Телеграмм»",
-            author = "@sharikov",
-            status = ProjectStatusResponse.OPEN,
-            price = 123098.15,
-            isHaveExecutor = false,
-            description = "Павел Дуров просит протестировать!",
-            executor = ""
-        ),
-        ProjectInfoResponse(
-            id = 5,
-            name = "Мобильное приложение «Шахматы»",
-            author = "@sharikov",
-            status = ProjectStatusResponse.OPEN,
-            price = 5450.15,
-            isHaveExecutor = false,
-            description = "",
-            executor = ""
-        ),
-        ProjectInfoResponse(
-            id = 6,
-            name = "Приложение для ПВЗ «OZON»",
-            author = "@sobakov.best",
-            status = ProjectStatusResponse.OPEN,
-            price = 124444.15,
-            isHaveExecutor = false,
-            description = "",
-            executor = ""
-        ),
-        ProjectInfoResponse(
-            id = 1,
-            name = "Мобильное приложение «СБОЛ»",
-            author = "@user.test",
-            status = ProjectStatusResponse.CLOSED,
-            price = 15150.15,
-            isHaveExecutor = true,
-            executor = "@executor.test",
-            description = "Необходимо протестировать несколько экранов"
-        ),
-        ProjectInfoResponse(
-            id = 2,
-            name = "Приложение для игры в «Судоку»",
-            author = "@user.test",
-            status = ProjectStatusResponse.IN_WORK,
-            price = 81950.15,
-            isHaveExecutor = true,
-            executor = "@executor.test",
-            description = "Необходимо протестировать все приложение. Профиль, статистика, задачи, уровни, процесс игры и т.д. Оплачу сразу после проведенной работы, в долгу не останусь. Жду обратной связи, спасибо!"
-        ),
-        ProjectInfoResponse(
-            id = 3,
-            name = "Мобильный Банк «Тинькофф»",
-            author = "@user.test",
-            status = ProjectStatusResponse.OPEN,
-            price = 1255.15,
-            isHaveExecutor = false,
-            executor = "@executor.test",
-            description = "Необходимо протестировать несколько экранов"
-        ),
-        ProjectInfoResponse(
-            id = 4,
-            name = "Социальная сеть «ВКонтакте»",
-            author = "@user.test",
-            status = ProjectStatusResponse.IN_WORK,
-            price = 912450.15,
-            isHaveExecutor = true,
-            executor = "@executor.test",
-            description = "Необходимо протестировать несколько экранов"
-        )
-    )
+    companion object {
+        private const val BASE_URL = "http://172.20.10.6:8081"
+
+        private const val MOCKED_JWT_TOKEN = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJVc2VyIGRldGFpbHMiLCJ1c2VybmFtZSI6InV0dHN2bGFkX25ldyIsImlhdCI6MTcxNTYxODk2NiwiaXNzIjoicGxBbnQiLCJleHAiOjE3MTU3MDUzNjZ9.1_hDMDf9FjtXdIO6DvcvnSVfh0a0uCLnJAWL-JzJdas"
+    }
 }

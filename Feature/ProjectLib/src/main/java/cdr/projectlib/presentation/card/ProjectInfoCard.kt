@@ -26,6 +26,7 @@ import cdr.corecompose.theming.PlAntTokens
 import cdr.corecompose.theming.getThemedColor
 import cdr.projectlib.R
 import cdr.projectlib.models.domain.ProjectInfoDomain
+import cdr.projectlib.models.domain.ProjectOperationSystemDomain
 import cdr.projectlib.models.domain.ProjectStatusDomain
 
 /**
@@ -58,8 +59,8 @@ fun ProjectInfoCard(
     val priceTitle = stringResource(id = R.string.price)
     val priceValue = stringResource(id = R.string.price_with_dot, projectInfo.price)
 
-    val executorTitle = stringResource(id = R.string.executor)
-    val executorValue = stringResource(id = if (projectInfo.isHaveExecutor) R.string.executor_have else R.string.executor_have)
+    val ocTitle = stringResource(id = R.string.operation_system)
+    val ocValue = stringResource(id = if (projectInfo.applicationInfo?.operationSystem == ProjectOperationSystemDomain.IOS) R.string.iOS else R.string.android)
 
     Box(
         modifier = Modifier
@@ -96,8 +97,8 @@ fun ProjectInfoCard(
 
                 if (showAuthor) InfoRow(icon = R.drawable.ic_author, title = authorTitle, value = authorValue)
                 InfoRow(icon = R.drawable.ic_status, title = statusTitle, value = statusValue)
-                InfoRow(icon = R.drawable.ic_executor, title = executorTitle, value = executorValue)
                 InfoRow(icon = R.drawable.ic_price, title = priceTitle, value = priceValue)
+                InfoRow(icon = R.drawable.ic_os, title = ocTitle, value = ocValue)
             }
         }
     }

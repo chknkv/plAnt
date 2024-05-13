@@ -4,7 +4,8 @@ import cdr.projectlib.models.data.NewProjectRequest
 import cdr.projectlib.models.data.ProjectInfoResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.PUT
+import retrofit2.http.Header
+import retrofit2.http.POST
 
 /**
  * API-интерфейс для функционала модуля проектов
@@ -14,10 +15,10 @@ import retrofit2.http.PUT
 internal interface  ProjectApi {
 
     /** Получение всех доступных проектов для биржы */
-    @GET("/allProjects")
-    suspend fun getAllProjects(): List<ProjectInfoResponse>
+    @GET("/projects/findAll")
+    suspend fun getAllProjects(@Header("Authorization") jwtToken: String): List<ProjectInfoResponse>
 
     /** Создание нового проекта */
-    @PUT("/newProject")
-    suspend fun saveNewProject(@Body newProject: NewProjectRequest)
+    @POST("/projects/create")
+    suspend fun saveNewProject(@Header("Authorization") jwtToken: String, @Body newProject: NewProjectRequest)
 }

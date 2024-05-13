@@ -1,6 +1,7 @@
 package cdr.projectlib.models.presentation
 
 import androidx.compose.ui.text.input.TextFieldValue
+import cdr.corecompose.chip.chipcard.ChipCardStyle
 import cdr.corecompose.textfield.TextFieldCardStyles
 
 /**
@@ -25,11 +26,12 @@ internal sealed interface ProjectAddState {
 /**
  * UI-модель, содержащая в себе данные на экране
  *
- * @param name название нового проекта
- * @param description описание нового проекта
- * @param price цена нвоого проекта
- * @param link ссылка на ресурс проекта
- * @param isShowErrorAlert нужно ли показывать AlertDialog с ошибкой
+ * @property name название нового проекта
+ * @property description описание нового проекта
+ * @property price цена нвоого проекта
+ * @property link ссылка на ресурс проекта
+ * @property osChips тип операционной системы проекта (Android или iOS)
+ * @property isShowErrorAlert нужно ли показывать AlertDialog с ошибкой
  *
  * @author Alexandr Chekunkov
  */
@@ -38,6 +40,7 @@ internal data class ProjectAddScreen(
     val price: NewProjectField = NewProjectField(),
     val description: NewProjectField = NewProjectField(),
     val link: NewProjectField = NewProjectField(),
+    val osChips: NewProjectChip = NewProjectChip(),
     val isShowErrorAlert: Boolean = false
 )
 
@@ -55,3 +58,29 @@ internal data class NewProjectField(
     val subtitleVisibility: Boolean = false,
     val style: TextFieldCardStyles = TextFieldCardStyles.Standard
 )
+
+/**
+ * UI-модель, содержащая в себе данные чипсов
+ *
+ * @property selectedChipOs выбранный тип операционной системы проекта (Android или iOS)
+ * @property chipsStyle стиль для чипсов
+ *
+ * @author Alexandr Chekunkov
+ */
+internal data class NewProjectChip(
+    val selectedChipOs: NewProjectOsChip? = null,
+    val chipsStyle: ChipCardStyle = ChipCardStyle.Standard,
+)
+
+/**
+ * Тип операционной системы создаваемого проекта (Android/iOS)
+ *
+ * @author Alexandr Chekunkov
+ */
+internal enum class NewProjectOsChip {
+    /** Android */
+    ANDROID,
+
+    /** iOS */
+    IOS
+}

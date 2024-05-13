@@ -3,10 +3,14 @@ package cdr.projectlib.presentation.add
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import cdr.corecompose.chip.chipcard.ChipCardStyle
 import cdr.corecompose.textfield.TextFieldCardStyles
 import cdr.coreutilslib.logs.Logger
 import cdr.projectlib.data.interactor.ProjectInteractor
 import cdr.projectlib.models.domain.NewProjectDomain
+import cdr.projectlib.models.domain.ProjectApplicationInfoDomain
+import cdr.projectlib.models.domain.ProjectOperationSystemDomain
+import cdr.projectlib.models.presentation.NewProjectOsChip
 import cdr.projectlib.models.presentation.ProjectAddScreen
 import cdr.projectlib.models.presentation.ProjectAddState
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -49,7 +53,7 @@ internal class ProjectAddViewModel(
     private val _action = MutableSharedFlow<Unit>()
 
     /** Создание нового проекта */
-    fun createNewProject() {
+    fun createNewProject(onFinish: () -> Unit) {
         viewModelScope.launch(coroutineExceptionHandler) {
             val currentState = _state.value
             if (currentState is ProjectAddState.Screen) {
@@ -61,6 +65,7 @@ internal class ProjectAddViewModel(
 
                         val newProjectDomain = createNewProjectDomain(currentData)
                         projectInteractor.saveNewProject(newProjectDomain)
+                        onFinish.invoke()
                     }
                 }
             }
@@ -73,6 +78,7 @@ internal class ProjectAddViewModel(
         val blankPrice = currentData.price.text.text.isBlank()
         val blankDescription = currentData.description.text.text.isBlank()
         val blankLink = currentData.link.text.text.isBlank()
+        val blankOs = currentData.osChips.selectedChipOs == null
 
         return if (blankName || blankPrice || blankDescription || blankLink) {
             _state.value = ProjectAddState.Screen(
@@ -88,6 +94,9 @@ internal class ProjectAddViewModel(
                     ),
                     link = currentData.link.copy(
                         style = if (blankLink) TextFieldCardStyles.Warning else TextFieldCardStyles.Standard
+                    ),
+                    osChips = currentData.osChips.copy(
+                        chipsStyle = if (blankOs) ChipCardStyle.Warning else ChipCardStyle.Standard
                     )
                 )
             )
@@ -169,6 +178,28 @@ internal class ProjectAddViewModel(
         }
     }
 
+    /** Обработка нового типа операционной системы проекта (Android или iOS) */
+    fun handleOs(list: List<Int>) {
+        val currentState = _state.value
+        if (currentState is ProjectAddState.Screen) {
+            val currentData = currentState.data
+
+            _state.value = ProjectAddState.Screen(
+                data = currentData.copy(
+                    osChips = currentData.osChips.copy(
+                        chipsStyle = ChipCardStyle.Standard,
+                        selectedChipOs = when {
+                            list.isEmpty() -> null
+                            list.first() == ANDROID_ID -> NewProjectOsChip.ANDROID
+                            list.first() == IOS_ID -> NewProjectOsChip.IOS
+                            else -> null
+                        }
+                    )
+                )
+            )
+        }
+    }
+
     /** Сокрытие AlertDialog с UI */
     fun dismissAlertDialog() {
         val currentState = _state.value
@@ -183,17 +214,25 @@ internal class ProjectAddViewModel(
     }
 
     /** Создание domain-модели для нового проекта */
-    private fun createNewProjectDomain(currentData: ProjectAddScreen): NewProjectDomain = NewProjectDomain(
-        name = currentData.name.text.text,
-        price = currentData.price.text.text.replace(",", ".").toDouble(),
-        description = currentData.description.text.text,
-        link = currentData.link.text.text
-    )
+    private fun createNewProjectDomain(currentData: ProjectAddScreen): NewProjectDomain =
+        NewProjectDomain(
+            name = currentData.name.text.text,
+            price = currentData.price.text.text.replace(",", ".").toDouble(),
+            description = currentData.description.text.text,
+            applicationInfo = ProjectApplicationInfoDomain(
+                operationSystem = if (currentData.osChips.selectedChipOs == NewProjectOsChip.IOS)
+                    ProjectOperationSystemDomain.IOS else ProjectOperationSystemDomain.ANDROID,
+                url = currentData.link.text.text
+            )
+        )
 
     companion object {
         private const val TAG = "ProjectAddViewModel"
         private const val MAX_CHARACTERS_NAME = 25
         private const val MAX_CHARACTERS_PRICE = 8
         private const val MAX_CHARACTERS_DESCRIPTION_LINK = 255
+
+        const val ANDROID_ID = 0
+        const val IOS_ID = 1
     }
 }

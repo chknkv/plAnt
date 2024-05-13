@@ -6,7 +6,7 @@ package cdr.projectlib.models.domain
  * @param name навзвание нового проекта
  * @param price цена нового проекта
  * @param description описание нового проекта
- * @param link ссылка на ресурс нового проекта
+ * @param applicationInfo domain-модель с информацией о типе устройства
  *
  * @author Alexandr Chekunkov
  */
@@ -14,5 +14,5 @@ internal data class NewProjectDomain(
     val name: String,
     val price: Double,
     val description: String,
-    val link: String
+    val applicationInfo: ProjectApplicationInfoDomain
 )

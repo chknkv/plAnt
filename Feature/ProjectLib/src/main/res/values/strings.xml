@@ -2,6 +2,7 @@
 <resources>
     <string name="author">Автор:</string>
     <string name="author_of_project_value">Автор проекта: %1$s</string>
+    <string name="android">Android</string>
     <string name="create_new_project">Создать проект</string>
     <string name="create_new_project_description">Для создания проекта заполните все необходимы данные ниже.</string>
     <string name="create_new_project_second_description">Также заполните ссылку для скачивания ресурсов проекта - AppStore, Google PlayMarket, GitHub, GitLab и т.д.</string>
@@ -9,11 +10,11 @@
     <string name="description_title">Описание</string>
     <string name="description_not_find">Описание не найдено</string>
     <string name="exception_happened">Произошла ошибка при получении данных</string>
-    <string name="executor">Исполнитель:</string>
-    <string name="executor_have">найден</string>
-    <string name="executor_no">не найден</string>
+    <string name="iOS">iOS</string>
     <string name="name_title">Название</string>
     <string name="resources">Ссылка на ресурс</string>
+    <string name="link">Ссылка: </string>
+    <string name="link_not_found">не найдена</string>
     <string name="price">Цена:</string>
     <string name="price_with_dot">%.2f ₽</string>
     <string name="price_title">Цена ₽</string>
@@ -22,5 +23,6 @@
     <string name="status_open">открыт</string>
     <string name="status_in_work">в работе</string>
     <string name="status_closed">закрыт</string>
+    <string name="operation_system">Операционная система: </string>
     <string name="unknown">неизвестно</string>
 </resources>

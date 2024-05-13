@@ -11,9 +11,8 @@ import kotlinx.parcelize.Parcelize
  * @property author логин автора проекта
  * @property status статус проекта на текущий момент (неизвестно, открыт, в работе, закрыт)
  * @property description описание проекта
+ * @property applicationInfo domain-модель с информацией о типе устройства
  * @property price цена за выполнение проекта
- * @property isHaveExecutor назначен ли исполнитель проекта
- * @property executor логин исполнителя проекта
  *
  * @author Alexandr Chekunkov
  */
@@ -24,10 +23,38 @@ data class ProjectInfoDomain(
     val author: String = "",
     val status: ProjectStatusDomain = ProjectStatusDomain.UNKNOWN,
     val description: String = "",
-    val price: Double = -1.0,
-    val isHaveExecutor: Boolean = false,
-    val executor: String = ""
+    val applicationInfo: ProjectApplicationInfoDomain? = null,
+    val price: Double = -1.0
 ) : Parcelable
+
+/**
+ * domain-модель с информацией о типе устройства
+ *
+ * @property operationSystem тип операционной системы мобильного устройства
+ * @property url ссылка на скачивание приложения
+ *
+ * @author Alexandr Chekunkov
+ */
+@Parcelize
+data class ProjectApplicationInfoDomain(
+    val operationSystem: ProjectOperationSystemDomain,
+    val url: String
+) : Parcelable
+
+/**
+ * Тип операционной системы мобильного устройства
+ *
+ * @author Alexandr Chekunkov
+ */
+@Parcelize
+enum class ProjectOperationSystemDomain : Parcelable {
+
+    /** OC Android */
+    ANDROID,
+
+    /** OC iOS */
+    IOS
+}
 
 /**
  * Статусы выполнения проекта
