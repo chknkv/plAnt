@@ -16,10 +16,10 @@ import kotlinx.parcelize.Parcelize
  */
 @Parcelize
 internal data class NewClientInfoRequest(
-    @SerializedName("name") val name: String? = null,
-    @SerializedName("surname") val surname: String? = null,
+    @SerializedName("firstName") val name: String? = null,
+    @SerializedName("lastName") val surname: String? = null,
     @SerializedName("role") val role: NewClientRoleRequest? = null,
-    @SerializedName("newPassword") val newPassword: String? = null
+    @SerializedName("password") val newPassword: String? = null
 ) : Parcelable
 
 /**
@@ -29,9 +29,9 @@ internal data class NewClientInfoRequest(
  */
 @Parcelize
 internal enum class NewClientRoleRequest : Parcelable {
-    /** Тестировщик */
-    @SerializedName("QA") QA,
-
     /** Разработчик */
-    @SerializedName("DEVELOPER") DEVELOPER
+    @SerializedName("ROLE_DEVELOPER") DEVELOPER,
+
+    /** Тестировщик */
+    @SerializedName("ROLE_QA") QA,
 }

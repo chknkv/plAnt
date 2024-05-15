@@ -4,6 +4,7 @@ import cdr.profilelib.models.data.ClientResponse
 import cdr.profilelib.models.data.NewClientInfoRequest
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.PUT
 
 /**
@@ -14,10 +15,10 @@ import retrofit2.http.PUT
 internal interface ProfileApi {
 
     /** Получение информации о пользователе */
-    @GET("/clientInfo")
-    suspend fun getProfileInfo(): ClientResponse
+    @GET("/auth/getUserWithProjects")
+    suspend fun getProfileInfo(@Header("Authorization") jwtToken: String): ClientResponse
 
     /** Редактирование информации о пользователе */
-    @PUT("/editClient")
-    suspend fun editClientInfo(@Body newClientInfo: NewClientInfoRequest)
+    @PUT("/auth/update")
+    suspend fun editClientInfo(@Header("Authorization") jwtToken: String, @Body newClientInfo: NewClientInfoRequest)
 }
