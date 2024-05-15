@@ -33,7 +33,6 @@ internal class ProjectMapperImpl : ProjectMapper {
 
     companion object {
         private const val BASE_URL = "http://172.20.10.6:8081"
-
-        private const val MOCKED_JWT_TOKEN = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJVc2VyIGRldGFpbHMiLCJ1c2VybmFtZSI6InV0dHN2bGFkX25ldyIsImlhdCI6MTcxNTYxODk2NiwiaXNzIjoicGxBbnQiLCJleHAiOjE3MTU3MDUzNjZ9.1_hDMDf9FjtXdIO6DvcvnSVfh0a0uCLnJAWL-JzJdas"
+        private const val MOCKED_JWT_TOKEN = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJVc2VyIGRldGFpbHMiLCJ1c2VybmFtZSI6InV0dHN2bGFkX25ldyIsImlhdCI6MTcxNTc4NzQ4MCwiaXNzIjoicGxBbnQiLCJleHAiOjE3MTU4NzM4ODB9.HNar0yE17I5RvAUxPbQVP8HjKCEZF3xkvYhzUpoCVKw"
     }
 }

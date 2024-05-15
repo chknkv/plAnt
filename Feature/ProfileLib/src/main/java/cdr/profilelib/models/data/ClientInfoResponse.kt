@@ -14,8 +14,8 @@ import kotlinx.parcelize.Parcelize
  * @author Alexandr Chekunkov
  */
 internal data class ClientResponse(
-    val clientInfo: ClientInfoResponse,
-    val clientProjects: List<ProjectInfoResponse>
+    @SerializedName("userSafeDto") val clientInfo: ClientInfoResponse,
+    @SerializedName("projects") val clientProjects: List<ProjectInfoResponse>
 )
 
 /**
@@ -29,9 +29,9 @@ internal data class ClientResponse(
  * @author Alexandr Chekunkov
  */
 internal data class ClientInfoResponse(
+    @SerializedName("username") val username: String? = null,
     @SerializedName("firstName") val firstName: String? = null,
     @SerializedName("lastName") val lastName: String? = null,
-    @SerializedName("username") val username: String? = null,
     @SerializedName("role") val role: ClientInfoRoleResponse? = null
 )
 
@@ -43,11 +43,9 @@ internal data class ClientInfoResponse(
 @Parcelize
 internal enum class ClientInfoRoleResponse : Parcelable {
     /** Тестировщик */
-    @SerializedName("QA")
-    QA,
+    @SerializedName("ROLE_QA") QA,
 
     /** Разработчик */
-    @SerializedName("DEVELOPER")
-    DEVELOPER
+    @SerializedName("ROLE_DEVELOPER") DEVELOPER
 }
 
