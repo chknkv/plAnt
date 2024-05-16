@@ -3,6 +3,10 @@ package cdr.profilelib.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
+import cdr.coreutilslib.network.BaseRestClientFactory
+import cdr.coreutilslib.network.BaseRestClientFactoryImpl
+import cdr.coreutilslib.token.TokenWorker
+import cdr.coreutilslib.token.TokenWorkerImpl
 import cdr.profilelib.data.interactor.ProfileInteractor
 import cdr.profilelib.data.interactor.ProfileInteractorImpl
 import cdr.profilelib.data.mapper.ProfileMapper
@@ -24,7 +28,19 @@ import javax.inject.Named
 internal object ProfileModule {
 
     @Provides
-    fun provideProfileMapper(): ProfileMapper = ProfileMapperImpl()
+    fun provideBaseRestClientFactory(): BaseRestClientFactory = BaseRestClientFactoryImpl()
+
+    @Provides
+    fun provideTokenWorker(): TokenWorker = TokenWorkerImpl()
+
+    @Provides
+    fun provideProfileMapper(
+        baseRestClientFactory: BaseRestClientFactory,
+        tokenWorker: TokenWorker
+    ): ProfileMapper = ProfileMapperImpl(
+        restClientFactory = baseRestClientFactory,
+        tokenWorker = tokenWorker
+    )
 
     @Provides
     fun provideProfileRepository(profileMapper: ProfileMapper): ProfileRepository =

@@ -3,6 +3,10 @@ package cdr.projectlib.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
+import cdr.coreutilslib.network.BaseRestClientFactory
+import cdr.coreutilslib.network.BaseRestClientFactoryImpl
+import cdr.coreutilslib.token.TokenWorker
+import cdr.coreutilslib.token.TokenWorkerImpl
 import cdr.projectlib.data.interactor.ProjectInteractor
 import cdr.projectlib.data.interactor.ProjectInteractorImpl
 import cdr.projectlib.data.mapper.ProjectMapper
@@ -24,7 +28,19 @@ import javax.inject.Named
 internal object ProjectModule {
 
     @Provides
-    fun provideProjectMapper(): ProjectMapper = ProjectMapperImpl()
+    fun provideBaseRestClientFactory(): BaseRestClientFactory = BaseRestClientFactoryImpl()
+
+    @Provides
+    fun provideTokenWorker(): TokenWorker = TokenWorkerImpl()
+
+    @Provides
+    fun provideProjectMapper(
+        baseRestClientFactory: BaseRestClientFactory,
+        tokenWorker: TokenWorker
+    ): ProjectMapper = ProjectMapperImpl(
+        restClientFactory = baseRestClientFactory,
+        tokenWorker = tokenWorker
+    )
 
     @Provides
     fun provideProjectRepository(projectMapper: ProjectMapper): ProjectRepository =
