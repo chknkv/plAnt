@@ -1,32 +1,48 @@
 package cdr.identificationlib.data.mapper
 
+import cdr.coreutilslib.logs.Logger
+import cdr.coreutilslib.network.BaseRestClientFactory
+import cdr.coreutilslib.network.RestClientApp
 import cdr.identificationlib.models.data.AuthorizationRequest
 import cdr.identificationlib.models.data.ClientResponse
 import cdr.identificationlib.models.data.RegistrationRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
 
 /**
  * Реализация [IdentificationMapper]
  *
- * @param retrofit базовый клиент для сетевого взаимодействия
+ * @param restClientFactory фабрика для создания клиента сетевого взаимодействия
  *
  * @author Alexandr Chekunkov
  */
 internal class IdentificationMapperImpl(
-    retrofit: Retrofit
+    private val restClientFactory: BaseRestClientFactory
 ) : IdentificationMapper {
 
-    private val client = retrofit.create(IdentificationApi::class.java)
+    private val client = restClientFactory
+        .baseRestClient(RestClientApp.PROFILE_APP)
+        .create(IdentificationApi::class.java)
 
     override suspend fun signIn(authorizationRequest: AuthorizationRequest): ClientResponse =
         withContext(Dispatchers.IO) {
-            return@withContext client.signIn(authorizationRequest)
+            val newClient = client.signIn(authorizationRequest)
+            Logger.i(TAG, "[signIn] bodyRequest: $authorizationRequest")
+            Logger.i(TAG, "[signIn] bodyResponse: $newClient")
+
+            return@withContext newClient
         }
 
     override suspend fun signUp(registrationRequest: RegistrationRequest): ClientResponse =
         withContext(Dispatchers.IO) {
-            return@withContext client.signUp(registrationRequest)
+            val newClient = client.signUp(registrationRequest)
+            Logger.i(TAG, "[signUp] bodyRequest: $registrationRequest")
+            Logger.i(TAG, "[signUp] bodyResponse: $newClient")
+
+            return@withContext newClient
         }
+
+    companion object {
+        private const val TAG = "IdentificationMapper"
+    }
 }

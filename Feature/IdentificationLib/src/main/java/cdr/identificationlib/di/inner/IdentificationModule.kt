@@ -1,12 +1,15 @@
 package cdr.identificationlib.di.inner
 
+import cdr.coreutilslib.network.BaseRestClientFactory
+import cdr.coreutilslib.network.BaseRestClientFactoryImpl
+import cdr.coreutilslib.token.TokenWorker
+import cdr.coreutilslib.token.TokenWorkerImpl
 import cdr.identificationlib.data.interactor.IdentificationInteractor
 import cdr.identificationlib.data.interactor.IdentificationInteractorImpl
 import cdr.identificationlib.data.mapper.IdentificationMapper
 import cdr.identificationlib.data.mapper.IdentificationMapperImpl
 import cdr.identificationlib.data.repository.IdentificationRepository
 import cdr.identificationlib.data.repository.IdentificationRepositoryImpl
-import cdr.coreutilslib.network.BaseRestClientImpl
 import dagger.Module
 import dagger.Provides
 
@@ -19,15 +22,25 @@ import dagger.Provides
 internal object IdentificationModule {
 
     @Provides
-    fun provideIdentificationMapper(): IdentificationMapper = IdentificationMapperImpl(
-        BaseRestClientImpl().baseRestClient()
+    fun provideBaseRestClientFactory(): BaseRestClientFactory = BaseRestClientFactoryImpl()
+
+    @Provides
+    fun provideTokenWorker(): TokenWorker = TokenWorkerImpl()
+
+    @Provides
+    fun provideIdentificationMapper(
+        baseRestClientFactory: BaseRestClientFactory
+    ): IdentificationMapper = IdentificationMapperImpl(
+        restClientFactory = baseRestClientFactory
     )
 
     @Provides
     fun provideIdentificationRepository(
-        identificationMapper: IdentificationMapper
+        identificationMapper: IdentificationMapper,
+        tokenWorker: TokenWorker
     ): IdentificationRepository = IdentificationRepositoryImpl(
-        identificationMapper = identificationMapper
+        identificationMapper = identificationMapper,
+        tokenWorker = tokenWorker
     )
 
     @Provides

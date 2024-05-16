@@ -7,7 +7,7 @@ import retrofit2.Retrofit
  *
  * @author Alexandr Chekunkov
  */
-interface BaseRestClient {
+interface BaseRestClientFactory {
 
-    fun baseRestClient(): Retrofit
+    fun baseRestClient(app: RestClientApp): Retrofit
 }
