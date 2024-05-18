@@ -231,7 +231,7 @@ private fun Screen(
             Blueberry(
                 text = stringResource(id = R.string.edit),
                 style = BlueberryStyle.Standard,
-                onClick = viewModel::editProfileInfo
+                onClick = { viewModel.editProfileInfo(onFinish) }
             )
         }
     }

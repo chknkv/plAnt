@@ -1,5 +1,6 @@
 package cdr.projectlib.presentation.add
 
+import android.webkit.URLUtil
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,6 +12,7 @@ import cdr.projectlib.models.domain.NewProjectDomain
 import cdr.projectlib.models.domain.ProjectApplicationInfoDomain
 import cdr.projectlib.models.domain.ProjectOperationSystemDomain
 import cdr.projectlib.models.presentation.NewProjectOsChip
+import cdr.projectlib.models.presentation.ProjectAddAction
 import cdr.projectlib.models.presentation.ProjectAddScreen
 import cdr.projectlib.models.presentation.ProjectAddState
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -49,8 +51,8 @@ internal class ProjectAddViewModel(
     private val _state = MutableStateFlow<ProjectAddState>(ProjectAddState.Screen())
 
     /** Действие для показа snackbar на экране */
-    val action: SharedFlow<Unit> get() = _action.asSharedFlow()
-    private val _action = MutableSharedFlow<Unit>()
+    val action: SharedFlow<ProjectAddAction> get() = _action.asSharedFlow()
+    private val _action = MutableSharedFlow<ProjectAddAction>()
 
     /** Создание нового проекта */
     fun createNewProject(onFinish: () -> Unit) {
@@ -61,11 +63,13 @@ internal class ProjectAddViewModel(
 
                 currentData?.let { currentData ->
                     if (checkIsNotBlank(currentData)) {
-                        _state.value = ProjectAddState.Loading
+                        if (checkIsLink(currentData)) {
+                            _state.value = ProjectAddState.Loading
 
-                        val newProjectDomain = createNewProjectDomain(currentData)
-                        projectInteractor.saveNewProject(newProjectDomain)
-                        onFinish.invoke()
+                            val newProjectDomain = createNewProjectDomain(currentData)
+                            projectInteractor.saveNewProject(newProjectDomain)
+                            onFinish.invoke()
+                        }
                     }
                 }
             }
@@ -100,10 +104,29 @@ internal class ProjectAddViewModel(
                     )
                 )
             )
-            _action.emit(Unit)
+            _action.emit(ProjectAddAction.EmptyFields)
 
             false
         } else true
+    }
+
+    /** Проверка того, что поле является ссылкой */
+    private suspend fun checkIsLink(currentData: ProjectAddScreen): Boolean {
+        val currentLink = currentData.link.text.text
+
+        return if (!URLUtil.isNetworkUrl(currentLink)) {
+            _state.value = ProjectAddState.Screen(
+                data = currentData.copy(
+                    link = currentData.link.copy(
+                        style = TextFieldCardStyles.Warning
+                    )
+                )
+            )
+            _action.emit(ProjectAddAction.NotLink)
+            false
+        } else {
+            true
+        }
     }
 
     /** Обработка нового названия проекта с UI */

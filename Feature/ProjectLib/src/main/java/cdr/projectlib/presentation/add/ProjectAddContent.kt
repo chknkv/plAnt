@@ -49,6 +49,7 @@ import cdr.projectlib.models.presentation.ProjectAddState
 import cdr.projectlib.R
 import cdr.projectlib.di.DaggerProjectComponent
 import cdr.projectlib.models.presentation.NewProjectOsChip
+import cdr.projectlib.models.presentation.ProjectAddAction
 import cdr.projectlib.presentation.add.ProjectAddViewModel.Companion.ANDROID_ID
 import cdr.projectlib.presentation.add.ProjectAddViewModel.Companion.IOS_ID
 import kotlinx.coroutines.CoroutineScope
@@ -218,15 +219,24 @@ private fun Screen(
         if (data.isShowErrorAlert) InfoAlertDialog(viewModel = viewModel)
 
         val lifecycleOwner = LocalLifecycleOwner.current
-        val snackbarMessage = stringResource(id = CoreR.string.complete_the_steps_above_to_continue)
+        val snackbarMessageEmptyField = stringResource(id = CoreR.string.complete_the_steps_above_to_continue)
+        val snackbarMessageNotLink = stringResource(id = R.string.link_is_incorrect)
         LaunchedEffect(Unit) {
             lifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
-                viewModel.action.collect { _ ->
-                    showSnackbarCard(
-                        snackbarHostState = snackbarHostState,
-                        coroutineScope = coroutineScope,
-                        message = snackbarMessage
-                    )
+                viewModel.action.collect { action ->
+                    when (action) {
+                        is ProjectAddAction.EmptyFields -> showSnackbarCard(
+                            snackbarHostState = snackbarHostState,
+                            coroutineScope = coroutineScope,
+                            message = snackbarMessageEmptyField
+                        )
+
+                        is ProjectAddAction.NotLink -> showSnackbarCard(
+                            snackbarHostState = snackbarHostState,
+                            coroutineScope = coroutineScope,
+                            message = snackbarMessageNotLink
+                        )
+                    }
                 }
             }
         }

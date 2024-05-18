@@ -1,8 +1,11 @@
 package cdr.corecompose.text
 
+import android.webkit.URLUtil
+import androidx.compose.foundation.clickable
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -560,6 +563,40 @@ fun Body4Secondary(
     ),
     overflow = TextOverflow.Ellipsis
 )
+
+/**
+ * Body4SecondaryLink
+ *
+ * @param textLink текст-ссылка
+ * @param modifier модифаер
+ * @param maxLines максимальное количество строк текста
+ * @param textAlign выравнивание текста
+ *
+ * @author Alexandr Chekunkov
+ */
+@Composable
+fun Body4SecondaryLink(
+    textLink: String,
+    modifier: Modifier = Modifier,
+    maxLines: Int = Int.MAX_VALUE,
+    textAlign: TextAlign? = null
+) {
+    val uriHandler = LocalUriHandler.current
+
+    Text(
+        text = textLink,
+        modifier = modifier.clickable { if (URLUtil.isValidUrl(textLink)) uriHandler.openUri(textLink) },
+        maxLines = maxLines,
+        textAlign = textAlign,
+        style = TextStyle(
+            color = PlAntTokens.LinkBackground.getThemedColor(),
+            fontSize = 12.sp,
+            lineHeight = 12.sp,
+            letterSpacing = 0.em
+        ),
+        overflow = TextOverflow.Ellipsis
+    )
+}
 
 /**
  * Headline1Brand
