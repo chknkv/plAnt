@@ -14,6 +14,7 @@
     <string name="name_title">Название</string>
     <string name="resources">Ссылка на ресурс</string>
     <string name="link">Ссылка: </string>
+    <string name="link_is_incorrect">В поле введна неверная ссылка.</string>
     <string name="link_not_found">не найдена</string>
     <string name="price">Цена:</string>
     <string name="price_with_dot">%.2f ₽</string>
@@ -24,5 +25,6 @@
     <string name="status_in_work">в работе</string>
     <string name="status_closed">закрыт</string>
     <string name="operation_system">Операционная система: </string>
+    <string name="ok">Понятно</string>
     <string name="unknown">неизвестно</string>
 </resources>

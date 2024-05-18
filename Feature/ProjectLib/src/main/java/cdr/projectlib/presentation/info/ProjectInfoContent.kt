@@ -31,6 +31,7 @@ import cdr.corecompose.buttons.blueberry.Blueberry
 import cdr.corecompose.buttons.blueberry.BlueberryStyle
 import cdr.corecompose.text.Body4
 import cdr.corecompose.text.Body4Secondary
+import cdr.corecompose.text.Body4SecondaryLink
 import cdr.corecompose.text.Title2
 import cdr.corecompose.theming.PlAntTokens
 import cdr.corecompose.theming.getThemedColor
@@ -87,8 +88,8 @@ internal fun ProjectInfoContent(
         if (showBottomSheet) {
             ModalBottomSheet(
                 sheetState = sheetState,
-                containerColor = PlAntTokens.Background0.getThemedColor(),
-                contentColor = PlAntTokens.Background0.getThemedColor(),
+                containerColor = PlAntTokens.Background2.getThemedColor(),
+                contentColor = PlAntTokens.Background2.getThemedColor(),
                 onDismissRequest = {
                     showBottomSheet = false
                     onFinishActivity.invoke()
@@ -102,7 +103,7 @@ internal fun ProjectInfoContent(
                             end = 16.dp,
                             bottom = 32.dp
                         )
-                        .background(PlAntTokens.Background0.getThemedColor())
+                        .background(PlAntTokens.Background2.getThemedColor())
                         .verticalScroll(rememberScrollState())
                 ) {
                     Title2(
@@ -117,7 +118,7 @@ internal fun ProjectInfoContent(
                     InfoRow(icon = R.drawable.ic_status, title = statusTitle, value = statusValue)
                     InfoRow(icon = R.drawable.ic_price, title = priceTitle, value = priceValue)
                     InfoRow(icon = R.drawable.ic_os, title = ocTitle, value = ocValue)
-                    InfoRow(icon = R.drawable.ic_link, title = linkTitle, value = linkValue)
+                    InfoRow(icon = R.drawable.ic_link, title = linkTitle, value = linkValue, isLink = true)
 
                     Body4Secondary(
                         modifier = Modifier
@@ -127,7 +128,7 @@ internal fun ProjectInfoContent(
                     )
 
                     Blueberry(
-                        text = "Понятно",
+                        text = stringResource(id = R.string.ok),
                         style = BlueberryStyle.Standard,
                         onClick = {
                             scope.launch { sheetState.hide() }.invokeOnCompletion {
@@ -157,7 +158,8 @@ internal fun ProjectInfoContent(
 private fun InfoRow(
     @DrawableRes icon: Int,
     title: String,
-    value: String
+    value: String,
+    isLink: Boolean = false
 ) {
     Row(
         modifier = Modifier
@@ -172,6 +174,11 @@ private fun InfoRow(
             tint = PlAntTokens.IconPrimary.getThemedColor()
         )
         Body4(modifier = Modifier.padding(horizontal = 4.dp), text = title)
-        Body4Secondary(text = value)
+
+        if (isLink) {
+            Body4SecondaryLink(textLink = value, maxLines = 1)
+        } else {
+            Body4Secondary(text = value, maxLines = 1)
+        }
     }
 }

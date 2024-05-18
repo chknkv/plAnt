@@ -1,6 +1,11 @@
 package cdr.projectlib.presentation.market
 
 import android.content.Context
+import android.content.Intent
+import androidx.activity.compose.ManagedActivityResultLauncher
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,6 +22,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -59,10 +67,17 @@ fun MarketContent() {
     val lifecycleOwner = LocalLifecycleOwner.current.lifecycle
     val context = LocalContext.current
 
-    LaunchedEffect(Unit) { viewModel.fetchMarketData() }
+    var shouldRefresh by remember { mutableStateOf(false) }
+    val activityLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { shouldRefresh = true }
+
+    LaunchedEffect(shouldRefresh) {
+        viewModel.fetchMarketData()
+        shouldRefresh = false
+    }
+
     LaunchedEffect(Unit) {
         lifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
-            viewModel.action.collect { action -> handleAction(context, action) }
+            viewModel.action.collect { action -> handleAction(context, action, activityLauncher) }
         }
     }
 
@@ -138,7 +153,7 @@ private fun MarketProjectInformationContent(
 ) {
     Column(
         modifier = modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .background(PlAntTokens.Background0.getThemedColor())
             .verticalScroll(rememberScrollState())
     ) {
@@ -232,9 +247,17 @@ private fun ErrorMarketScreen() {
 /**
  * Обработка экшена (может быть запуск шторки с информацией о экране или экран создания нового проекта)
  *
+ * @param context контекст
+ * @param action экшены для экрана профиля клиента
+ * @param activityLauncher слушатель на изменение и запуска activity
+ *
  * @author Alexandr Chekunkov
  */
-private fun handleAction(context: Context, action: MarketAction) = when(action) {
+private fun handleAction(
+    context: Context,
+    action: MarketAction,
+    activityLauncher: ManagedActivityResultLauncher<Intent, ActivityResult>
+) = when(action) {
     is MarketAction.LaunchProjectInfoScreen -> context.startActivity(ProjectInfoActivity.newIntent(context, action.projectInfo))
-    is MarketAction.LaunchCreateProjectScreen -> context.startActivity(ProjectAddActivity.newIntent(context))
+    is MarketAction.LaunchCreateProjectScreen -> activityLauncher.launch(ProjectAddActivity.newIntent(context))
 }

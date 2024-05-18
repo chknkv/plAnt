@@ -29,7 +29,8 @@ internal class ProfileMapperImpl(
 
     override suspend fun getProfileInfo(): ClientResponse =
         withContext(Dispatchers.IO) {
-            val profileInfo = client.getProfileInfo(token)
+//            val profileInfo = client.getProfileInfo(token)
+            val profileInfo = getMockedAProfileInfo()
             Logger.i(TAG, "[getProfileInfo] bodyResponse: $profileInfo")
 
             return@withContext profileInfo

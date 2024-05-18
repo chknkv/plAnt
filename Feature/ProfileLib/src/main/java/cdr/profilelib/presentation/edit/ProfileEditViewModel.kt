@@ -74,7 +74,7 @@ internal class ProfileEditViewModel(
     }
 
     /** Редактирование профиля */
-    fun editProfileInfo() {
+    fun editProfileInfo(onFinish: () -> Unit) {
         viewModelScope.launch(coroutineExceptionHandler) {
             val currentState = _state.value
             if (currentState is ProfileEditState.Screen) {
@@ -87,10 +87,10 @@ internal class ProfileEditViewModel(
                                 checkIsNotTinyPassword(currentData) &&
                                 checkIsNotEasyPassword(currentData)
                             ) {
-                                sendNewProfileData(currentData)
+                                sendNewProfileData(currentData, onFinish)
                             }
                         } else {
-                            sendNewProfileData(currentData)
+                            sendNewProfileData(currentData, onFinish)
                         }
                     }
                 }
@@ -99,11 +99,15 @@ internal class ProfileEditViewModel(
     }
 
     /** Отправка данных на удаленный сервис */
-    private suspend fun sendNewProfileData(currentData: ProfileEditScreen) {
+    private suspend fun sendNewProfileData(
+        currentData: ProfileEditScreen,
+        onFinish: () -> Unit
+    ) {
         _state.value = ProfileEditState.Loading
 
         val newClientInfoDomain = createNewClientInfoDomain(currentData)
         profileInteractor.editClientInfo(newClientInfoDomain)
+        onFinish.invoke()
     }
 
     /** Проверка на пустые поля */

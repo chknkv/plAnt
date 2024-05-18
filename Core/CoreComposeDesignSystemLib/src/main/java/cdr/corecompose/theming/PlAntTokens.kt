@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 enum class PlAntTokens {
     Background0,
     Background1,
+    Background2,
     ButtonBrand,
     ButtonDisabled,
     ButtonWarning,
@@ -31,6 +32,7 @@ enum class PlAntTokens {
     Brand,
     IconPrimary,
     IconSecondary,
+    LinkBackground,
     TextPrimary,
     TextSecondary,
     TextBrand,

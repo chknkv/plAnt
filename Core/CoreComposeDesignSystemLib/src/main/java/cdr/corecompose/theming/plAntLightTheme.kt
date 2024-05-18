@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Color
 internal fun lightTheme(): Map<PlAntTokens, Color> = mapOf(
     PlAntTokens.Background0 to White0,
     PlAntTokens.Background1 to White0,
+    PlAntTokens.Background2 to White0,
     PlAntTokens.ButtonBrand to Blue0,
     PlAntTokens.ButtonDisabled to Gray0,
     PlAntTokens.ButtonWarning to Orange0,
@@ -27,6 +28,7 @@ internal fun lightTheme(): Map<PlAntTokens, Color> = mapOf(
     PlAntTokens.ChipWarningBackground to Orange3,
     PlAntTokens.IconPrimary to Black0,
     PlAntTokens.IconSecondary to Black1,
+    PlAntTokens.LinkBackground to Blue0,
     PlAntTokens.TextPrimary to Black0,
     PlAntTokens.TextSecondary to Black1,
     PlAntTokens.TextButtonDisabled to Black1,
