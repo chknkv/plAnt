@@ -1,5 +1,6 @@
 package cdr.identificationlib.data.repository
 
+import cdr.coreutilslib.token.TokenWorker
 import cdr.identificationlib.data.authorizationDomain
 import cdr.identificationlib.data.authorizationRequest
 import cdr.identificationlib.data.clientDomain
@@ -24,7 +25,8 @@ import org.junit.jupiter.api.Test
 internal class IdentificationRepositoryImplTest {
 
     private val identificationMapper = mockk<IdentificationMapper>()
-    private val identificationRepository = IdentificationRepositoryImpl(identificationMapper)
+    private val tokenWorker = mockk<TokenWorker>()
+    private val identificationRepository = IdentificationRepositoryImpl(identificationMapper, tokenWorker)
 
     @Test
     fun `sign in`() = runTest {

@@ -1,4 +1,4 @@
-package cdr.mainscreenlib.di.inner
+package cdr.mainscreenlib.di
 
 import dagger.Component
 

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cdr.corecompose.textfield.TextFieldCardStyles
 import cdr.coreutilslib.logs.Logger
+import cdr.coreutilslib.token.TokenWorker
 import cdr.identificationlib.data.interactor.IdentificationInteractor
 import cdr.identificationlib.models.domain.AuthorizationDomain
 import cdr.identificationlib.models.presentation.AuthorizationAction
@@ -23,11 +24,13 @@ import kotlinx.coroutines.launch
  * [ViewModel] для экрана авторизации
  *
  * @param identificationInteractor интерактор для модуля авторизации
+ * @param tokenWorker воркер, который используется для работы с JSON Web Token.
  *
  * @author Alexandr Chekunkov
  */
 internal class AuthorizationViewModel(
-    private val identificationInteractor: IdentificationInteractor
+    private val identificationInteractor: IdentificationInteractor,
+    private val tokenWorker: TokenWorker
 ) : ViewModel() {
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
@@ -65,7 +68,10 @@ internal class AuthorizationViewModel(
                     if (checkIsNotBlank(currentData)) {
                         _state.value = AuthorizationState.Loading
 
-                        identificationInteractor.signIn(createAuthorizationDomain(currentData))
+                        val client = identificationInteractor.signIn(createAuthorizationDomain(currentData))
+
+                        tokenWorker.setToken(client.token)
+                        _action.emit(AuthorizationAction.LaunchMainScreen)
                     }
                 }
             }

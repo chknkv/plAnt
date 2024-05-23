@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import cdr.corecompose.theming.PlAntTheme
+import cdr.coreutilslib.token.TokenWorkerImpl
 import cdr.coreutilslib.utils.viewModelCreator
-import cdr.identificationlib.di.inner.DaggerIdentificationComponent
+import cdr.identificationlib.di.DaggerIdentificationComponent
 import cdr.identificationlib.models.Navigator
+import cdr.mainscreenlib.launcher.MainScreenLauncherImpl
 
 /**
  * [Fragment] для экрана авторизации
@@ -21,7 +23,8 @@ internal class AuthorizationFragment : Fragment() {
     private val identificationComponent by lazy { DaggerIdentificationComponent.create() }
     private val viewModel by viewModelCreator<AuthorizationViewModel> {
         AuthorizationViewModel(
-            identificationInteractor = identificationComponent.getIdentificationInteractor()
+            identificationInteractor = identificationComponent.getIdentificationInteractor(),
+            tokenWorker = TokenWorkerImpl()
         )
     }
 
@@ -35,9 +38,8 @@ internal class AuthorizationFragment : Fragment() {
                 PlAntTheme {
                     AuthorizationContent(
                         viewModel = viewModel,
-                        onNavigationPressed = {
-                            (requireActivity() as Navigator).onNavigationPressed()
-                        }
+                        onNavigationPressed = { (requireActivity() as Navigator).onNavigationPressed() },
+                        onLaunchMainScreen = { MainScreenLauncherImpl().launchMainScreen(requireActivity()) }
                     )
                 }
             }

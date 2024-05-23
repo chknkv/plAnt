@@ -61,13 +61,15 @@ import kotlinx.coroutines.withContext
  *
  * @param viewModel ViewModel для экрана регистрации
  * @param onNavigationPressed действие по нажатию на навигационную кнопку
+ * @param onLaunchMainScreen запуск главного экрана
  *
  * @author Alexandr Chekunkov
  */
 @Composable
 internal fun RegistrationContent(
     viewModel: RegistrationViewModel,
-    onNavigationPressed: () -> Unit
+    onNavigationPressed: () -> Unit,
+    onLaunchMainScreen: () -> Unit
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -76,7 +78,9 @@ internal fun RegistrationContent(
         is RegistrationState.Screen -> Screen(
             viewModel = viewModel,
             data = currentState.data,
-            onNavigationPressed = onNavigationPressed)
+            onNavigationPressed = onNavigationPressed,
+            onLaunchMainScreen = onLaunchMainScreen
+        )
     }
 }
 
@@ -86,6 +90,7 @@ internal fun RegistrationContent(
  * @param viewModel ViewModel для экрана авторизации
  * @param data UI-модель, содержащая в себе данные на экране
  * @param onNavigationPressed действие по нажатию на навигационную кнопку
+ * @param onLaunchMainScreen запуск главного экрана
  *
  * @author Alexandr Chekunkov
  */
@@ -93,7 +98,8 @@ internal fun RegistrationContent(
 private fun Screen(
     viewModel: RegistrationViewModel,
     data: RegistrationScreen,
-    onNavigationPressed: () -> Unit
+    onNavigationPressed: () -> Unit,
+    onLaunchMainScreen: () -> Unit
 ) {
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -253,6 +259,8 @@ private fun Screen(
                         }
 
                         RegistrationAction.BackPressed -> onNavigationPressed.invoke()
+
+                        RegistrationAction.LaunchMainScreen -> onLaunchMainScreen.invoke()
                     }
                 }
             }

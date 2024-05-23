@@ -59,6 +59,9 @@ internal data class AuthorizationField(
  */
 internal sealed interface AuthorizationAction {
 
+    /** Запуск главного экрана после авторизации */
+    object LaunchMainScreen : AuthorizationAction
+
     /** Нажатие на кнопку навигации */
     object BackPressed : AuthorizationAction
 

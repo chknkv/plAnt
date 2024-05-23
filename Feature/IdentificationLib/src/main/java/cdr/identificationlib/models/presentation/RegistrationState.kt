@@ -89,6 +89,9 @@ internal enum class RoleChip {
  */
 internal sealed interface RegistrationAction {
 
+    /** Запуск главного экрана после регистрации */
+    object LaunchMainScreen: RegistrationAction
+
     /** Нажатие на кнопку навигации */
     object BackPressed : RegistrationAction
 

@@ -9,7 +9,7 @@ import cdr.mainscreenlib.presentation.PrimaryActivity
  *
  * @author Alexandr Chekunkov
  */
-internal class MainScreenLauncherImpl : MainScreenLauncher {
+class MainScreenLauncherImpl : MainScreenLauncher {
 
 
     override fun launchMainScreen(activity: ComponentActivity) {

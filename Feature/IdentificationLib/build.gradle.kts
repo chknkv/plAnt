@@ -37,6 +37,7 @@ android {
 
 dependencies {
     // module dependencies region
+    implementation(project(":Feature:MainScreenLib"))
     implementation(project(":Core:CoreComposeDesignSystemLib"))
     implementation(project(":Core:CoreUtilsLib"))
     implementation(project(":Core:CoreResourcesLib"))

@@ -46,7 +46,6 @@ android {
 
 dependencies {
     implementation(project(":Feature:IdentificationLib"))
-    implementation(project(":Feature:MainScreenLib"))
 
     // dependencies for feature module region
     implementation(libs.kotlin.core)

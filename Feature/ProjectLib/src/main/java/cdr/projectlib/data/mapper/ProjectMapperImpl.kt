@@ -29,8 +29,8 @@ internal class ProjectMapperImpl(
 
     override suspend fun getAllProjects(): List<ProjectInfoResponse> =
         withContext(Dispatchers.IO) {
-//            val allProjects = client.getAllProjects(token)
-            val allProjects = getMockedAllProjects()
+            val allProjects = client.getAllProjects(token)
+//            val allProjects = getMockedAllProjects()
             Logger.i(TAG, "[allProjectsResponse] bodyResponse: $allProjects")
 
             return@withContext allProjects

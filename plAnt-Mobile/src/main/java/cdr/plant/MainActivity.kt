@@ -2,6 +2,8 @@ package cdr.plant
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import cdr.identificationlib.launcher.IdentificationLaunchData
+import cdr.identificationlib.launcher.IdentificationLauncherImpl
 
 /**
  * Тестовый экран
@@ -13,16 +15,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        val identificationLauncher = this.appComponent.getIdentificationLauncher()
-//
-//        identificationLauncher.lau(
-//            activity = this,
-//            launchData = IdentificationLaunchData.PRIMARY
-//        )
-
-        val mainScreenLauncher = this.appComponent.getMainScreenLauncher()
-
-        mainScreenLauncher.launchMainScreen(this)
+        IdentificationLauncherImpl().launchAuthorizationScreen(
+            activity = this,
+            launchData = IdentificationLaunchData.PRIMARY
+        )
 
         finish()
     }
