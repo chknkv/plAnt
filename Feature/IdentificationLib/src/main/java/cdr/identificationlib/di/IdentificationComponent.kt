@@ -1,4 +1,4 @@
-package cdr.identificationlib.di.inner
+package cdr.identificationlib.di
 
 import dagger.Component
 

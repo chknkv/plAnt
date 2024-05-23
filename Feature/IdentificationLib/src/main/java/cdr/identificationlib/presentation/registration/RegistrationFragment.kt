@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import cdr.corecompose.theming.PlAntTheme
+import cdr.coreutilslib.token.TokenWorkerImpl
 import cdr.coreutilslib.utils.viewModelCreator
-import cdr.identificationlib.di.inner.DaggerIdentificationComponent
+import cdr.identificationlib.di.DaggerIdentificationComponent
 import cdr.identificationlib.models.Navigator
+import cdr.mainscreenlib.launcher.MainScreenLauncherImpl
 
 /**
  * [Fragment] для экрана регистрации
@@ -22,7 +24,8 @@ internal class RegistrationFragment : Fragment() {
 
     private val viewModel by viewModelCreator<RegistrationViewModel> {
         RegistrationViewModel(
-            identificationInteractor = identificationComponent.getIdentificationInteractor()
+            identificationInteractor = identificationComponent.getIdentificationInteractor(),
+            tokenWorker = TokenWorkerImpl()
         )
     }
 
@@ -36,9 +39,8 @@ internal class RegistrationFragment : Fragment() {
                 PlAntTheme {
                     RegistrationContent(
                         viewModel = viewModel,
-                        onNavigationPressed = {
-                            (requireActivity() as Navigator).onNavigationPressed()
-                        }
+                        onNavigationPressed = { (requireActivity() as Navigator).onNavigationPressed() },
+                        onLaunchMainScreen = { MainScreenLauncherImpl().launchMainScreen(requireActivity()) }
                     )
                 }
             }

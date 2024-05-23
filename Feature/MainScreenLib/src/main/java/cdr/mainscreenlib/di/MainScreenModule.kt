@@ -1,4 +1,4 @@
-package cdr.mainscreenlib.di.inner
+package cdr.mainscreenlib.di
 
 import cdr.mainscreenlib.launcher.MainScreenLauncherImpl
 import cdr.mainscreenlib.launcher.MainScreenLauncher

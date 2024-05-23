@@ -24,6 +24,6 @@ class BaseRestClientFactoryImpl : BaseRestClientFactory {
     }
 
     companion object {
-        private const val BASE_URL = "http://172.20.10.6"
+        private const val BASE_URL = "http://194.180.188.128"
     }
 }

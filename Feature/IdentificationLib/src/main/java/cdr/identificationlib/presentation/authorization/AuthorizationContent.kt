@@ -58,13 +58,15 @@ import kotlinx.coroutines.withContext
  *
  * @param viewModel ViewModel для экрана авторизации
  * @param onNavigationPressed действие по нажатию на навигационную кнопку
+ * @param onLaunchMainScreen запуск главного экрана
  *
  * @author Alexandr Chekunkov
  */
 @Composable
 internal fun AuthorizationContent(
     viewModel: AuthorizationViewModel,
-    onNavigationPressed: () -> Unit
+    onNavigationPressed: () -> Unit,
+    onLaunchMainScreen: () -> Unit
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -73,7 +75,8 @@ internal fun AuthorizationContent(
         is AuthorizationState.Screen -> Screen(
             viewModel = viewModel,
             data = currentState.data,
-            onNavigationPressed = onNavigationPressed
+            onNavigationPressed = onNavigationPressed,
+            onLaunchMainScreen = onLaunchMainScreen
         )
     }
 }
@@ -83,6 +86,7 @@ internal fun AuthorizationContent(
  *
  * @param viewModel ViewModel для экрана авторизации
  * @param data UI-модель, содержащая в себе данные на экране
+ * @param onLaunchMainScreen запуск главного экрана
  *
  * @author Alexandr Chekunkov
  */
@@ -90,7 +94,8 @@ internal fun AuthorizationContent(
 private fun Screen(
     viewModel: AuthorizationViewModel,
     data: AuthorizationScreen,
-    onNavigationPressed: () -> Unit
+    onNavigationPressed: () -> Unit,
+    onLaunchMainScreen: () -> Unit
 ) {
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -190,7 +195,10 @@ private fun Screen(
                             coroutineScope = coroutineScope,
                             message = snackbarMessage
                         )
+
                         AuthorizationAction.BackPressed -> onNavigationPressed.invoke()
+
+                        AuthorizationAction.LaunchMainScreen -> onLaunchMainScreen.invoke()
                     }
                 }
             }

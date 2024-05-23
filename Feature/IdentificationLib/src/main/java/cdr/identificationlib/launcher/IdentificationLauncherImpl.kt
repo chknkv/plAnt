@@ -8,7 +8,7 @@ import cdr.identificationlib.presentation.PrimaryActivity
  *
  * @author Alexandr Chekunkov
  */
-internal class IdentificationLauncherImpl : IdentificationLauncher {
+class IdentificationLauncherImpl : IdentificationLauncher {
 
     override fun launchAuthorizationScreen(
         activity: ComponentActivity,
