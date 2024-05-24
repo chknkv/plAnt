@@ -46,6 +46,8 @@ android {
 
 dependencies {
     implementation(project(":Feature:IdentificationLib"))
+    implementation(project(":Core:CoreComposeDesignSystemLib"))
+    implementation(project(":Core:CoreUtilsLib"))
 
     // dependencies for feature module region
     implementation(libs.kotlin.core)

@@ -3,7 +3,7 @@
 
     <style name="Theme.PlAnt" parent="Theme.Material3.DayNight.NoActionBar" />
 
-    <style name="Theme.PlAnt.MainActivity" parent="Theme.Material3.DayNight.NoActionBar" >
+    <style name="Theme.PlAnt.SplashScreen" parent="Theme.Material3.DayNight.NoActionBar" >
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">@color/background_0_light</item>
         <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>
