@@ -13,7 +13,6 @@ import cdr.identificationlib.models.presentation.RoleChip
 import cdr.corecompose.chip.chipcard.ChipCardStyle
 import cdr.corecompose.textfield.TextFieldCardStyles
 import cdr.coreutilslib.logs.Logger
-import cdr.coreutilslib.token.TokenWorker
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,13 +26,11 @@ import kotlinx.coroutines.launch
  * [ViewModel] для экрана регистрации
  *
  * @param identificationInteractor интерактор для модуля авторизации
- * @param tokenWorker воркер, который используется для работы с JSON Web Token.
  *
  * @author Alexandr Chekunkov
  */
 internal class RegistrationViewModel(
-    private val identificationInteractor: IdentificationInteractor,
-    private val tokenWorker: TokenWorker
+    private val identificationInteractor: IdentificationInteractor
 ) : ViewModel() {
 
     private val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
@@ -61,7 +58,7 @@ internal class RegistrationViewModel(
     }
 
     /** Нажатие на кнопку "Продолжить" на экране */
-    fun signUp() {
+    fun signUp(onLaunchMainScreen: () -> Unit) {
         viewModelScope.launch(coroutineExceptionHandler) {
             val currentState = _state.value
             if (currentState is RegistrationState.Screen) {
@@ -74,10 +71,9 @@ internal class RegistrationViewModel(
                                 if (checkIsNotEasyPassword(currentData)) {
                                     _state.value = RegistrationState.Loading
 
-                                    val client = identificationInteractor.signUp(createRegistrationDomain(currentData))
+                                    identificationInteractor.signUp(createRegistrationDomain(currentData))
 
-                                    tokenWorker.setToken(client.token)
-                                    _action.emit(RegistrationAction.LaunchMainScreen)
+                                    onLaunchMainScreen.invoke()
                                 }
                             }
                         }

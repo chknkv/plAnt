@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import cdr.corecompose.theming.PlAntTheme
-import cdr.coreutilslib.token.TokenWorkerImpl
 import cdr.coreutilslib.utils.viewModelCreator
 import cdr.identificationlib.di.DaggerIdentificationComponent
 import cdr.identificationlib.models.Navigator
@@ -20,12 +19,9 @@ import cdr.mainscreenlib.launcher.MainScreenLauncherImpl
  */
 internal class AuthorizationFragment : Fragment() {
 
-    private val identificationComponent by lazy { DaggerIdentificationComponent.create() }
+    private val identificationComponent by lazy { DaggerIdentificationComponent.factory().create(requireContext()) }
     private val viewModel by viewModelCreator<AuthorizationViewModel> {
-        AuthorizationViewModel(
-            identificationInteractor = identificationComponent.getIdentificationInteractor(),
-            tokenWorker = TokenWorkerImpl()
-        )
+        AuthorizationViewModel(identificationInteractor = identificationComponent.getIdentificationInteractor())
     }
 
     override fun onCreateView(
@@ -39,7 +35,10 @@ internal class AuthorizationFragment : Fragment() {
                     AuthorizationContent(
                         viewModel = viewModel,
                         onNavigationPressed = { (requireActivity() as Navigator).onNavigationPressed() },
-                        onLaunchMainScreen = { MainScreenLauncherImpl().launchMainScreen(requireActivity()) }
+                        onLaunchMainScreen = {
+                            MainScreenLauncherImpl().launchMainScreen(requireActivity())
+                            requireActivity().finish()
+                        }
                     )
                 }
             }

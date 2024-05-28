@@ -1,5 +1,7 @@
 package cdr.profilelib.di
 
+import android.content.Context
+import dagger.BindsInstance
 import dagger.Component
 
 /**
@@ -12,6 +14,6 @@ internal interface ProfileComponent : ProfileInnerApi {
 
     @Component.Factory
     interface Factory {
-        fun create(): ProfileComponent
+        fun create(@BindsInstance context: Context): ProfileComponent
     }
 }
