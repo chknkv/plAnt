@@ -1,5 +1,6 @@
 package cdr.identificationlib.di
 
+import android.content.Context
 import cdr.coreutilslib.network.BaseRestClientFactory
 import cdr.coreutilslib.network.BaseRestClientFactoryImpl
 import cdr.coreutilslib.token.TokenWorker
@@ -25,7 +26,7 @@ internal object IdentificationModule {
     fun provideBaseRestClientFactory(): BaseRestClientFactory = BaseRestClientFactoryImpl()
 
     @Provides
-    fun provideTokenWorker(): TokenWorker = TokenWorkerImpl()
+    fun provideTokenWorker(context: Context): TokenWorker = TokenWorkerImpl(context = context)
 
     @Provides
     fun provideIdentificationMapper(

@@ -61,11 +61,10 @@ import cdr.coreresourceslib.R as CoreR
  */
 @Composable
 fun MarketContent() {
-    val projectComponent by lazy { DaggerProjectComponent.create() }
-    val viewModel = viewModel<MarketViewModel>(factory = projectComponent.getMarketViewModelFactory())
-
-    val lifecycleOwner = LocalLifecycleOwner.current.lifecycle
     val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current.lifecycle
+    val projectComponent by lazy { DaggerProjectComponent.factory().create(context) }
+    val viewModel = viewModel<MarketViewModel>(factory = projectComponent.getMarketViewModelFactory())
 
     var shouldRefresh by remember { mutableStateOf(false) }
     val activityLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { shouldRefresh = true }

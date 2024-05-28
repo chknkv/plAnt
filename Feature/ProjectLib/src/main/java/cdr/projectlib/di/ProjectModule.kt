@@ -1,5 +1,6 @@
 package cdr.projectlib.di
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
@@ -31,7 +32,7 @@ internal object ProjectModule {
     fun provideBaseRestClientFactory(): BaseRestClientFactory = BaseRestClientFactoryImpl()
 
     @Provides
-    fun provideTokenWorker(): TokenWorker = TokenWorkerImpl()
+    fun provideTokenWorker(context: Context): TokenWorker = TokenWorkerImpl(context = context)
 
     @Provides
     fun provideProjectMapper(

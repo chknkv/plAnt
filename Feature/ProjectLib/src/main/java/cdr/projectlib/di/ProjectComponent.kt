@@ -1,5 +1,7 @@
 package cdr.projectlib.di
 
+import android.content.Context
+import dagger.BindsInstance
 import dagger.Component
 
 /**
@@ -12,6 +14,6 @@ internal interface ProjectComponent : ProjectInnerApi {
 
     @Component.Factory
     interface Factory {
-        fun create(): ProjectComponent
+        fun create(@BindsInstance context: Context): ProjectComponent
     }
 }

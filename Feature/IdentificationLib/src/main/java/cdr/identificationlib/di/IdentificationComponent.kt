@@ -1,5 +1,7 @@
 package cdr.identificationlib.di
 
+import android.content.Context
+import dagger.BindsInstance
 import dagger.Component
 
 /**
@@ -14,6 +16,6 @@ internal interface IdentificationComponent : IdentificationInnerApi {
 
     @Component.Factory
     interface Factory {
-        fun create(): IdentificationComponent
+        fun create(@BindsInstance context: Context): IdentificationComponent
     }
 }

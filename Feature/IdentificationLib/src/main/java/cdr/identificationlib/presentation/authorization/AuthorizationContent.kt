@@ -175,7 +175,7 @@ private fun Screen(
                 Blueberry(
                     text = stringResource(id = CoreR.string.next),
                     style = BlueberryStyle.Standard,
-                    onClick = { viewModel.signIn() }
+                    onClick = { viewModel.signIn(onLaunchMainScreen) }
                 )
             }
         }
@@ -197,8 +197,6 @@ private fun Screen(
                         )
 
                         AuthorizationAction.BackPressed -> onNavigationPressed.invoke()
-
-                        AuthorizationAction.LaunchMainScreen -> onLaunchMainScreen.invoke()
                     }
                 }
             }

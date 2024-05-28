@@ -69,14 +69,14 @@ import cdr.coreresourceslib.R as CoreR
  */
 @Composable
 fun ProfileContent() {
-    val profileComponent by lazy { DaggerProfileComponent.create() }
+    val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current.lifecycle
+
+    val profileComponent by lazy { DaggerProfileComponent.factory().create(context) }
     val viewModel = viewModel<ProfileViewModel>(factory = profileComponent.getProfileViewModelFactory())
 
     var shouldRefresh by remember { mutableStateOf(false) }
     val activityLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { shouldRefresh = true }
-
-    val lifecycleOwner = LocalLifecycleOwner.current.lifecycle
-    val context = LocalContext.current
 
     LaunchedEffect(shouldRefresh) {
         viewModel.fetchProfileData()

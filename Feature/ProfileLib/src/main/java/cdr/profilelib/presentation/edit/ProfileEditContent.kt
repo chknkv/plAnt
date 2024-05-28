@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -74,7 +75,8 @@ internal fun ProfileEditContent(
     currentClientInfo: ClientInfoDomain,
     onFinish: () -> Unit
 ) {
-    val profileComponent by lazy { DaggerProfileComponent.create() }
+    val context = LocalContext.current
+    val profileComponent by lazy { DaggerProfileComponent.factory().create(context) }
     val viewModel = viewModel<ProfileEditViewModel>(factory = profileComponent.getProfileEditViewModelFactory())
     LaunchedEffect(Unit) { viewModel.fetchCurrentProfileInfo(currentClientInfo) }
 

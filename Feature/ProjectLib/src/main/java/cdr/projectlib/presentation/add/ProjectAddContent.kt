@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -67,7 +68,8 @@ import cdr.coreresourceslib.R as CoreR
 internal fun ProjectAddContent(
     onFinish: () -> Unit
 ) {
-    val projectComponent by lazy { DaggerProjectComponent.create() }
+    val context = LocalContext.current
+    val projectComponent by lazy { DaggerProjectComponent.factory().create(context) }
     val viewModel = viewModel<ProjectAddViewModel>(factory = projectComponent.getProjectAddViewModelFactory())
 
     val state by viewModel.state.collectAsStateWithLifecycle()
