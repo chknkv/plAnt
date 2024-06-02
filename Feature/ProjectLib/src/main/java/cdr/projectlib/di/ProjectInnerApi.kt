@@ -16,4 +16,7 @@ internal interface ProjectInnerApi {
     @Named("AddProjectViewModel")
     fun getProjectAddViewModelFactory(): ViewModelProvider.Factory
 
+    @Named("ProjectInfoViewModel")
+    fun getProjectInfoViewModelFactory(): ViewModelProvider.Factory
+
 }

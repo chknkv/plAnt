@@ -1,6 +1,9 @@
 package cdr.coreutilslib.token
 
 import android.content.Context
+import com.auth0.android.jwt.JWT
+
+
 
 /**
  * Реализация [TokenWorker]
@@ -23,10 +26,25 @@ class TokenWorkerImpl(private val context: Context) : TokenWorker {
         return BEARER + jwtToken
     }
 
+    override fun getUsername(): String {
+        val sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+        val jwtToken = sharedPreferences.getString(JWT_NAME, "") ?: UNKNOWN
+
+        return JWT(jwtToken).getClaim("username").asString() ?: UNKNOWN
+    }
+
+    override fun getRole(): String {
+        val sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+        val jwtToken = sharedPreferences.getString(JWT_NAME, "") ?: UNKNOWN
+
+        return JWT(jwtToken).getClaim("role").asString() ?: UNKNOWN
+    }
+
     companion object {
         private const val BEARER = "Bearer "
         private const val SHARED_PREFERENCES_NAME = "SHARED_PREFERENCES_JWT"
         private const val JWT_NAME = "JWT_NAME"
+        private const val UNKNOWN = "UNKNOWN"
     }
 
 }

@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "cdr.projectlib"
+    namespace = "cdr.reportlib"
     compileSdk = 34
 
     defaultConfig {
@@ -40,7 +40,6 @@ dependencies {
     implementation(project(":Core:CoreComposeDesignSystemLib"))
     implementation(project(":Core:CoreUtilsLib"))
     implementation(project(":Core:CoreResourcesLib"))
-    implementation(project(":Feature:ReportLib"))
     // end region
 
     // dependencies for feature module region

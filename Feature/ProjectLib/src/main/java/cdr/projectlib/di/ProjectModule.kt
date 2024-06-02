@@ -15,6 +15,7 @@ import cdr.projectlib.data.mapper.ProjectMapperImpl
 import cdr.projectlib.data.repository.ProjectRepository
 import cdr.projectlib.data.repository.ProjectRepositoryImpl
 import cdr.projectlib.presentation.add.ProjectAddViewModel
+import cdr.projectlib.presentation.info.ProjectInfoViewModel
 import cdr.projectlib.presentation.market.MarketViewModel
 import dagger.Module
 import dagger.Provides
@@ -53,31 +54,32 @@ internal object ProjectModule {
 
     @Provides
     @Named("MarketViewModel")
-    fun provideMarketViewModelFactory(projectInteractor: ProjectInteractor): ViewModelProvider.Factory =
+    fun provideMarketViewModelFactory(
+        projectInteractor: ProjectInteractor,
+        tokenWorker: TokenWorker
+    ): ViewModelProvider.Factory =
         object : ViewModelProvider.Factory {
-
             @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(
-                modelClass: Class<T>,
-                extras: CreationExtras
-            ): T {
+            override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T =
+                MarketViewModel(projectInteractor, tokenWorker) as T
+        }
 
-                return MarketViewModel(projectInteractor) as T
-            }
+    @Provides
+    @Named("ProjectInfoViewModel")
+    fun provideProjectInfoViewModelFactory(tokenWorker: TokenWorker): ViewModelProvider.Factory =
+        object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T =
+                ProjectInfoViewModel(tokenWorker) as T
         }
 
     @Provides
     @Named("AddProjectViewModel")
     fun provideAddProjectViewModelFactory(projectInteractor: ProjectInteractor): ViewModelProvider.Factory =
         object : ViewModelProvider.Factory {
-
             @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel> create(
-                modelClass: Class<T>,
-                extras: CreationExtras
-            ): T {
-
-                return ProjectAddViewModel(projectInteractor) as T
-            }
+            override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T =
+                ProjectAddViewModel(projectInteractor) as T
         }
+
 }

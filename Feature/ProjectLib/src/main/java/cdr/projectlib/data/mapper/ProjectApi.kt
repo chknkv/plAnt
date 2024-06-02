@@ -12,7 +12,7 @@ import retrofit2.http.POST
  *
  * @author Alexandr Chekunkov
  */
-internal interface  ProjectApi {
+internal interface ProjectApi {
 
     /** Получение всех доступных проектов для биржы */
     @GET("/projects/findAll")

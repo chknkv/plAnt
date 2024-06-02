@@ -1,5 +1,6 @@
 package cdr.projectlib.presentation.info
 
+import android.content.Context
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -14,6 +15,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -24,11 +26,15 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import cdr.corecompose.buttons.blueberry.Blueberry
 import cdr.corecompose.buttons.blueberry.BlueberryStyle
+import cdr.corecompose.buttons.dual.horizontal.DualBlueberryHorizontal
 import cdr.corecompose.text.Body4
 import cdr.corecompose.text.Body4Secondary
 import cdr.corecompose.text.Body4SecondaryLink
@@ -36,9 +42,14 @@ import cdr.corecompose.text.Title2
 import cdr.corecompose.theming.PlAntTokens
 import cdr.corecompose.theming.getThemedColor
 import cdr.projectlib.R
+import cdr.projectlib.di.DaggerProjectComponent
+import cdr.projectlib.models.domain.ClientInfoDomain
 import cdr.projectlib.models.domain.ProjectInfoDomain
 import cdr.projectlib.models.domain.ProjectOperationSystemDomain
 import cdr.projectlib.models.domain.ProjectStatusDomain
+import cdr.reportlib.presentation.info.ReportInfoActivity
+import cdr.reportlib.presentation.report.ReportActivity
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 /**
@@ -55,9 +66,16 @@ internal fun ProjectInfoContent(
     onFinishActivity: () -> Unit,
     projectInfo: ProjectInfoDomain
 ) {
+    val context = LocalContext.current
+    val projectComponent by lazy { DaggerProjectComponent.factory().create(context) }
+    val viewModel = viewModel<ProjectInfoViewModel>(factory = projectComponent.getProjectInfoViewModelFactory())
+
     val sheetState = rememberModalBottomSheetState()
     val scope = rememberCoroutineScope()
     var showBottomSheet by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) { viewModel.fetchInfoAboutClient() }
+    val clientInfo = viewModel.clientInfo.collectAsStateWithLifecycle().value
 
     val authorTitle = stringResource(id = R.string.author)
     val authorValue = projectInfo.author.ifBlank { stringResource(id = R.string.unknown) }
@@ -127,17 +145,14 @@ internal fun ProjectInfoContent(
                         text = descriptionValue
                     )
 
-                    Blueberry(
-                        text = stringResource(id = R.string.ok),
-                        style = BlueberryStyle.Standard,
-                        onClick = {
-                            scope.launch { sheetState.hide() }.invokeOnCompletion {
-                                if (!sheetState.isVisible) {
-                                    onFinishActivity.invoke()
-                                    showBottomSheet = false
-                                }
-                            }
-                        }
+                    BottomButtons(
+                        context = context,
+                        clientInfo = clientInfo,
+                        projectInfo = projectInfo,
+                        scope = scope,
+                        sheetState = sheetState,
+                        onFinishActivity = onFinishActivity,
+                        closeBottomSheet = { showBottomSheet = false}
                     )
                 }
             }
@@ -148,9 +163,9 @@ internal fun ProjectInfoContent(
 /**
  * Ряд с информацией
  *
- * @param icon
- * @param title
- * @param value
+ * @param icon иконка в ряду
+ * @param title заголовок в ряду
+ * @param value значение в ряду
  *
  * @author Alexandr Chekunkov
  */
@@ -179,6 +194,90 @@ private fun InfoRow(
             Body4SecondaryLink(textLink = value, maxLines = 1)
         } else {
             Body4Secondary(text = value, maxLines = 1)
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun BottomButtons(
+    context: Context,
+    clientInfo: ClientInfoDomain,
+    projectInfo: ProjectInfoDomain,
+    scope: CoroutineScope,
+    sheetState: SheetState,
+    onFinishActivity: () -> Unit,
+    closeBottomSheet: () -> Unit
+) {
+    val smallProjectInfoDomain = cdr.reportlib.models.domain.ProjectInfoDomain(
+        id = projectInfo.id,
+        name = projectInfo.name,
+        author = projectInfo.author
+    )
+
+    when {
+        clientInfo.role == ProjectInfoViewModel.ROLE_DEVELOPER && clientInfo.username == projectInfo.author -> DualBlueberryHorizontal(
+            firstButtonText = stringResource(id = R.string.errors),
+            secondButtonText = stringResource(id = R.string.ok),
+            firstButtonClick = {
+                context.startActivity(ReportInfoActivity.newIntent(context, smallProjectInfoDomain))
+                closeBottomSheet(scope, sheetState, onFinishActivity, closeBottomSheet)
+            },
+            secondButtonClick = {
+                closeBottomSheet(scope, sheetState, onFinishActivity, closeBottomSheet)
+            },
+            firstButtonStyle = BlueberryStyle.Negative,
+            secondButtonStyle = BlueberryStyle.Standard
+        )
+
+        clientInfo.role == ProjectInfoViewModel.ROLE_DEVELOPER || projectInfo.status != ProjectStatusDomain.OPEN -> Blueberry(
+            text = stringResource(id = R.string.ok),
+            style = BlueberryStyle.Standard,
+            onClick = {
+                scope.launch { sheetState.hide() }.invokeOnCompletion {
+                    if (!sheetState.isVisible) {
+                        onFinishActivity.invoke()
+                        closeBottomSheet.invoke()
+                    }
+                }
+            }
+        )
+
+        clientInfo.role == ProjectInfoViewModel.ROLE_QA -> {
+            DualBlueberryHorizontal(
+                firstButtonText = stringResource(id = R.string.report),
+                secondButtonText = stringResource(id = R.string.close),
+                firstButtonClick = {
+                    context.startActivity(ReportActivity.newIntent(context, smallProjectInfoDomain))
+                    closeBottomSheet(scope, sheetState, onFinishActivity, closeBottomSheet)
+                },
+                secondButtonClick = {
+                    closeBottomSheet(scope, sheetState, onFinishActivity, closeBottomSheet)
+                },
+                firstButtonStyle = BlueberryStyle.Negative,
+                secondButtonStyle = BlueberryStyle.Standard
+            )
+        }
+    }
+}
+
+
+/**
+ * Закрытие шторки с информации
+ *
+ * @author Alexandr Chekunkov
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+private fun closeBottomSheet(
+    scope: CoroutineScope,
+    sheetState: SheetState,
+    onFinishActivity: () -> Unit,
+    closeBottomSheet: () -> Unit
+) {
+    scope.launch { sheetState.hide() }.invokeOnCompletion {
+        if (!sheetState.isVisible) {
+            onFinishActivity.invoke()
+            closeBottomSheet.invoke()
         }
     }
 }
