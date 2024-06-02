@@ -40,5 +40,6 @@ dependencies {
     implementation(libs.androidx.fragment)
     implementation(libs.retrofit2)
     implementation(libs.retrofit2.converter)
+    implementation(libs.jwt.worker)
     // end region
 }

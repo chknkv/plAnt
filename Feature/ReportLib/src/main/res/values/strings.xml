@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="close_project">Закрыть проект</string>
+    <string name="exception_happened">Произошла ошибка при получении данных</string>
+    <string name="pay">Оплатить</string>
+    <string name="project_author">Автор проекта</string>
+    <string name="project_name_report">Название</string>
+    <string name="project_description_report">Описание проблемы</string>
+    <string name="project_executor">Исполнитель</string>
+    <string name="project_name">Название проекта</string>
+    <string name="reporter">Репортер: </string>
+    <string name="report_description">После тестирования проекта - сообщите о проблеме, заполнив поле ниже</string>
+    <string name="report_info_description">Во время изучения проекта, были найдены следующие проблемы</string>
+    <string name="report_name">Найденная проблема</string>
+    <string name="report_paid">Найденная проблема оплачена! Вы можете изучить полную информацию.</string>
+    <string name="report_not_paid">Найденная проблема не оплачена! Оплатите ее, чтобы получить всю информацию.</string>
+    <string name="send">Отправить</string>
+    <string name="ok">Понятно</string>
+    <string name="unknown">неизвестно”</string>
+</resources>

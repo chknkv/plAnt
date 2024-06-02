@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="android">Android</string>
+    <string name="add_report">Сообщить о проблеме</string>
     <string name="back">Назад</string>
     <string name="close">Закрыть</string>
     <string name="complete_the_steps_above_to_continue">Заполните пункты выше, чтобы продолжить</string>
     <string name="check_the_correctness_of_the_entered_data_and_internet">Проверьте корректность введенных данных и наличие интернет сети</string>
     <string name="iOS">iOS</string>
     <string name="create_new_project">Создать проект</string>
-    <string name="edit_profile">Редактировать профиль</string>
     <string name="developer">Разработчик</string>
+    <string name="edit_profile">Редактировать профиль</string>
     <string name="entered_max_number_of_characters">Вы ввели максимальное количество символов</string>
     <string name="error_has_occurred">Произошла ошибка</string>
     <string name="hide_password">Спрятать пароль</string>
+    <string name="find_problems">Найденные проблемы</string>
     <string name="login">Логин</string>
     <string name="market">Биржа</string>
     <string name="messages">Сообщения</string>

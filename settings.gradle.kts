@@ -7,6 +7,7 @@ include(":Feature:ChatLib")
 include(":Feature:IdentificationLib")
 include(":Feature:ProjectLib")
 include(":Feature:ProfileLib")
+include(":Feature:ReportLib")
 include(":Feature:MainScreenLib")
 
 pluginManagement {
@@ -47,6 +48,7 @@ dependencyResolutionManagement {
             library("mockk", "io.mockk:mockk:1.13.10")
             library("retrofit2", "com.squareup.retrofit2:retrofit:2.9.0")
             library("retrofit2-converter", "com.squareup.retrofit2:converter-gson:2.9.0")
+            library("jwt-worker", "com.auth0.android:jwtdecode:2.0.2")
         }
     }
 }

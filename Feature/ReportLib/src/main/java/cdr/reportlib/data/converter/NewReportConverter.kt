@@ -1,0 +1,15 @@
+package cdr.reportlib.data.converter
+
+import cdr.reportlib.models.data.NewReportRequest
+import cdr.reportlib.models.domain.NewReportDomain
+
+/**
+ * Конвертер из [NewReportDomain] в [NewReportRequest]
+ *
+ * @author Alexandr Chekunkov
+ */
+internal fun NewReportDomain.toRequest(): NewReportRequest = NewReportRequest(
+    projectId = this.projectId,
+    reportName = this.reportName,
+    report = this.report
+)

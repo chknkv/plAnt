@@ -6,10 +6,12 @@
     <string name="create_new_project">Создать проект</string>
     <string name="create_new_project_description">Для создания проекта заполните все необходимы данные ниже.</string>
     <string name="create_new_project_second_description">Также заполните ссылку для скачивания ресурсов проекта - AppStore, Google PlayMarket, GitHub, GitLab и т.д.</string>
+    <string name="close">Закрыть</string>
     <string name="description">Описание:</string>
     <string name="description_title">Описание</string>
     <string name="description_not_find">Описание не найдено</string>
     <string name="exception_happened">Произошла ошибка при получении данных</string>
+    <string name="errors">Проблемы</string>
     <string name="iOS">iOS</string>
     <string name="name_title">Название</string>
     <string name="resources">Ссылка на ресурс</string>
@@ -19,11 +21,14 @@
     <string name="price">Цена:</string>
     <string name="price_with_dot">%.2f ₽</string>
     <string name="price_title">Цена ₽</string>
+    <string name="project_taken_in_work">Проект взят в работу</string>
+    <string name="report">Сообщить</string>
     <string name="status">Статус:</string>
     <string name="status_unknown">неизвестно</string>
     <string name="status_open">открыт</string>
     <string name="status_in_work">в работе</string>
     <string name="status_closed">закрыт</string>
+    <string name="take_in_work">В работу</string>
     <string name="operation_system">Операционная система: </string>
     <string name="ok">Понятно</string>
     <string name="unknown">неизвестно</string>

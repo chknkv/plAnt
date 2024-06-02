@@ -13,8 +13,9 @@ class BaseRestClientFactoryImpl : BaseRestClientFactory {
 
     override fun baseRestClient(app: RestClientApp): Retrofit {
         val port = when (app) {
-            RestClientApp.PROFILE_APP -> ":8080"
-            RestClientApp.PROJECT_APP -> ":8081"
+            RestClientApp.PROFILE_APP -> ":8081"
+            RestClientApp.PROJECT_APP -> ":8082"
+            RestClientApp.REPORT_APP -> ":8083"
         }
 
         return Retrofit.Builder()
@@ -24,6 +25,6 @@ class BaseRestClientFactoryImpl : BaseRestClientFactory {
     }
 
     companion object {
-        private const val BASE_URL = "http://194.180.188.128"
+        private const val BASE_URL = "http://uttsvlad.fvds.ru"
     }
 }

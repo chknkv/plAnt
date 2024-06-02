@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application android:usesCleartextTraffic="true">
+        <activity
+            android:name=".presentation.report.ReportActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.PlAnt.Project.ReportActivity"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="DiscouragedApi" />
+        <activity
+            android:name=".presentation.info.ReportInfoActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.PlAnt.Project.ReportInfoActivity"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="DiscouragedApi" />
+        <activity
+            android:name="cdr.reportlib.presentation.info.details.DetailsReportInfoActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:theme="@style/Theme.PlAnt.Project.DetailsReportInfoActivity"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="DiscouragedApi" />
+    </application>
+</manifest>

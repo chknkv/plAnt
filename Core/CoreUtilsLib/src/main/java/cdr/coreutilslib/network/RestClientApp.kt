@@ -10,5 +10,8 @@ enum class RestClientApp {
     PROFILE_APP,
 
     /** Приложение для работы с проектами */
-    PROJECT_APP
+    PROJECT_APP,
+
+    /** Приложение для работы с баг-репортами */
+    REPORT_APP
 }

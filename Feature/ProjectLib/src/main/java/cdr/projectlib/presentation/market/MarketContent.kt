@@ -80,11 +80,12 @@ fun MarketContent() {
         }
     }
 
+    val currentRole by viewModel.currentRole.collectAsStateWithLifecycle()
     val state by viewModel.state.collectAsStateWithLifecycle()
     when(val currentState = state) {
         MarketState.Error -> ErrorMarketScreen()
         MarketState.Loading -> LoadingShimmer()
-        is MarketState.Successful -> SuccessfulMarketScreen(viewModel, currentState.data)
+        is MarketState.Successful -> SuccessfulMarketScreen(viewModel, currentState.data, currentRole)
     }
 }
 
@@ -93,13 +94,15 @@ fun MarketContent() {
  *
  * @param viewModel ViewModel для экраны биржы
  * @param data UI-модель, содержащая в себе данные на экране биржы
+ * @param currentRole текушая роль клиента
  *
  * @author Alexandr Chekunkov
  */
 @Composable
 private fun SuccessfulMarketScreen(
     viewModel: MarketViewModel,
-    data: MarketInfo
+    data: MarketInfo,
+    currentRole: String
 ) {
     Scaffold(
         modifier = Modifier
@@ -116,15 +119,17 @@ private fun SuccessfulMarketScreen(
             )
         },
         floatingActionButton = {
-            FloatingActionButton(
-                containerColor = PlAntTokens.ButtonBrand.getThemedColor(),
-                contentColor = PlAntTokens.TextButtonWhite.getThemedColor(),
-                onClick = viewModel::launchAddProjectScreen
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_create_project),
-                    contentDescription = stringResource(id = R.string.create_new_project)
-                )
+            if (currentRole == MarketViewModel.ROLE_DEVELOPER) {
+                FloatingActionButton(
+                    containerColor = PlAntTokens.ButtonBrand.getThemedColor(),
+                    contentColor = PlAntTokens.TextButtonWhite.getThemedColor(),
+                    onClick = viewModel::launchAddProjectScreen
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_create_project),
+                        contentDescription = stringResource(id = R.string.create_new_project)
+                    )
+                }
             }
         }
     ) { paddingValues ->
