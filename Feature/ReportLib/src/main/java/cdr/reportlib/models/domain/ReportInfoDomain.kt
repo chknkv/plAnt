@@ -15,6 +15,7 @@ import kotlinx.parcelize.Parcelize
  */
 @Parcelize
 internal data class ReportInfoDomain(
+    val id: Int,
     val executor: String,
     val reportName: String,
     val report: String,

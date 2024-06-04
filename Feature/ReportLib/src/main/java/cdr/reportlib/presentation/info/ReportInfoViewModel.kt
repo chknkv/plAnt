@@ -30,19 +30,19 @@ internal class ReportInfoViewModel(
     val state: StateFlow<ReportInfoState> get() = _state.asStateFlow()
     private val _state = MutableStateFlow<ReportInfoState>(ReportInfoState.Loading)
 
-    fun fetchProjectReport(projectId: Int) {
+    fun fetchProjectReport(projectName: String) {
         viewModelScope.launch(coroutineExceptionHandler) {
             _state.value = ReportInfoState.Loading
-            val allReports = reportInteractor.getReportInfo(projectId)
+            val allReports = reportInteractor.getReportInfo(projectName)
 
             _state.value = ReportInfoState.Screen(allReports)
         }
     }
 
-    fun closeProject(projectId: Int, onFinish: () -> Unit) {
+    fun closeProject(projectName: String, onFinish: () -> Unit) {
         viewModelScope.launch(coroutineExceptionHandler) {
             _state.value = ReportInfoState.Loading
-            reportInteractor.closeProject(projectId)
+            reportInteractor.closeProject(projectName)
 
             onFinish.invoke()
         }

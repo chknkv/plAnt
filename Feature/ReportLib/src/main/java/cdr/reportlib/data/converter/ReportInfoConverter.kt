@@ -9,6 +9,7 @@ import cdr.reportlib.models.domain.ReportInfoDomain
  * @author Alexandr Chekunkov
  */
 internal fun ReportInfoResponse.toDomain(): ReportInfoDomain = ReportInfoDomain(
+    id = this.id ?: -1,
     executor = this.executor ?: "",
     reportName = this.reportName ?: "",
     report = this.report ?: "",

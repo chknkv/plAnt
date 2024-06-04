@@ -16,6 +16,7 @@ import kotlinx.parcelize.Parcelize
  */
 @Parcelize
 internal data class ReportInfoResponse(
+    @SerializedName("id") val id: Int? = null,
     @SerializedName("executor") val executor: String? = null,
     @SerializedName("reportName") val reportName: String? = null,
     @SerializedName("report") val report: String? = null,

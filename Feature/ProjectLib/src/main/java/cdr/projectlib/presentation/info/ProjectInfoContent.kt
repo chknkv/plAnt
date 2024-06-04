@@ -209,11 +209,7 @@ private fun BottomButtons(
     onFinishActivity: () -> Unit,
     closeBottomSheet: () -> Unit
 ) {
-    val smallProjectInfoDomain = cdr.reportlib.models.domain.ProjectInfoDomain(
-        id = projectInfo.id,
-        name = projectInfo.name,
-        author = projectInfo.author
-    )
+    val smallProjectInfoDomain = projectInfo.convertToSmall()
 
     when {
         clientInfo.role == ProjectInfoViewModel.ROLE_DEVELOPER && clientInfo.username == projectInfo.author -> DualBlueberryHorizontal(

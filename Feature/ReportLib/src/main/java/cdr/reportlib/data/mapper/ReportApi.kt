@@ -6,6 +6,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Query
 
 
@@ -17,21 +18,21 @@ import retrofit2.http.Query
 internal interface ReportApi {
 
     /** Создание нового проекта */
-    @POST("/reports/newReport")
+    @POST("/bugs/create")
     suspend fun saveNewReport(
         @Header("Authorization") jwtToken: String,
-        @Body newProject: NewReportRequest
+        @Body newReport: NewReportRequest
     )
 
-    @GET("/reports/allReports/{projectId}")
+    @GET("/bugs")
     suspend fun getReportInfo(
         @Header("Authorization") jwtToken: String,
-        @Query("projectId") projectId: Int
+        @Query("project_name") projectName: String
     ): List<ReportInfoResponse>
 
-    @GET("/projects/close/{projectId}")
+    @PUT("/projects/close")
     suspend fun closeProject(
         @Header("Authorization") jwtToken: String,
-        @Query("projectId") projectId: Int
+        @Query("project_name") projectName: String
     )
 }
