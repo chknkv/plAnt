@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 /**
  * data-модель для создания нового баг-репорта
  *
- * @property projectId уникальный номер проекта
+ * @property projectName название проекта
  * @property reportName название баг-репорта
  * @property report информация баг-репорта
  *
@@ -15,7 +15,7 @@ import kotlinx.parcelize.Parcelize
  */
 @Parcelize
 internal data class NewReportRequest(
-    @SerializedName("projectId") val projectId: Int,
+    @SerializedName("projectName") val projectName: String,
     @SerializedName("reportName") val reportName: String,
     @SerializedName("report") val report: String
 ) : Parcelable

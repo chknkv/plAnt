@@ -17,9 +17,9 @@ internal class ReportInteractorImpl(
 
     override suspend fun saveNewReport(newReport: NewReportDomain) = reportRepository.saveNewReport(newReport)
 
-    override suspend fun getReportInfo(projectId: Int): List<ReportInfoDomain> = reportRepository.getReportInfo(projectId)
+    override suspend fun getReportInfo(projectName: String): List<ReportInfoDomain> = reportRepository.getReportInfo(projectName)
 
-    override suspend fun closeProject(projectId: Int) = reportRepository.closeProject(projectId)
+    override suspend fun closeProject(projectName: String) = reportRepository.closeProject(projectName)
 
     override suspend fun changePaymentStatus(reportId: Int) = reportRepository.changePaymentStatus(reportId)
 

@@ -23,29 +23,32 @@ internal class ReportMapperImpl(
 ) : ReportMapper {
 
     private val token = tokenWorker.getToken()
-    private val client = restClientFactory
+    private val clientReport = restClientFactory
         .baseRestClient(RestClientApp.REPORT_APP)
+        .create(ReportApi::class.java)
+    private val clientProject = restClientFactory
+        .baseRestClient(RestClientApp.PROJECT_APP)
         .create(ReportApi::class.java)
 
     override suspend fun saveNewReport(newReport: NewReportRequest) =
         withContext(Dispatchers.IO) {
             Logger.i(TAG, "[newReport] bodyRequest: $newReport")
-            client.saveNewReport(token, newReport)
+            clientReport.saveNewReport(token, newReport)
         }
 
-    override suspend fun getReportInfo(projectId: Int): List<ReportInfoResponse> =
+    override suspend fun getReportInfo(projectName: String): List<ReportInfoResponse> =
         withContext(Dispatchers.IO) {
-            Logger.i(TAG, "[getReportInfo] projectId: $projectId")
-            val allReports = getMockedAllReportInfo()
-//            val allReports = client.getReportInfo(token, projectId)
+            Logger.i(TAG, "[getReportInfo] projectName: $projectName")
+//            val allReports = getMockedAllReportInfo()
+            val allReports = clientReport.getReportInfo(token, projectName)
 
             return@withContext allReports
         }
 
-    override suspend fun closeProject(projectId: Int) =
+    override suspend fun closeProject(projectName: String) =
         withContext(Dispatchers.IO) {
-            Logger.i(TAG, "[closeProject] projectId: $projectId")
-            client.closeProject(token, projectId)
+            Logger.i(TAG, "[closeProject] projectName: $projectName")
+            clientProject.closeProject(token, projectName)
         }
 
     override suspend fun changePaymentStatus(reportId: Int) {

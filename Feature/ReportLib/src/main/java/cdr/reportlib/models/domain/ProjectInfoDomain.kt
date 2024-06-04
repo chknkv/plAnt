@@ -16,5 +16,27 @@ import kotlinx.parcelize.Parcelize
 data class ProjectInfoDomain(
     val id: Int = -1,
     val name: String = "",
-    val author: String = ""
+    val author: String = "",
+    val status: ProjectStatusDomain = ProjectStatusDomain.UNKNOWN
 ) : Parcelable
+
+/**
+ * Статусы выполнения проекта
+ *
+ * @author Alexandr Chekunkov
+ */
+@Parcelize
+enum class ProjectStatusDomain : Parcelable {
+
+    /** Неизвестно */
+    UNKNOWN,
+
+    /** Открыт */
+    OPEN,
+
+    /** В работе */
+    IN_WORK,
+
+    /** Закрыт */
+    CLOSED,
+}

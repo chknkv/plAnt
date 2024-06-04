@@ -9,7 +9,7 @@ import cdr.reportlib.models.domain.NewReportDomain
  * @author Alexandr Chekunkov
  */
 internal fun NewReportDomain.toRequest(): NewReportRequest = NewReportRequest(
-    projectId = this.projectId,
+    projectName = this.projectName,
     reportName = this.reportName,
     report = this.report
 )

@@ -185,7 +185,7 @@ private fun Screen(
             Blueberry(
                 text = stringResource(id = R.string.send),
                 style = BlueberryStyle.Standard,
-                onClick = { viewModel.sendReport(projectInfo.id, onFinishActivity) }
+                onClick = { viewModel.sendReport(projectInfo.name, onFinishActivity) }
             )
         }
 

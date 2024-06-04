@@ -14,10 +14,10 @@ internal interface ReportMapper {
     suspend fun saveNewReport(newReport: NewReportRequest)
 
     /** Получение баг-репорт информации для какого-то проекта */
-    suspend fun getReportInfo(projectId: Int): List<ReportInfoResponse>
+    suspend fun getReportInfo(projectName: String): List<ReportInfoResponse>
 
     /** Закрытие проекта */
-    suspend fun closeProject(projectId: Int)
+    suspend fun closeProject(projectName: String)
 
     /** Условная оплата проекта */
     suspend fun changePaymentStatus(reportId: Int)

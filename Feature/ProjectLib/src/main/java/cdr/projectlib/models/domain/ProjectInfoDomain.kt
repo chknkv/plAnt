@@ -2,6 +2,9 @@ package cdr.projectlib.models.domain
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import cdr.reportlib.models.domain.ProjectInfoDomain as SmallProjectInfoDomain
+import cdr.reportlib.models.domain.ProjectStatusDomain as SmallProjectInfoDomainStatus
+
 
 /**
  * domain-модель с информацией о проекте
@@ -25,7 +28,22 @@ data class ProjectInfoDomain(
     val description: String = "",
     val applicationInfo: ProjectApplicationInfoDomain? = null,
     val price: Double = -1.0
-) : Parcelable
+) : Parcelable {
+
+    fun convertToSmall(): SmallProjectInfoDomain = SmallProjectInfoDomain(
+        id = this.id,
+        name = this.name,
+        author = this.author,
+        status = convertStatus(this.status)
+    )
+
+    private fun convertStatus(status: ProjectStatusDomain): SmallProjectInfoDomainStatus = when(status) {
+        ProjectStatusDomain.UNKNOWN -> SmallProjectInfoDomainStatus.UNKNOWN
+        ProjectStatusDomain.OPEN -> SmallProjectInfoDomainStatus.OPEN
+        ProjectStatusDomain.IN_WORK -> SmallProjectInfoDomainStatus.IN_WORK
+        ProjectStatusDomain.CLOSED -> SmallProjectInfoDomainStatus.CLOSED
+    }
+}
 
 /**
  * domain-модель с информацией о типе устройства

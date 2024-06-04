@@ -19,12 +19,12 @@ internal class ReportRepositoryImpl(
 
     override suspend fun saveNewReport(newReport: NewReportDomain) = reportMapper.saveNewReport(newReport.toRequest())
 
-    override suspend fun getReportInfo(projectId: Int): List<ReportInfoDomain> {
-        val allReportsInfo = reportMapper.getReportInfo(projectId)
+    override suspend fun getReportInfo(projectName: String): List<ReportInfoDomain> {
+        val allReportsInfo = reportMapper.getReportInfo(projectName)
         return allReportsInfo.map { reportInfoResponse -> reportInfoResponse.toDomain() }
     }
 
-    override suspend fun closeProject(projectId: Int) = reportMapper.closeProject(projectId)
+    override suspend fun closeProject(projectName: String) = reportMapper.closeProject(projectName)
 
     override suspend fun changePaymentStatus(reportId: Int) = reportMapper.changePaymentStatus(reportId)
 }

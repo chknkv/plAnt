@@ -33,6 +33,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import cdr.corecompose.appbar.AppBar
 import cdr.corecompose.appbar.AppBarNavigationButtons
+import cdr.corecompose.buttons.blueberry.Blueberry
 import cdr.corecompose.buttons.blueberry.BlueberryStyle
 import cdr.corecompose.buttons.dual.horizontal.DualBlueberryHorizontal
 import cdr.corecompose.progressbar.ProgressBarCircle
@@ -47,6 +48,7 @@ import cdr.coreresourceslib.R as CoreR
 import cdr.reportlib.R
 import cdr.reportlib.di.DaggerReportComponent
 import cdr.reportlib.models.domain.ProjectInfoDomain
+import cdr.reportlib.models.domain.ProjectStatusDomain
 import cdr.reportlib.models.domain.ReportInfoDomain
 import cdr.reportlib.models.presentation.ReportInfoState
 import cdr.reportlib.presentation.info.details.DetailsReportInfoActivity
@@ -68,7 +70,7 @@ internal fun ReportInfoContent(
     val reportComponent by lazy { DaggerReportComponent.factory().create(context) }
     val viewModel = viewModel<ReportInfoViewModel>(factory = reportComponent.getReportInfoViewModelFactory())
 
-    LaunchedEffect(Unit) { viewModel.fetchProjectReport(projectInfo.id) }
+    LaunchedEffect(Unit) { viewModel.fetchProjectReport(projectInfo.name) }
 
     val state by viewModel.state.collectAsStateWithLifecycle()
     when (val currentState = state) {
@@ -180,14 +182,21 @@ private fun Screen(
                 }
             }
 
-            DualBlueberryHorizontal(
-                firstButtonText = stringResource(id = R.string.close_project),
-                secondButtonText = stringResource(id = R.string.ok),
-                firstButtonClick = { viewModel.closeProject(projectInfo.id, onFinishActivity) },
-                secondButtonClick = onFinishActivity,
-                firstButtonStyle = BlueberryStyle.Negative,
-                secondButtonStyle = BlueberryStyle.Standard
-            )
+            if (projectInfo.status == ProjectStatusDomain.OPEN)
+                DualBlueberryHorizontal(
+                    firstButtonText = stringResource(id = R.string.close_project),
+                    secondButtonText = stringResource(id = R.string.ok),
+                    firstButtonClick = { viewModel.closeProject(projectInfo.name, onFinishActivity) },
+                    secondButtonClick = onFinishActivity,
+                    firstButtonStyle = BlueberryStyle.Negative,
+                    secondButtonStyle = BlueberryStyle.Standard
+                )
+            else
+                Blueberry(
+                    text = stringResource(id = R.string.ok),
+                    style = BlueberryStyle.Standard,
+                    onClick = onFinishActivity
+                )
         }
     }
 }

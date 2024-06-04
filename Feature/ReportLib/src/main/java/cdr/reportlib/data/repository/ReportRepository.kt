@@ -14,10 +14,10 @@ internal interface ReportRepository {
     suspend fun saveNewReport(newReport: NewReportDomain)
 
     /** Получение баг-репорт информации для какого-то проекта */
-    suspend fun getReportInfo(projectId: Int): List<ReportInfoDomain>
+    suspend fun getReportInfo(projectName: String): List<ReportInfoDomain>
 
     /** Закрытие проекта */
-    suspend fun closeProject(projectId: Int)
+    suspend fun closeProject(projectName: String)
 
     /** Условная оплата проекта */
     suspend fun changePaymentStatus(reportId: Int)

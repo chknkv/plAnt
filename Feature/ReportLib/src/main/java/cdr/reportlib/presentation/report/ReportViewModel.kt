@@ -49,7 +49,7 @@ internal class ReportViewModel(
     private var currentData: ReportScreen? = null
 
     fun sendReport(
-        projectId: Int,
+        projectName: String,
         onFinish: () -> Unit
     ) {
         viewModelScope.launch(coroutineExceptionHandler) {
@@ -62,7 +62,7 @@ internal class ReportViewModel(
                         _state.value = ReportState.Loading
 
                         val newReport = NewReportDomain(
-                            projectId = projectId,
+                            projectName = projectName,
                             reportName = currentData.reportName.text.text,
                             report = currentData.report.text.text
                         )
